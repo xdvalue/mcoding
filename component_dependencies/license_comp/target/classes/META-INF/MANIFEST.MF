@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Built-By: hzy
+Class-Path: lib/slf4j-api-1.6.1.jar lib/slf4j-log4j12-1.6.1.jar lib/lo
+ g4j-1.2.16.jar lib/commons-lang-2.6.jar lib/commons-codec-1.9.jar
+Build-Jdk: 1.8.0_111
+Created-By: Maven Integration for Eclipse
+Main-Class: com.mcoding.comp.license.LicenseManager
+

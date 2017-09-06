@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.comp.wechat.qrcode.persistence.WxQrcodeMapper" >
+  <resultMap id="BaseResultMap" type="com.mcoding.comp.wechat.qrcode.bean.WxQrcode" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="account_id" property="accountId" jdbcType="INTEGER" />
+    <result column="account_origin_id" property="accountOriginId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="scene_str" property="sceneStr" jdbcType="VARCHAR" />
+    <result column="valid_time" property="validTime" jdbcType="TIMESTAMP" />
+    <result column="ticket" property="ticket" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="scan_count" property="scanCount" jdbcType="INTEGER" />
+    <result column="handler_id" property="handlerId" jdbcType="INTEGER" />
+    <result column="reply_type" property="replyType" jdbcType="VARCHAR" />
+    <result column="reply_content" property="replyContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, account_id, account_origin_id, name, type, img_url, scene_str, valid_time, ticket, 
+    content, scan_count, handler_id, reply_type, reply_content
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mcoding.comp.wechat.qrcode.bean.WxQrcodeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_wx_qrcode
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_wx_qrcode
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_wx_qrcode
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcoding.comp.wechat.qrcode.bean.WxQrcodeExample" >
+    delete from t_wx_qrcode
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcoding.comp.wechat.qrcode.bean.WxQrcode" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_wx_qrcode (account_id, account_origin_id, name, 
+      type, img_url, scene_str, 
+      valid_time, ticket, content, 
+      scan_count, handler_id, reply_type, 
+      reply_content)
+    values (#{accountId,jdbcType=INTEGER}, #{accountOriginId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, #{sceneStr,jdbcType=VARCHAR}, 
+      #{validTime,jdbcType=TIMESTAMP}, #{ticket,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{scanCount,jdbcType=INTEGER}, #{handlerId,jdbcType=INTEGER}, #{replyType,jdbcType=VARCHAR}, 
+      #{replyContent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcoding.comp.wechat.qrcode.bean.WxQrcode" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_wx_qrcode
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="accountOriginId != null" >
+        account_origin_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="sceneStr != null" >
+        scene_str,
+      </if>
+      <if test="validTime != null" >
+        valid_time,
+      </if>
+      <if test="ticket != null" >
+        ticket,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="scanCount != null" >
+        scan_count,
+      </if>
+      <if test="handlerId != null" >
+        handler_id,
+      </if>
+      <if test="replyType != null" >
+        reply_type,
+      </if>
+      <if test="replyContent != null" >
+        reply_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="accountOriginId != null" >
+        #{accountOriginId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneStr != null" >
+        #{sceneStr,jdbcType=VARCHAR},
+      </if>
+      <if test="validTime != null" >
+        #{validTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ticket != null" >
+        #{ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="scanCount != null" >
+        #{scanCount,jdbcType=INTEGER},
+      </if>
+      <if test="handlerId != null" >
+        #{handlerId,jdbcType=INTEGER},
+      </if>
+      <if test="replyType != null" >
+        #{replyType,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcoding.comp.wechat.qrcode.bean.WxQrcodeExample" resultType="java.lang.Integer" >
+    select count(*) from t_wx_qrcode
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_wx_qrcode
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.accountId != null" >
+        account_id = #{record.accountId,jdbcType=INTEGER},
+      </if>
+      <if test="record.accountOriginId != null" >
+        account_origin_id = #{record.accountOriginId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgUrl != null" >
+        img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sceneStr != null" >
+        scene_str = #{record.sceneStr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.validTime != null" >
+        valid_time = #{record.validTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ticket != null" >
+        ticket = #{record.ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scanCount != null" >
+        scan_count = #{record.scanCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.handlerId != null" >
+        handler_id = #{record.handlerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.replyType != null" >
+        reply_type = #{record.replyType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyContent != null" >
+        reply_content = #{record.replyContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_wx_qrcode
+    set id = #{record.id,jdbcType=INTEGER},
+      account_id = #{record.accountId,jdbcType=INTEGER},
+      account_origin_id = #{record.accountOriginId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      scene_str = #{record.sceneStr,jdbcType=VARCHAR},
+      valid_time = #{record.validTime,jdbcType=TIMESTAMP},
+      ticket = #{record.ticket,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      scan_count = #{record.scanCount,jdbcType=INTEGER},
+      handler_id = #{record.handlerId,jdbcType=INTEGER},
+      reply_type = #{record.replyType,jdbcType=VARCHAR},
+      reply_content = #{record.replyContent,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcoding.comp.wechat.qrcode.bean.WxQrcode" >
+    update t_wx_qrcode
+    <set >
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="accountOriginId != null" >
+        account_origin_id = #{accountOriginId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sceneStr != null" >
+        scene_str = #{sceneStr,jdbcType=VARCHAR},
+      </if>
+      <if test="validTime != null" >
+        valid_time = #{validTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ticket != null" >
+        ticket = #{ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="scanCount != null" >
+        scan_count = #{scanCount,jdbcType=INTEGER},
+      </if>
+      <if test="handlerId != null" >
+        handler_id = #{handlerId,jdbcType=INTEGER},
+      </if>
+      <if test="replyType != null" >
+        reply_type = #{replyType,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        reply_content = #{replyContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcoding.comp.wechat.qrcode.bean.WxQrcode" >
+    update t_wx_qrcode
+    set account_id = #{accountId,jdbcType=INTEGER},
+      account_origin_id = #{accountOriginId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      scene_str = #{sceneStr,jdbcType=VARCHAR},
+      valid_time = #{validTime,jdbcType=TIMESTAMP},
+      ticket = #{ticket,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      scan_count = #{scanCount,jdbcType=INTEGER},
+      handler_id = #{handlerId,jdbcType=INTEGER},
+      reply_type = #{replyType,jdbcType=VARCHAR},
+      reply_content = #{replyContent,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.mcoding.comp.wechat.qrcode.bean.WxQrcodeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_wx_qrcode
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <update id="addScanCount" parameterType="java.lang.Integer">
+    update t_wx_qrcode
+    set scan_count = scan_count + 1
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

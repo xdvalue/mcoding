@@ -1,0 +1,51 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="mcoding" uri="http://mcoding.com/jsp/common"%>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-reorder"></i>
+					<c:choose>
+						<c:when test="${/#modelName#/!=null}">修改/#commentName#/</c:when>
+						<c:otherwise>添加/#commentName#/</c:otherwise>
+					</c:choose>
+				</div>
+			</div>
+			<div class="portlet-body form">
+				<form action="#" id="/#modelName#/Form" class="form-horizontal">
+					<input type="hidden" name="id" value="${/#modelName#/.id}" />
+
+					<div class="form-body">
+/#inputHtml#/
+									
+						<div class="form-actions">
+							<div class="col-md-offset-3 col-md-9">
+								<button
+									<c:choose>
+									<c:when test="${/#modelName#/!=null}">id="singleUpdate"</c:when>
+									<c:otherwise>id="singleAdd"</c:otherwise>
+								</c:choose>
+									type="button" class="btn purple">
+									<i class="fa fa-check"></i> 提 交
+								</button>
+								<button id="backListPage"
+									href="/#modelName#//service/toMainView.html" type="button"
+									class="btn default ajaxify">返 回</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="${basePath}resources/js/custom//#moduleName#///#modelName#//add.js"
+	type="text/javascript"></script>
+<script type="text/javascript">
+    DataTableList.init();
+</script>

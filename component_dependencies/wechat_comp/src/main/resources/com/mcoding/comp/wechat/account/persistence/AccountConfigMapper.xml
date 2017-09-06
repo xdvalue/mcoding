@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.comp.wechat.account.persistence.AccountConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.mcoding.comp.wechat.account.bean.AccountConfig" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="account_type" property="accountType" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="origin_id" property="originId" jdbcType="VARCHAR" />
+    <result column="app_id" property="appId" jdbcType="VARCHAR" />
+    <result column="app_secret" property="appSecret" jdbcType="VARCHAR" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="aes_key" property="aesKey" jdbcType="VARCHAR" />
+    <result column="encrypt_type" property="encryptType" jdbcType="INTEGER" />
+    <result column="is_pay_enable" property="isPayEnable" jdbcType="INTEGER" />
+    <result column="mch_id" property="mchId" jdbcType="VARCHAR" />
+    <result column="mch_key" property="mchKey" jdbcType="VARCHAR" />
+    <result column="domain" property="domain" jdbcType="VARCHAR" />
+    <result column="wxpay_notify_url" property="wxpayNotifyUrl" jdbcType="VARCHAR" />
+    <result column="cert_path" property="certPath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, account_type, code, origin_id, app_id, app_secret, token, aes_key, encrypt_type, 
+    is_pay_enable, mch_id, mch_key, domain, wxpay_notify_url, cert_path
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mcoding.comp.wechat.account.bean.AccountConfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_wx_account_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_wx_account_config
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_wx_account_config
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcoding.comp.wechat.account.bean.AccountConfigExample" >
+    delete from t_wx_account_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcoding.comp.wechat.account.bean.AccountConfig" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_wx_account_config (name, account_type, code, 
+      origin_id, app_id, app_secret, 
+      token, aes_key, encrypt_type, 
+      is_pay_enable, mch_id, mch_key, 
+      domain, wxpay_notify_url, cert_path
+      )
+    values (#{name,jdbcType=VARCHAR}, #{accountType,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
+      #{originId,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, #{appSecret,jdbcType=VARCHAR}, 
+      #{token,jdbcType=VARCHAR}, #{aesKey,jdbcType=VARCHAR}, #{encryptType,jdbcType=INTEGER}, 
+      #{isPayEnable,jdbcType=INTEGER}, #{mchId,jdbcType=VARCHAR}, #{mchKey,jdbcType=VARCHAR}, 
+      #{domain,jdbcType=VARCHAR}, #{wxpayNotifyUrl,jdbcType=VARCHAR}, #{certPath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcoding.comp.wechat.account.bean.AccountConfig" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_wx_account_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="accountType != null" >
+        account_type,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="originId != null" >
+        origin_id,
+      </if>
+      <if test="appId != null" >
+        app_id,
+      </if>
+      <if test="appSecret != null" >
+        app_secret,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="aesKey != null" >
+        aes_key,
+      </if>
+      <if test="encryptType != null" >
+        encrypt_type,
+      </if>
+      <if test="isPayEnable != null" >
+        is_pay_enable,
+      </if>
+      <if test="mchId != null" >
+        mch_id,
+      </if>
+      <if test="mchKey != null" >
+        mch_key,
+      </if>
+      <if test="domain != null" >
+        domain,
+      </if>
+      <if test="wxpayNotifyUrl != null" >
+        wxpay_notify_url,
+      </if>
+      <if test="certPath != null" >
+        cert_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null" >
+        #{accountType,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="originId != null" >
+        #{originId,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="appSecret != null" >
+        #{appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="aesKey != null" >
+        #{aesKey,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptType != null" >
+        #{encryptType,jdbcType=INTEGER},
+      </if>
+      <if test="isPayEnable != null" >
+        #{isPayEnable,jdbcType=INTEGER},
+      </if>
+      <if test="mchId != null" >
+        #{mchId,jdbcType=VARCHAR},
+      </if>
+      <if test="mchKey != null" >
+        #{mchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="domain != null" >
+        #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="wxpayNotifyUrl != null" >
+        #{wxpayNotifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="certPath != null" >
+        #{certPath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcoding.comp.wechat.account.bean.AccountConfigExample" resultType="java.lang.Integer" >
+    select count(*) from t_wx_account_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_wx_account_config
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountType != null" >
+        account_type = #{record.accountType,jdbcType=INTEGER},
+      </if>
+      <if test="record.code != null" >
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originId != null" >
+        origin_id = #{record.originId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appId != null" >
+        app_id = #{record.appId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.appSecret != null" >
+        app_secret = #{record.appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="record.token != null" >
+        token = #{record.token,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aesKey != null" >
+        aes_key = #{record.aesKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.encryptType != null" >
+        encrypt_type = #{record.encryptType,jdbcType=INTEGER},
+      </if>
+      <if test="record.isPayEnable != null" >
+        is_pay_enable = #{record.isPayEnable,jdbcType=INTEGER},
+      </if>
+      <if test="record.mchId != null" >
+        mch_id = #{record.mchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mchKey != null" >
+        mch_key = #{record.mchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.domain != null" >
+        domain = #{record.domain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxpayNotifyUrl != null" >
+        wxpay_notify_url = #{record.wxpayNotifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certPath != null" >
+        cert_path = #{record.certPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_wx_account_config
+    set id = #{record.id,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      account_type = #{record.accountType,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR},
+      origin_id = #{record.originId,jdbcType=VARCHAR},
+      app_id = #{record.appId,jdbcType=VARCHAR},
+      app_secret = #{record.appSecret,jdbcType=VARCHAR},
+      token = #{record.token,jdbcType=VARCHAR},
+      aes_key = #{record.aesKey,jdbcType=VARCHAR},
+      encrypt_type = #{record.encryptType,jdbcType=INTEGER},
+      is_pay_enable = #{record.isPayEnable,jdbcType=INTEGER},
+      mch_id = #{record.mchId,jdbcType=VARCHAR},
+      mch_key = #{record.mchKey,jdbcType=VARCHAR},
+      domain = #{record.domain,jdbcType=VARCHAR},
+      wxpay_notify_url = #{record.wxpayNotifyUrl,jdbcType=VARCHAR},
+      cert_path = #{record.certPath,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcoding.comp.wechat.account.bean.AccountConfig" >
+    update t_wx_account_config
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="accountType != null" >
+        account_type = #{accountType,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="originId != null" >
+        origin_id = #{originId,jdbcType=VARCHAR},
+      </if>
+      <if test="appId != null" >
+        app_id = #{appId,jdbcType=VARCHAR},
+      </if>
+      <if test="appSecret != null" >
+        app_secret = #{appSecret,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="aesKey != null" >
+        aes_key = #{aesKey,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptType != null" >
+        encrypt_type = #{encryptType,jdbcType=INTEGER},
+      </if>
+      <if test="isPayEnable != null" >
+        is_pay_enable = #{isPayEnable,jdbcType=INTEGER},
+      </if>
+      <if test="mchId != null" >
+        mch_id = #{mchId,jdbcType=VARCHAR},
+      </if>
+      <if test="mchKey != null" >
+        mch_key = #{mchKey,jdbcType=VARCHAR},
+      </if>
+      <if test="domain != null" >
+        domain = #{domain,jdbcType=VARCHAR},
+      </if>
+      <if test="wxpayNotifyUrl != null" >
+        wxpay_notify_url = #{wxpayNotifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="certPath != null" >
+        cert_path = #{certPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcoding.comp.wechat.account.bean.AccountConfig" >
+    update t_wx_account_config
+    set name = #{name,jdbcType=VARCHAR},
+      account_type = #{accountType,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      origin_id = #{originId,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      app_secret = #{appSecret,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      aes_key = #{aesKey,jdbcType=VARCHAR},
+      encrypt_type = #{encryptType,jdbcType=INTEGER},
+      is_pay_enable = #{isPayEnable,jdbcType=INTEGER},
+      mch_id = #{mchId,jdbcType=VARCHAR},
+      mch_key = #{mchKey,jdbcType=VARCHAR},
+      domain = #{domain,jdbcType=VARCHAR},
+      wxpay_notify_url = #{wxpayNotifyUrl,jdbcType=VARCHAR},
+      cert_path = #{certPath,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.mcoding.comp.wechat.account.bean.AccountConfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_wx_account_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.comp.wechat.msg.persistence.WxMsgAutoReplyMapper" >
+  <resultMap id="BaseResultMap" type="com.mcoding.comp.wechat.msg.bean.WxMsgAutoReply" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="wx_account_origin_id" property="wxAccountOriginId" jdbcType="VARCHAR" />
+    <result column="keywords" property="keywords" jdbcType="VARCHAR" />
+    <result column="reply_type" property="replyType" jdbcType="INTEGER" />
+    <result column="reply_content" property="replyContent" jdbcType="VARCHAR" />
+    <result column="match_type" property="matchType" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="is_default" property="isDefault" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, wx_account_origin_id, keywords, reply_type, reply_content, match_type, priority, 
+    is_default, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mcoding.comp.wechat.msg.bean.WxMsgAutoReplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_wx_msg_auto_reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_wx_msg_auto_reply
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_wx_msg_auto_reply
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcoding.comp.wechat.msg.bean.WxMsgAutoReplyExample" >
+    delete from t_wx_msg_auto_reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcoding.comp.wechat.msg.bean.WxMsgAutoReply" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_wx_msg_auto_reply (wx_account_origin_id, keywords, reply_type, 
+      reply_content, match_type, priority, 
+      is_default, create_time)
+    values (#{wxAccountOriginId,jdbcType=VARCHAR}, #{keywords,jdbcType=VARCHAR}, #{replyType,jdbcType=INTEGER}, 
+      #{replyContent,jdbcType=VARCHAR}, #{matchType,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, 
+      #{isDefault,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcoding.comp.wechat.msg.bean.WxMsgAutoReply" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_wx_msg_auto_reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wxAccountOriginId != null" >
+        wx_account_origin_id,
+      </if>
+      <if test="keywords != null" >
+        keywords,
+      </if>
+      <if test="replyType != null" >
+        reply_type,
+      </if>
+      <if test="replyContent != null" >
+        reply_content,
+      </if>
+      <if test="matchType != null" >
+        match_type,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="isDefault != null" >
+        is_default,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wxAccountOriginId != null" >
+        #{wxAccountOriginId,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null" >
+        #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="replyType != null" >
+        #{replyType,jdbcType=INTEGER},
+      </if>
+      <if test="replyContent != null" >
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="matchType != null" >
+        #{matchType,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null" >
+        #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcoding.comp.wechat.msg.bean.WxMsgAutoReplyExample" resultType="java.lang.Integer" >
+    select count(*) from t_wx_msg_auto_reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_wx_msg_auto_reply
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.wxAccountOriginId != null" >
+        wx_account_origin_id = #{record.wxAccountOriginId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keywords != null" >
+        keywords = #{record.keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.replyType != null" >
+        reply_type = #{record.replyType,jdbcType=INTEGER},
+      </if>
+      <if test="record.replyContent != null" >
+        reply_content = #{record.replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.matchType != null" >
+        match_type = #{record.matchType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priority != null" >
+        priority = #{record.priority,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDefault != null" >
+        is_default = #{record.isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_wx_msg_auto_reply
+    set id = #{record.id,jdbcType=INTEGER},
+      wx_account_origin_id = #{record.wxAccountOriginId,jdbcType=VARCHAR},
+      keywords = #{record.keywords,jdbcType=VARCHAR},
+      reply_type = #{record.replyType,jdbcType=INTEGER},
+      reply_content = #{record.replyContent,jdbcType=VARCHAR},
+      match_type = #{record.matchType,jdbcType=VARCHAR},
+      priority = #{record.priority,jdbcType=INTEGER},
+      is_default = #{record.isDefault,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcoding.comp.wechat.msg.bean.WxMsgAutoReply" >
+    update t_wx_msg_auto_reply
+    <set >
+      <if test="wxAccountOriginId != null" >
+        wx_account_origin_id = #{wxAccountOriginId,jdbcType=VARCHAR},
+      </if>
+      <if test="keywords != null" >
+        keywords = #{keywords,jdbcType=VARCHAR},
+      </if>
+      <if test="replyType != null" >
+        reply_type = #{replyType,jdbcType=INTEGER},
+      </if>
+      <if test="replyContent != null" >
+        reply_content = #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="matchType != null" >
+        match_type = #{matchType,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null" >
+        is_default = #{isDefault,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcoding.comp.wechat.msg.bean.WxMsgAutoReply" >
+    update t_wx_msg_auto_reply
+    set wx_account_origin_id = #{wxAccountOriginId,jdbcType=VARCHAR},
+      keywords = #{keywords,jdbcType=VARCHAR},
+      reply_type = #{replyType,jdbcType=INTEGER},
+      reply_content = #{replyContent,jdbcType=VARCHAR},
+      match_type = #{matchType,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
+      is_default = #{isDefault,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.mcoding.comp.wechat.msg.bean.WxMsgAutoReplyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_wx_msg_auto_reply
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

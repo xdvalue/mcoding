@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.mcoding.component</groupId>
+		<artifactId>component_dependencies</artifactId>
+		<version>2.1.1-RELEASE</version>
+	</parent>
+	<artifactId>sms_comp</artifactId>
+	<name>sms_comp</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<com.mcoding.base>2.1.1-RELEASE</com.mcoding.base>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.mcoding.base</groupId>
+			<artifactId>base_utils</artifactId>
+			<version>${com.mcoding.base}</version>
+			<type>jar</type>
+		</dependency>
+		
+		<!-- web依赖包 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- web依赖包 -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>
