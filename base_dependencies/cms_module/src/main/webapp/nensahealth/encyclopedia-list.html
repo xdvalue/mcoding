@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>{{language('Welcome toNensaHealth','灵鲨官网')}}</title>
+		<script src="js/workSpace.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body class="bui_fs_12 nensahealth bui_bgc_black">
+		<com-header channel="Encyclopedia"></com-header>
+		<section class="bui_p_48_tb bui_bgc_white">
+			<div class="bui_auto_w">
+				<div class="bui_row_p_64">
+					<!--侧边菜单-->
+					<div class="bui_col_3">
+						<div class="bui_row_p_24">
+							<div>
+								<dl class="bui_ta_c bui_at_noline">
+									<dt class="bui_bgc_blue bui_bds_1 bui_bdc_blue bui_fc_white bui_p_12 bui_ta_c bui_radius bui_fs_16">灵鲨知道</dt>
+									<dd v-if="page.side.data.length!=0" class="bui_bgc_silver_l bui_m_12_t bui_radius bui_bds_1 bui_bdc_silver_l" style="overflow: hidden;">
+										<template v-for="data in page.side.data">
+											<li class="bui_bgc_white_f" :class="$index!=0?'bui_bds_1_t bui_bdc_silver_l':null">
+												<a href="encyclopedia-list.html?typeId={{data.id}}" class="bui_media bui_vm bui_p_12" :class="url.typeId==data.id?'bui_bgc_blue bui_fc_white':'bui_bgc_white_h bui_fc_black'">
+													<div class="bui_media_b">
+														{{language(data.name,data.code)}}
+													</div>
+													<div class="bui_media_r">
+														<i class="fa fa-angle-right fa-fw"></i>
+													</div>
+												</a>
+											</li>
+										</template>
+									</dd>
+								</dl>
+							</div>
+						</div>
+					</div>
+					<!--侧边菜单-->
+					<div class="bui_col_9">
+						<div class="bui_bgc_blue bui_p_6 bui_radius">
+							<div class="bui_bgc_white bui_p_32 bui_radius">
+								<!--标题-->
+								<p class="bui_fs_24 bui_fc_blue">
+									<template v-for="data in page.side.data" v-if="data.id==url.typeId">{{language(data.name,data.code)}}</template>
+								</p>
+								<!--标题-->
+								<hr class="bui_bdc_silver_l bui_m_24_t" />
+								<!--列表-->
+								<template v-for="data in page.content.queryResult">
+									<div class="bui_fc_black_a bui_fc_blue_h">
+										<a href="encyclopedia-detail.html?articleId={{data.id}}" class="bui_media bui_vt bui_bds_1_b bui_bdc_silver_l bui_p_24">
+											<div class="bui_media_l bui_p_32_r" v-if="data.coverImage">
+												<img :src="data.coverImage" style="width: 10rem;" />
+											</div>
+											<div class="bui_media_b">
+												<p class="bui_fs_20">{{data.title}}</p>
+												<p class="bui_fs_16 bui_m_12_t bui_fc_silver_d">{{data.summary}}</p>
+											</div>
+										</a>
+									</div>
+								</template>
+								<!--列表-->
+								<!--分页-->
+								<div class="bui_ta_c bui_p_24_t">
+									<com-page :data="page.content" :size="3"></com-page>
+								</div>
+								<!--分页-->
+							</div>
+						</div>
+						<!--<pre>{{page.content|json}}</pre>-->
+					</div>
+				</div>
+			</div>
+
+		</section>
+		<com-footer></com-footer>
+
+	</body>
+	<script type="text/javascript">
+		buijs.ready(function() {
+			//获得分类列表
+			buiVue.vueGetJson({
+				url: workSpace.jsonUrl + 'module/front/findModuleByParentId',
+				data: {
+					parentId: 3
+				},
+				vueName: 'page.side',
+				success: function(data) {
+					vm.url.typeId?null:vm.$set('url.typeId',data.data[0].id);
+					//根据分类获得文章列表
+					buiVue.vueGetJson({
+						url: workSpace.jsonUrl + 'article/front/selectModuleByPage',
+						data: {
+							iDisplayStart: buijs.url.return('pageNo') ? buijs.url.return('pageNo') : 1,
+							iDisplayLength: 5,
+							moduleId: vm.url.typeId
+						},
+						vueName: 'page.content'
+					});
+				}
+			});
+		});
+	</script>
+
+</html>

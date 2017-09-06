@@ -1,0 +1,32 @@
+{
+	"size": 1,
+	"msg": "操作成功",
+	"status": "00",
+	"data": {
+		"typeId": 3,
+		"productId": 692,
+		"slogan": {
+			"cn": "三重速能乳清矩阵+肌酸+HMB",
+			"en": " Three speed energy whey matrix + creatine +HMB "
+		},
+		"productName": {
+			"cn": "黑金肌能--健乐多乳清蛋白水解乳清分离乳清粉（黑加仑味）1.81kg",
+			"en": " Black muscle - Jianle more whey protein hydrolyzed whey separation of whey powder (black currants) 1.81kg "
+		},
+		"imgUrl": [
+			"http://v.gymmaxer.com/resources/uploads/product/20170601072447_3863.jpg",
+			"http://v.gymmaxer.com/resources/uploads/product/20170227130445_6234.jpg",
+			"http://v.gymmaxer.com/resources/uploads/product/20170227130457_668.jpg",
+			"http://v.gymmaxer.com/resources/uploads/product/20170227130503_2786.jpg"
+		],
+		"tmallUrl": "https://detail.tmall.com/item.htm?spm=a1z10.3-b-s.w4011-14776758780.67.56f97dcdEI7asB&id=549086360073&rn=6fa9d4d1b3c8848b2db6227ec0b927ca&abbucket=3",
+		"jdUrl": "http://jd.com",
+		"yhdUrl": "http://yhd.com",
+		"productContent": "<img src='http://v.gymmaxer.com/resources/uploads/product/20170601064732_1830.jpg'/><img src='http://v.gymmaxer.com/resources/uploads/product/20170601065412_3723.jpg'/><img src='http://v.gymmaxer.com/resources/uploads/product/20170601065839_8539.jpg'/><img src='http://v.gymmaxer.com/resources/uploads/product/20170601065840_9226.jpg'/>",
+		"price": 46800,
+		"content": {
+			"cn": "<p>产品名称：黑金肌能乳清蛋白水解乳清分离乳清粉</p><p>配料：浓缩乳清蛋白、水解乳清但白、分离乳清蛋白、肌酸（一水肌酸）、β-羟基-β甲基丁酸钙、红甜菜粉、二氧化硅、黑加仑粉末香精、甜菊糖苷、乙酰磺胺酸钾</p><p>食用方法及建议食用量：每日1-2次，每次1勺（约30g），加250ml温水，摇匀饮用</p><p>保质期：24个月</p><p>贮藏方法：置阴凉干燥处保存</p><p>温馨提示：孕妇、哺乳期妇女、儿童及婴幼儿不适宜食用</p><p>执行标准：GB 24154</p><p>生产许可证编号：SC12744040400094</p>",
+			"en": "<p> Product Name: Black muscle whey protein hydrolyzed whey separation of whey </p><p> ingredients: whey protein, hydrolyzed whey, whey protein isolate, but white creatine (creatine monohydrate), beta hydroxy beta methyl butyric acid calcium, silica powder, red sweet, blackcurrant powder flavor, stevioside and acesulfame K </p><p> edible method and the recommended dosage: 1-2 times a day, each time 1 spoon (about 30g), plus 250ml warm water, shake up </p><p> shelf life: 24 months </p><p> storage: keep in cool and dry place </p><p> reminder: pregnant and lactating women, children and infants, not suitable for food </p><p> standards: GB 24154</p><p> production license number: SC12744040400094</p>"
+		}
+	}
+}

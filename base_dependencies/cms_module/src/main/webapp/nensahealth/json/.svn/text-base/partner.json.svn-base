@@ -1,0 +1,111 @@
+{
+	"status": "00",
+	"msg": "操作成功",
+	"size": 0,
+	"pageNo": 1,
+	"pageSize": 10,
+	"pageCount": 20,
+	"rowCount": 200,
+	"queryResult": [
+		{
+			"id": 1,
+			"imgUrl": [
+				"images/customer-1.png"
+			],
+			"title": {
+				"cn": "可口可乐",
+				"en": "Coca Cola"
+			}
+		}, {
+			"id": 2,
+			"imgUrl": [
+				"images/customer-2.png"
+			],
+			"title": {
+				"cn": "肯德基",
+				"en": "Kentucky Fried Chicken"
+			}
+		}, {
+			"id": 3,
+			"imgUrl": [
+				"images/customer-3.png"
+			],
+			"title": {
+				"cn": "海澜之家",
+				"en": "Sea orchid house"
+			}
+		}, {
+			"id": 4,
+			"imgUrl": [
+				"images/customer-4.png"
+			],
+			"title": {
+				"cn": "YETI",
+				"en": "YETI"
+			}
+		}, {
+			"id": 5,
+			"imgUrl": [
+				"images/customer-5.png"
+			],
+			"title": {
+				"cn": "杰里与比利",
+				"en": "Jelly & Belly"
+			}
+		}, {
+			"id": 6,
+			"imgUrl": [
+				"images/customer-6.png"
+			],
+			"title": {
+				"cn": "一号店",
+				"en": "Shop number one"
+			}
+		}, {
+			"id": 7,
+			"imgUrl": [
+				"images/customer-7.png"
+			],
+			"title": {
+				"cn": "爆笑虫子",
+				"en": "larva"
+			}
+		}, {
+			"id": 8,
+			"imgUrl": [
+				"images/customer-8.png"
+			],
+			"title": {
+				"cn": "佐丹奴",
+				"en": "Giordano"
+			}
+		}, {
+			"id": 9,
+			"imgUrl": [
+				"images/customer-9.png"
+			],
+			"title": {
+				"cn": "安踏",
+				"en": "Anta"
+			}
+		}, {
+			"id": 10,
+			"imgUrl": [
+				"images/customer-10.png"
+			],
+			"title": {
+				"cn": "日产",
+				"en": "Nissan"
+			}
+		}, {
+			"id": 11,
+			"imgUrl": [
+				"images/customer-11.png"
+			],
+			"title": {
+				"cn": "百威啤酒",
+				"en": "Budweiser"
+			}
+		}
+	]
+}

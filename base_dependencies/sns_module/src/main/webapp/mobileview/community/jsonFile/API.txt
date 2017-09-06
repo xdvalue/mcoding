@@ -1,0 +1,12 @@
+module.json {
+
+	by Gzr		模块分类配置表
+	
+	id 			类别对应的ID  
+	
+	level 		类别层级等级       暂时只有2级分类
+		
+	name		类别名字
+	
+	parentId	对应的上一级父级Id   
+}

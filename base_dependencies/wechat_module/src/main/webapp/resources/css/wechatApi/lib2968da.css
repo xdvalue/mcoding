@@ -1,0 +1,168 @@
+.dn {
+	display: none;
+}
+.di {
+	display: inline;
+}
+.dib {
+	display: inline-block;
+}
+.b_dib {
+	display: inline-block;
+}
+.db {
+	display: block;
+}
+.cell {
+	display: table-cell;
+}
+.vh {
+	visibility: hidden;
+}
+.vv {
+	visibility: visible;
+}
+.static {
+	position: static;
+}
+.rel {
+	position: relative;
+}
+.abs {
+	position: absolute;
+}
+.oh {
+	overflow: hidden;
+}
+.z {
+	
+}
+.l {
+	float: left;
+}
+.r {
+	float: right;
+}
+.fn {
+	float: none;
+}
+.cl {
+	clear: both;
+}
+.tc {
+	text-align: center;
+}
+.tr {
+	text-align: right;
+}
+.tl {
+	text-align: left;
+}
+.tj {
+	text-align: justify; font-size: 0px; -ms-text-justify: distribute-all-lines; -ms-text-align-last: justify;
+}
+.tj_simple {
+	text-align: justify; font-size: 0px; -ms-text-justify: distribute-all-lines; -ms-text-align-last: justify;
+}
+.tj::after {
+	width: 100%; height: 0px; overflow: hidden; font-size: 0px; display: inline-block; content: ".";
+}
+.tj_simple .last_child {
+	width: 100%; height: 0px; overflow: hidden; font-size: 0px;
+}
+.tj .tj_item {
+	text-align: left; font-size: 14px; -ms-text-justify: auto;
+}
+.tj_simple .tj_item {
+	text-align: left; font-size: 14px; -ms-text-justify: auto;
+}
+.vt {
+	vertical-align: top;
+}
+.vm {
+	vertical-align: middle;
+}
+.vb {
+	vertical-align: bottom;
+}
+.f0 {
+	font-size: 0px;
+}
+.fa {
+	font-family: Arial;
+}
+.fs {
+	font-family: SimSun;
+}
+.fyh {
+	font-family: "Microsoft YaHei";
+}
+.indent {
+	text-indent: 2em;
+}
+.n {
+	font-style: normal; font-weight: 400;
+}
+.b {
+	font-weight: 700;
+}
+.i {
+	font-style: italic;
+}
+.tdn {
+	text-decoration: none;
+}
+.tdn:hover {
+	text-decoration: none;
+}
+.del {
+	text-decoration: line-through;
+}
+.poi {
+	cursor: pointer;
+}
+.group {
+	
+}
+.group::after {
+	height: 0px; clear: both; display: block; content: "\200B";
+}
+.clearfix {
+	
+}
+.clearfix::before {
+	display: table; content: "";
+}
+.clearfix::after {
+	display: table; content: "";
+}
+.clearfix::after {
+	clear: both;
+}
+.text_hide {
+	line-height: 999em; overflow: hidden;
+}
+.text_overflow {
+	overflow: hidden; white-space: nowrap; -ms-text-overflow: ellipsis;
+}
+.drop_hl_extra {
+	padding-left: 999em; margin-left: -999em;
+}
+.drop_vb_extra {
+	padding-bottom: 999em; margin-bottom: -999em;
+}
+.prg {
+	margin-bottom: 1em;
+}
+.tips_global {
+	color: rgb(141, 141, 141);
+}
+.text_global {
+	color: rgb(34, 34, 34);
+}
+.link_global {
+	color: rgb(69, 154, 233); cursor: pointer;
+}
+.link_global.tail_link {
+	margin-left: 1em;
+}

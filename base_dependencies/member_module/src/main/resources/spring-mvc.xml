@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="
+	    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.2.xsd">
+
+	<!-- 打开@PreFilter,@PreAuthorize, @PostFilter, @PostAuthorize等注解支持（注意：放在这里只会对Controller层的方法生效） -->
+	<!-- <security:global-method-security pre-post-annotations="enabled" /> -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
+	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	    <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+                <value>text/json;charset=UTF-8</value>
+            </list>
+        </property>
+	</bean>
+
+	<!-- 打开SpringMVC注解支持 -->
+	<mvc:annotation-driven validator="validator">
+		<mvc:message-converters>
+			<ref bean="jsonConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	
+	<!-- 当HTTP GET请求地址是/resources/**下的资源时候，不需要DispatchServlet处理， 直接转到 ${webappRoot}/resources目录下的资源，有利于提高静态资源访问效率 -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/mobileview/**" location="/mobileview/" />
+	<mvc:resources mapping="/swagger/**" location="/swagger/" />
+
+	<!-- 视图资源配置，处理控制器组件返回的view，自动加上前缀及后缀 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 扫描所有controller组件 -->
+	<context:component-scan base-package="com.mcoding.**.controller" />
+
+	<!-- 配置web应用的默首页为/open/forward.jsp -->
+	<mvc:view-controller path="/" view-name="base/user/login" />
+
+	<!-- 国际化资源 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="messages" />
+	</bean>
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+
+	<!-- Enable file upload functionality -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes (5M=5242880) -->
+		<property name="maxUploadSize" value="524288000" />
+	</bean>
+
+	<!-- 打开多语言动态支持 -->
+	<!-- <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"> 
+		<property name="defaultLocale" value="en" /> </bean> -->
+
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+
+	<mvc:interceptors>
+		<!-- <bean id="localeChangeInterceptor"
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="lang" />
+		</bean> -->
+
+		<bean class="com.mcoding.base.ui.web.interceptor.HttpLogInterceptor" />
+		<bean class="com.mcoding.base.ui.web.interceptor.StoreIdInitInterceptor"></bean>
+		<mvc:interceptor>
+			<mvc:mapping path="/mobileview/**/*.html" />
+			<bean class="com.mcoding.base.member.web.interceptor.OpenIdCheckForViewInterceptor" />
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<mvc:mapping path="/mobileview/my.html" />
+			<bean class="com.mcoding.base.member.web.interceptor.WxUserInfoChekInterceptor" />
+		</mvc:interceptor>
+
+	</mvc:interceptors>
+
+	<!-- <bean id="websocket" class="com.up.websocket.handler.WebsocketEndPoint" />
+
+	<websocket:handlers>
+		<websocket:mapping path="/websocket" handler="websocket" />
+		<websocket:handshake-interceptors>
+			<bean class="com.up.websocket.HandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+	</websocket:handlers> -->
+
+</beans>

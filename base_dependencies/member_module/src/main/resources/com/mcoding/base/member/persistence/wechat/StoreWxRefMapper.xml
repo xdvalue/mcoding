@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.base.member.persistence.wechat.StoreWxRefMapper" >
+  <resultMap id="BaseResultMap" type="com.mcoding.base.member.bean.wechat.StoreWxRef" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="wx_account_id" property="wxAccountId" jdbcType="INTEGER" />
+    <result column="wx_account_name" property="wxAccountName" jdbcType="VARCHAR" />
+    <result column="wx_account_origin_id" property="wxAccountOriginId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, store_id, store_name, wx_account_id, wx_account_name, wx_account_origin_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mcoding.base.member.bean.wechat.StoreWxRefExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_store_wx_ref
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_store_wx_ref
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_store_wx_ref
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcoding.base.member.bean.wechat.StoreWxRefExample" >
+    delete from t_store_wx_ref
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcoding.base.member.bean.wechat.StoreWxRef" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_store_wx_ref (store_id, store_name, wx_account_id, 
+      wx_account_name, wx_account_origin_id)
+    values (#{storeId,jdbcType=INTEGER}, #{storeName,jdbcType=VARCHAR}, #{wxAccountId,jdbcType=INTEGER}, 
+      #{wxAccountName,jdbcType=VARCHAR}, #{wxAccountOriginId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcoding.base.member.bean.wechat.StoreWxRef" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_store_wx_ref
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="wxAccountId != null" >
+        wx_account_id,
+      </if>
+      <if test="wxAccountName != null" >
+        wx_account_name,
+      </if>
+      <if test="wxAccountOriginId != null" >
+        wx_account_origin_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAccountId != null" >
+        #{wxAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="wxAccountName != null" >
+        #{wxAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAccountOriginId != null" >
+        #{wxAccountOriginId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcoding.base.member.bean.wechat.StoreWxRefExample" resultType="java.lang.Integer" >
+    select count(*) from t_store_wx_ref
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_store_wx_ref
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeName != null" >
+        store_name = #{record.storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxAccountId != null" >
+        wx_account_id = #{record.wxAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="record.wxAccountName != null" >
+        wx_account_name = #{record.wxAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxAccountOriginId != null" >
+        wx_account_origin_id = #{record.wxAccountOriginId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_store_wx_ref
+    set id = #{record.id,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      store_name = #{record.storeName,jdbcType=VARCHAR},
+      wx_account_id = #{record.wxAccountId,jdbcType=INTEGER},
+      wx_account_name = #{record.wxAccountName,jdbcType=VARCHAR},
+      wx_account_origin_id = #{record.wxAccountOriginId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcoding.base.member.bean.wechat.StoreWxRef" >
+    update t_store_wx_ref
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAccountId != null" >
+        wx_account_id = #{wxAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="wxAccountName != null" >
+        wx_account_name = #{wxAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="wxAccountOriginId != null" >
+        wx_account_origin_id = #{wxAccountOriginId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcoding.base.member.bean.wechat.StoreWxRef" >
+    update t_store_wx_ref
+    set store_id = #{storeId,jdbcType=INTEGER},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      wx_account_id = #{wxAccountId,jdbcType=INTEGER},
+      wx_account_name = #{wxAccountName,jdbcType=VARCHAR},
+      wx_account_origin_id = #{wxAccountOriginId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.mcoding.base.member.bean.wechat.StoreWxRefExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_store_wx_ref
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

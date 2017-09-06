@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>测试接口跳转</title>
+	
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+</head>
+<body>
+	<script src="http://cdn.bootcss.com/jquery/2.1.4/jquery.js"></script>
+	<script>
+	var common = {};
+	common.get = function (name) {
+	    var result = location.search.match(new RegExp("[\?\&]" + name + "=([^\&]+)", "g"));
+	    if (result == null || result.length < 1) {
+	        return "";
+	    }
+	    //该参数只有一个值时
+	    if(result.length==1) return decodeURI(result[0].split('=')[1]);
+	    //该参数有多个值时
+	    var arr = [];
+	    for(i=0;i<result.length;i++){
+	        arr.push(decodeURI(result[i].split('=')[1]));
+	    }
+	    return arr.toString();
+	};
+	
+	
+	function aa(){
+		var code = common.get('code');
+		var state = common.get('state');
+		window.location="http://192.168.1.103:8080/EMIS/api/wechatCheckWxUser2.html?code="+code+"&brandCode=MRMJ&state="+state;
+
+		//		$.get('https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxc29d38541362f295&secret=c9da3fc852d9fe9aa3440a9622834ad4&code='+code+'&grant_type=authorization_code',function(d){
+//			alert(d.expires_in)
+//			alert(d.unionid)
+//		},'jsonp');
+	}
+	
+	function bb(){
+		var code = common.get('code');
+		var state = common.get('state');
+		window.location="http://192.168.2.46:8080/EMIS/api/wechatCheckWxUser2.html?code="+code+"&brandCode=MRMJ&state="+state;
+
+	}
+	
+
+	function cc(){
+		var code = common.get('code');
+		var state = common.get('state');
+		window.location="http://192.168.2.120:8080/EMIS/api/wechatCheckWxUser2.html?code="+code+"&brandCode=MRMJ&state="+state;
+
+	}
+	
+	function dd(){
+		var code = common.get('code');
+		var state = common.get('state');
+		window.location="http://www.mobidocloud.com/EMIS/api/wechatYespay.html?code="+code+"&orderNo="+state;
+	}
+	</script>
+<a href="#" onclick="aa()">获取微信用户信息-跳微商官网-家</a>
+<br />
+<br />
+<br />
+<a href="#" onclick="bb()">获取微信用户信息-跳微商官网-公司</a>
+<br />
+<br />
+<br />
+<a href="#" onclick="cc()">获取微信用户信息2-跳微商官网-黄志泳</a>
+<br />
+<br />
+<br />
+<a href="#" onclick="dd()">微支付</a>
+</body>
+</html>

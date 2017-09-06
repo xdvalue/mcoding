@@ -1,0 +1,54 @@
+{
+	"status": "00",
+	"msg": "ok",
+	"queryResult": {
+		"about": [
+			{
+				"id": 1,
+				"title": {
+					"cn": "公司简介",
+					"en": "Company profile"
+				}
+			}, {
+				"id": 2,
+				"title": {
+					"cn": "发展历程",
+					"en": "Development"
+				}
+			}, {
+				"id": 3,
+				"title": {
+					"cn": "企业文化",
+					"en": "Culture "
+				}
+			}, {
+				"id": 4,
+				"title": {
+					"cn": "核心价值",
+					"en": "Core"
+				}
+			}, {
+				"id": 5,
+				"title": {
+					"cn": "品牌形象",
+					"en": "Brand"
+				}
+			}
+		],
+		"vitality": [
+			{
+				"id": 6,
+				"title": {
+					"cn": "团队介绍",
+					"en": "Team"
+				}
+			}, {
+				"id": 7,
+				"title": {
+					"cn": "加入我们",
+					"en": "Join Us"
+				}
+			}
+		]
+	}
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>帖子</title>
+		<meta charset="UTF-8">
+		<!--引入全局路径配置js-->
+		<script src="workspace_v2.0.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" src="./script/upload.js"></script>
+		<script src="../resources/js/common/wechatShare.js"></script>
+		<!--引入当前页面js-->
+		<script src="./script/article_detail.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+
+	<body class="hg_body bui_tc_black_a bui_at_noline">
+		<!--所属板块标记-->
+		<input type="hidden" name="hg_channelName" id="hg_channelName" value="hg_channel_Index" />
+		<!--所属板块标记-->
+		<div class="bui_wrap">
+			<div class="bui_mo bui_bgc_white_d12">
+				<!--页头-->
+				<div class="bui_mo_h bui_bgc_white " id="hg_header" hg_style="header tc">
+					<div class="bui_media bui_vm">
+						<!--左侧按钮-->
+						<div class="bui_media_l">
+							<a href="javascript:backFunction();" class="bui_btn_32 bui_btn_sq bui_m_8 bui_ts_24"><i class="fa fa-angle-left"></i></a>
+						</div>
+						<!--左侧按钮-->
+						<!--中间文字-->
+						<div class="bui_media_b bui_pr_24">
+							<p class="bui_ta_c" id="articleType">帖子</p>
+						</div>
+						<!--中间文字-->
+						<!--右侧按钮 如不许要可删除-->
+						<div class="bui_media_r bui_p_0 bui_ml_12">
+							<a href="javascript:buijs_alert({content: '点击右上角分享'})" class="bui_btn_32 bui_btn_sq bui_m_8">
+								<i class="fa fa-external-link" style="font-size: 17px"></i>
+							</a>
+						</div>
+						<!--右侧按钮 如不许要可删除-->
+					</div>
+				</div>
+				<!--页头-->
+			
+				<!--页面-->
+				<div class="bui_mo_b bui_mo_b_h indexBg bui_mo_b_f" >
+					<hr style="border-color:#d7d7d7;"/>
+					<!--这里放主要内容-->
+					<div class="bui_bgc_white bui_p_12" id="detail_content">
+						<p class="bui_ts_19" style="font-weight: bold" id="title"></p>
+						<div class="bui_ts_13 bui_tc_white_d64 bui_inline bui_vm">
+							<span id="author"></span>&nbsp;<div class="bui_bgc_red bui_tc_white bui_plr_6 bui_radius bui_inline" style="display: inline-block;"><span class="bui_ts_12 bui_tc_yellow_l24">Lv</span><span class="bui_ts_8" id="level"></span></div>
+						</div>
+						<div class="bui_ts_16 bui_mt_12" id="contentBox">
+						</div>
+						<div class="bui_ts_14" style="text-align: center">
+							<div class="articleDetailGoodhand" id="likeBt" onclick="likePost()">
+								<i class="fa fa-thumbs-o-up"></i>
+							</div>
+							<p><span id="clickLike"></span>人点赞</p>
+						</div>
+					</div>
+					<div class="bui_bgc_white bui_p_12 bui_mt_12" >
+						<p class="bui_ts_18">全部评论</p>
+						<div id="commentBox"></div>
+					</div>
+					<!--这里放主要内容-->
+					<!--分页提示-->
+					<!-- <div id="hg_articleList_tips" class="bui_p_12 bui_ta_c bui_tc_white_d64"><i class="fa fa-circle-o-notch fa-spin"></i> 加载中... <br />健乐多社区版权所有</div> -->
+					<!--分页提示-->
+					<div id="communityList_tips" class="bui_p_12 bui_ta_c bui_tc_white_d64"></div>
+				</div>
+				<!--页面-->
+				<div id="pinglun" class="bui_mo_f bui_bgc_white">
+					<hr>
+					<div class="bui_p_8 bui_media bui_vm" onclick="javascript:articleComment('','','','');">
+						<div class="bui_media_b">
+							<input type="text" name="" id="" value="" placeholder="说两句吧！" class="bui_ipt_48 bui_block bui_ts_16" readonly="readonly">
+						</div>
+						<div class="bui_media_r bui_p_0">
+							<button class="bui_btn_48 bui_ts_16 bui_plr_24 bui_bgc_red bui_tc_white bui_tc_white_a" hg_style="btnTrue">发表</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+@mixin color-vertical($from, $to) {
+    background: -webkit-linear-gradient($from, $to);
+    background: -o-linear-gradient($from, $to);
+    background: -moz-linear-gradient($from, $to);
+    background: linear-gradient($from, $to);
+}
+
+body.nensahealth {
+    .bui_auto_w {
+        min-width: 980px !important;
+    }
+    .bui_bgc {
+        &_yellow,
+        &_yellow_h:hover {
+            @include color-vertical(#F9DA03, #F3A408)
+        }
+        &_blue,
+        &_blue_h:hover {
+            @include color-vertical(#59BDD7, #0460A3)
+        }
+    }
+}
+
+header {
+    & [data-btn].active {
+        background-image: url(../images/arrow.png);
+        background-position: bottom center;
+    }
+}
+
+//文章
+.nensahealth-content {
+    & p {
+        padding: 0.5rem;
+    }
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>社区主页</title>
+		<meta charset="UTF-8">
+		<!--引入全局路径配置js-->
+		<script src="workspace_v2.0.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="" type="text/javascript" charset="utf-8"></script>
+		<script src="../resources/js/common/wechatShare.js"></script>
+		<script type="text/javascript" src="./script/upload.js"></script>
+		<!--引入当前页面js-->
+		<script src="./script/index.js" type="text/javascript" charset="utf-8"></script>
+
+		<!--引入模拟数据js 可删除-->
+		
+	</head>
+
+	<body class="hg_body bui_atc_black bui_at_noline">
+		<!--所属板块标记-->
+		<input type="hidden" name="hg_channelName" id="hg_channelName" value="hg_channel_Index" />
+		<!--所属板块标记-->
+		<div class="bui_wrap">
+			<div class="bui_mo bui_bgc_white_d12">
+				<!--页头-->
+				<div class="bui_mo_h bui_bgc_white" id="hg_header" hg_style="header tc">
+					<div class="bui_media bui_vm">
+						<!--左侧按钮-->
+						<div class="bui_media_l bui_pl_12 bui_pt_6">
+							<img src="./images/jldLogo.png" style="height: 32px">
+						</div>
+						<!--左侧按钮-->
+						<!--中间文字-->
+						<div class="bui_media_b">
+							<p class="bui_ta_c"></p>
+						</div>
+						<!--中间文字-->
+						<!--右侧按钮 如不许要可删除-->
+						<div class="bui_media_r bui_p_0">
+							<a href="news_center.html" class="bui_btn_32 bui_btnsq bui_m_8" style="position: relative;"><div id="haveNews" class="bui_round bui_bds_2 bui_bdc_white bui_bgc_red" style="display: none;position: absolute; top: 2px; right: 1px; width: 13px; height: 13px; line-height: 14px;"></div>
+								<i class="fa fa-envelope-o" style="font-size: 24px"></i>
+							</a>
+							<a href="javascript:history.go(0)" class="bui_btn_32 bui_btnsq bui_m_8" style="position: relative;">
+								<i class="fa fa-refresh" style="font-size: 24px"></i>
+							</a>
+						</div>
+						<!--右侧按钮 如不许要可删除-->
+					</div>
+				</div>
+				<!--页头-->
+	
+				<!--页面-->
+				<div class="bui_mo_b bui_mo_b_h indexBg" style="-webkit-overflow-scrolling: touch">
+						<!--这里放主要内容-->
+						
+						<!--幻灯片-->
+						<div id="indexBanner" style="height: auto;"></div>
+						<!--幻灯片-->
+						<hr />
+
+						<!--主要功能菜单-->
+						<div class="bui_bgc_white">
+							<div class="bui_avg_sm_4 bui_ts_12 bui_fas_16 bui_fac_white bui_ta_c" id="indexBtBar"></div>
+						</div>
+						<!--主要功能菜单-->
+
+						<!--精典贴置顶区-->
+						<!-- <div class="bui_bgc_white bui_mt_6" style="overflow: hidden;height: 110px;">
+							<div id="insetPerfectTextContent"></div>
+						</div> -->
+						<!--精典贴置顶区-->
+						
+						<!-- 帖子模块入口 -->
+						<div class="bui_bgc_white bui_mt_12">
+							<div id="postingsModule">
+							</div>
+						</div>
+						<!-- 帖子模块入口 -->
+
+						<!--主页帖子展示区-->
+						<div id="contentPostList"></div>
+						<!--主页帖子展示区-->
+						
+						<!--这里放主要内容-->
+						<!--分页提示-->
+						<div id="hg_articleList_tips" class="bui_p_12 bui_ta_c bui_tc_white_d64"><i class="fa fa-circle-o-notch fa-spin"></i> 加载中... <br />健乐多社区版权所有</div>
+						<!--分页提示-->
+				</div>
+				<!--页面-->
+			</div>
+		</div>
+
+	</body>
+
+</html>

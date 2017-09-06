@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.base.ui.persistence.region.RegionMapper" >
+  <resultMap id="BaseResultMap" type="com.mcoding.base.ui.bean.region.Region" >
+    <id column="region_id" property="regionId" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="region_name" property="regionName" jdbcType="VARCHAR" />
+    <result column="region_type" property="regionType" jdbcType="BIT" />
+    <result column="agency_id" property="agencyId" jdbcType="SMALLINT" />
+    <result column="region_sn" property="regionSn" jdbcType="VARCHAR" />
+    <result column="buildin" property="buildin" jdbcType="BIT" />
+    <result column="lastchanged" property="lastchanged" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    region_id, parent_id, region_name, region_type, agency_id, region_sn, buildin, lastchanged
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mcoding.base.ui.bean.region.RegionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_base_region
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_base_region
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_base_region
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcoding.base.ui.bean.region.RegionExample" >
+    delete from t_base_region
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcoding.base.ui.bean.region.Region" >
+    insert into t_base_region (region_id, parent_id, region_name, 
+      region_type, agency_id, region_sn, 
+      buildin, lastchanged)
+    values (#{regionId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{regionName,jdbcType=VARCHAR}, 
+      #{regionType,jdbcType=BIT}, #{agencyId,jdbcType=SMALLINT}, #{regionSn,jdbcType=VARCHAR}, 
+      #{buildin,jdbcType=BIT}, #{lastchanged,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcoding.base.ui.bean.region.Region" >
+    insert into t_base_region
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="regionId != null" >
+        region_id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="regionName != null" >
+        region_name,
+      </if>
+      <if test="regionType != null" >
+        region_type,
+      </if>
+      <if test="agencyId != null" >
+        agency_id,
+      </if>
+      <if test="regionSn != null" >
+        region_sn,
+      </if>
+      <if test="buildin != null" >
+        buildin,
+      </if>
+      <if test="lastchanged != null" >
+        lastchanged,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="regionId != null" >
+        #{regionId,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="regionName != null" >
+        #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionType != null" >
+        #{regionType,jdbcType=BIT},
+      </if>
+      <if test="agencyId != null" >
+        #{agencyId,jdbcType=SMALLINT},
+      </if>
+      <if test="regionSn != null" >
+        #{regionSn,jdbcType=VARCHAR},
+      </if>
+      <if test="buildin != null" >
+        #{buildin,jdbcType=BIT},
+      </if>
+      <if test="lastchanged != null" >
+        #{lastchanged,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcoding.base.ui.bean.region.RegionExample" resultType="java.lang.Integer" >
+    select count(*) from t_base_region
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_base_region
+    <set >
+      <if test="record.regionId != null" >
+        region_id = #{record.regionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.regionName != null" >
+        region_name = #{record.regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regionType != null" >
+        region_type = #{record.regionType,jdbcType=BIT},
+      </if>
+      <if test="record.agencyId != null" >
+        agency_id = #{record.agencyId,jdbcType=SMALLINT},
+      </if>
+      <if test="record.regionSn != null" >
+        region_sn = #{record.regionSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildin != null" >
+        buildin = #{record.buildin,jdbcType=BIT},
+      </if>
+      <if test="record.lastchanged != null" >
+        lastchanged = #{record.lastchanged,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_base_region
+    set region_id = #{record.regionId,jdbcType=INTEGER},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      region_name = #{record.regionName,jdbcType=VARCHAR},
+      region_type = #{record.regionType,jdbcType=BIT},
+      agency_id = #{record.agencyId,jdbcType=SMALLINT},
+      region_sn = #{record.regionSn,jdbcType=VARCHAR},
+      buildin = #{record.buildin,jdbcType=BIT},
+      lastchanged = #{record.lastchanged,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcoding.base.ui.bean.region.Region" >
+    update t_base_region
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="regionName != null" >
+        region_name = #{regionName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionType != null" >
+        region_type = #{regionType,jdbcType=BIT},
+      </if>
+      <if test="agencyId != null" >
+        agency_id = #{agencyId,jdbcType=SMALLINT},
+      </if>
+      <if test="regionSn != null" >
+        region_sn = #{regionSn,jdbcType=VARCHAR},
+      </if>
+      <if test="buildin != null" >
+        buildin = #{buildin,jdbcType=BIT},
+      </if>
+      <if test="lastchanged != null" >
+        lastchanged = #{lastchanged,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcoding.base.ui.bean.region.Region" >
+    update t_base_region
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      region_name = #{regionName,jdbcType=VARCHAR},
+      region_type = #{regionType,jdbcType=BIT},
+      agency_id = #{agencyId,jdbcType=SMALLINT},
+      region_sn = #{regionSn,jdbcType=VARCHAR},
+      buildin = #{buildin,jdbcType=BIT},
+      lastchanged = #{lastchanged,jdbcType=TIMESTAMP}
+    where region_id = #{regionId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.mcoding.base.ui.bean.region.RegionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_base_region
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

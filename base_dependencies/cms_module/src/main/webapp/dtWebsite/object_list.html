@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<script src="workspace.js" type="text/javascript" charset="utf-8"></script>
+		<title>数据价值网</title>
+		<script type="text/javascript">
+			var o = new Objectnews();
+                $(function() {
+//                  o.getObjectNewsList();
+                });
+                function Objectnews() {;
+                    this.ObjectnewsList;
+                }
+			Objectnews.prototype.getObjectNewsList = function() {
+                var postData = new Object();
+                postData.pageNo = 1;
+                postData.pageSize = 10;
+                var _this = this;
+                $.getJSON(_jsonUrl + "/btApi/queryDTBusinessByPage.html",postData, function(result){
+						var _list = '';
+						var data = result.queryResult;
+						var length = 10;
+						if (data.length < 10) {
+							length = data.length;
+						}
+						for (var i = 0; i < length ; i ++) {
+							_list += '<li class="bui_ptb_12 bui_md_plr_12">' +
+							'<a href="'+ data[i].href +'">'+
+							'<img src="'+ data[i].bgimg +'" style="width: 100%;" />' + 
+							'</a>'
+							'</li>'                      
+                        };
+                        $("#dt_objectNews").html(_list);                                                
+                });
+			}
+		</script>
+	</head>
+
+	<body class="dt_body bui_atc_black bui_ahtc_blue">
+		<input type="hidden" name="channelName" id="channelName" value="业务" />
+		<div class="bui_wrap">
+			<div class="bui_mo">
+				<!--页头-->
+				<div id="dt_header"></div>
+				<!--页头-->
+				<div class="bui_mo_b bui_mo_b_h">
+					<!--页面-->
+					<div class="bui_ptb_32">
+						<div class="bui_auto_w">
+							<div class="bui_inline bui_ta_c">
+								<div style="max-width: 640px;" class="bui_ta_l">
+									<!--头图-->
+									<div class="bui_ptb_24 bui_inline bui_ta_c">
+										<img src="pic/object_pic_001.png" style="max-width: 80%;" />
+									</div>
+									<!--头图-->
+									<!--简介-->
+									<p class="bui_ts_24 bui_tc_blue">简称DT.(Data Technology)</p>
+									<div class="bui_ts_12 bui_row_p_12 bui_mt_12">
+										<p>系大华南IT高管共赢圈联合北大、中大、暨大等高校管理学专家学者，华南知名企业CEO、CIO、IT高管、媒体等群体于2015年1月1日发起成立的，全力打造的以社群为纽带、以研究为核心、以技术为引擎、以创投为助推器的专家型创新服务生态体系。</p>
+										<p>是DT时代IT互联网创新实战家们进行数据应用与互联网+转型创新理论研究、验证创新理论、进行知识传播分享、专业孵化运营、企业转型升级、基金投资运营的专家型创投平台。</p>
+										<p>DT是一个超级链接器，一个“资源池”一个“能力池”</p>
+										<p>DT是一个典型的科技型、专家型创投服务平台</p>
+									</div>
+									<!--简介-->
+								</div>
+							</div>
+
+							<!--业务列表-->
+							<p class="bui_ts_14 bui_ta_c bui_mt_24">DT旗下业务</p>
+							<hr class="bui_mtb_12" />
+							 <div class="bui_avg_md_2" id="dt_objectNews">
+							   <li class="bui_ptb_12 bui_md_plr_12"><a href="#"><img src="http://www.coding.mobi/EMIS/resources/uploads/dtbusiness/20160118175832_6465.png" style="width: 100%;" /></a></li>
+							   <li class="bui_ptb_12 bui_md_plr_12"><a href="#"><img src="http://www.coding.mobi/EMIS/resources/uploads/dtbusiness/20160118175942_5835.png" style="width: 100%;" /></a></li>
+							   <li class="bui_ptb_12 bui_md_plr_12"><a href="#"><img src="http://www.coding.mobi/EMIS/resources/uploads/dtbusiness/20160118180046_5288.png" style="width: 100%;" /></a></li>
+							   <li class="bui_ptb_12 bui_md_plr_12"><a href="http://www.iq900.com"><img src="http://www.coding.mobi/EMIS/resources/uploads/dtbusiness/20160118180130_7527.png" style="width: 100%;" /></a></li>
+							   <li class="bui_ptb_12 bui_md_plr_12"><a href="#"><img src="http://www.coding.mobi/EMIS/resources/uploads/dtbusiness/20160118180213_4314.png" style="width: 100%;" /></a></li>
+							  </div>
+							<!--业务列表-->
+
+						</div>
+					</div>
+					<!--页面-->
+					<!--页脚-->
+					<div id="dt_footer"></div>
+					<!--页脚-->
+				</div>
+
+			</div>
+
+		</div>
+	</body>
+
+</html>

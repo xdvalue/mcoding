@@ -1,0 +1,25 @@
+{
+	"status": "00",
+	"msg": "ok",
+	"queryResult": [
+		{
+			"id": 1,
+			"title": {
+				"cn": "运动补给",
+				"en": "Sports Supply"
+			}
+		}, {
+			"id": 2,
+			"title": {
+				"cn": "骨骼关节养护",
+				"en": "Skeleton Joint"
+			}
+		}, {
+			"id": 3,
+			"title": {
+				"cn": "体重管理",
+				"en": "Keep fit"
+			}
+		}
+	]
+}

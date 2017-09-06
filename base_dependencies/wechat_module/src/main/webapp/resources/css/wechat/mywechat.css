@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+
+.mobile_menu_preview{
+	background:transparent url(../../images/bg_mobile_head_default2968da.png) no-repeat 0 0;
+}
+.menu_preview_area .pre_menu_list{
+	background:transparent url(../../images/bg_mobile_foot_default2968da.png) 0 0 no-repeat;
+}
+
+.menu_preview_area .icon14_menu_add {
+	background: url(../../images/index_z2a7519.png) 0 0 no-repeat;
+}
+
+.icon_radio {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    display: inline-block;
+    background: url(../../images/base_z2b638f.png) 0px -182px no-repeat;
+}
+
+.icon_radio .selected,
+.selected .icon_radio {
+    background: url(../../images/base_z2b638f.png) 0px -208px no-repeat;
+}
+

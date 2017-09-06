@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* CSS Document */
+
+.tasking{
+	margin-top: 15px;
+	text-align: center;
+	}	
+.one{
+	color: #e3a84d;
+	}
+.one1{
+	background: #f5c57c;
+	width: 60px;
+	height: 56px;
+	border-radius: 10px !important;
+	color: #ffffff;
+	display: inline-block;
+	font-size: 40px;
+	text-align:center;
+	line-height: 56px;
+	}
+
+.two{
+	color: #666;
+	}
+.two2{
+	background: #eaeaea;
+	width: 60px;
+	height: 56px;
+	border-radius: 10px !important;
+	color: #ffffff;
+	display: inline-block;
+	font-size: 40px;
+	text-align:center;
+	line-height: 56px;
+	}
+.three{
+	color: #c9b12f;
+	}
+.three3{
+	background: #e7d570;
+	width: 60px;
+	height: 56px;
+	border-radius: 10px !important;
+	color: #ffffff;
+	display: inline-block;
+	font-size: 40px;
+	text-align:center;
+	line-height: 56px;
+	}
+.one h4,.two h4, .three h4{
+	margin: 5px 0 3px 0;
+	
+	}

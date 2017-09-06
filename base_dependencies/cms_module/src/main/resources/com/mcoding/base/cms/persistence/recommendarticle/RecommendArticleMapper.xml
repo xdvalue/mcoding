@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.base.cms.persistence.recommendarticle.RecommendArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.mcoding.base.cms.bean.recommendarticle.RecommendArticle" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ref_id" property="refId" jdbcType="INTEGER" />
+    <result column="article_id" property="articleId" jdbcType="INTEGER" />
+    <result column="article_title" property="articleTitle" jdbcType="VARCHAR" />
+    <result column="article_stitle" property="articleStitle" jdbcType="VARCHAR" />
+    <result column="article_label" property="articleLabel" jdbcType="VARCHAR" />
+    <result column="article_author" property="articleAuthor" jdbcType="VARCHAR" />
+    <result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="article_abstract" property="articleAbstract" jdbcType="VARCHAR" />
+    <result column="click_count" property="clickCount" jdbcType="INTEGER" />
+    <result column="article_url" property="articleUrl" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="cover_image" property="coverImage" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, ref_id, article_id, article_title, article_stitle, article_label, article_author, 
+    publish_time, article_abstract, click_count, article_url, create_time, cover_image
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mcoding.base.cms.bean.recommendarticle.RecommendArticleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_cms_recommend_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_cms_recommend_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_cms_recommend_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcoding.base.cms.bean.recommendarticle.RecommendArticleExample" >
+    delete from t_cms_recommend_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcoding.base.cms.bean.recommendarticle.RecommendArticle" >
+    insert into t_cms_recommend_article (id, ref_id, article_id, 
+      article_title, article_stitle, article_label, 
+      article_author, publish_time, article_abstract, 
+      click_count, article_url, create_time, 
+      cover_image)
+    values (#{id,jdbcType=INTEGER}, #{refId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, 
+      #{articleTitle,jdbcType=VARCHAR}, #{articleStitle,jdbcType=VARCHAR}, #{articleLabel,jdbcType=VARCHAR}, 
+      #{articleAuthor,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, #{articleAbstract,jdbcType=VARCHAR}, 
+      #{clickCount,jdbcType=INTEGER}, #{articleUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{coverImage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcoding.base.cms.bean.recommendarticle.RecommendArticle" >
+    insert into t_cms_recommend_article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="refId != null" >
+        ref_id,
+      </if>
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="articleTitle != null" >
+        article_title,
+      </if>
+      <if test="articleStitle != null" >
+        article_stitle,
+      </if>
+      <if test="articleLabel != null" >
+        article_label,
+      </if>
+      <if test="articleAuthor != null" >
+        article_author,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="articleAbstract != null" >
+        article_abstract,
+      </if>
+      <if test="clickCount != null" >
+        click_count,
+      </if>
+      <if test="articleUrl != null" >
+        article_url,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="coverImage != null" >
+        cover_image,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="refId != null" >
+        #{refId,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null" >
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="articleTitle != null" >
+        #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleStitle != null" >
+        #{articleStitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleLabel != null" >
+        #{articleLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="articleAuthor != null" >
+        #{articleAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleAbstract != null" >
+        #{articleAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="clickCount != null" >
+        #{clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleUrl != null" >
+        #{articleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coverImage != null" >
+        #{coverImage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcoding.base.cms.bean.recommendarticle.RecommendArticleExample" resultType="java.lang.Integer" >
+    select count(*) from t_cms_recommend_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_cms_recommend_article
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.refId != null" >
+        ref_id = #{record.refId,jdbcType=INTEGER},
+      </if>
+      <if test="record.articleId != null" >
+        article_id = #{record.articleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.articleTitle != null" >
+        article_title = #{record.articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleStitle != null" >
+        article_stitle = #{record.articleStitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleLabel != null" >
+        article_label = #{record.articleLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.articleAuthor != null" >
+        article_author = #{record.articleAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishTime != null" >
+        publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.articleAbstract != null" >
+        article_abstract = #{record.articleAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clickCount != null" >
+        click_count = #{record.clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.articleUrl != null" >
+        article_url = #{record.articleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.coverImage != null" >
+        cover_image = #{record.coverImage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_cms_recommend_article
+    set id = #{record.id,jdbcType=INTEGER},
+      ref_id = #{record.refId,jdbcType=INTEGER},
+      article_id = #{record.articleId,jdbcType=INTEGER},
+      article_title = #{record.articleTitle,jdbcType=VARCHAR},
+      article_stitle = #{record.articleStitle,jdbcType=VARCHAR},
+      article_label = #{record.articleLabel,jdbcType=VARCHAR},
+      article_author = #{record.articleAuthor,jdbcType=VARCHAR},
+      publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      article_abstract = #{record.articleAbstract,jdbcType=VARCHAR},
+      click_count = #{record.clickCount,jdbcType=INTEGER},
+      article_url = #{record.articleUrl,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      cover_image = #{record.coverImage,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcoding.base.cms.bean.recommendarticle.RecommendArticle" >
+    update t_cms_recommend_article
+    <set >
+      <if test="refId != null" >
+        ref_id = #{refId,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null" >
+        article_id = #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="articleTitle != null" >
+        article_title = #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleStitle != null" >
+        article_stitle = #{articleStitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleLabel != null" >
+        article_label = #{articleLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="articleAuthor != null" >
+        article_author = #{articleAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleAbstract != null" >
+        article_abstract = #{articleAbstract,jdbcType=VARCHAR},
+      </if>
+      <if test="clickCount != null" >
+        click_count = #{clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="articleUrl != null" >
+        article_url = #{articleUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coverImage != null" >
+        cover_image = #{coverImage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcoding.base.cms.bean.recommendarticle.RecommendArticle" >
+    update t_cms_recommend_article
+    set ref_id = #{refId,jdbcType=INTEGER},
+      article_id = #{articleId,jdbcType=INTEGER},
+      article_title = #{articleTitle,jdbcType=VARCHAR},
+      article_stitle = #{articleStitle,jdbcType=VARCHAR},
+      article_label = #{articleLabel,jdbcType=VARCHAR},
+      article_author = #{articleAuthor,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      article_abstract = #{articleAbstract,jdbcType=VARCHAR},
+      click_count = #{clickCount,jdbcType=INTEGER},
+      article_url = #{articleUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      cover_image = #{coverImage,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.mcoding.base.cms.bean.recommendarticle.RecommendArticleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_cms_recommend_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

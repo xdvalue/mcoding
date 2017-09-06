@@ -1,0 +1,116 @@
+<!--pc端页头-->
+<div class="dt_header_pc bui_hide_sm">
+	<!--topBar-->
+	<div class="dt_topBar bui_ts_12">
+		<div class="bui_auto_w">
+			<p class="bui_ptb_12">尊敬的用户您好，欢迎来到<span class="bui_tc_blue">数据价值网</span></p>
+		</div>
+	</div>
+	<!--topBar-->
+	<!--nanBar-->
+	<div class="bui_auto_w">
+		<div class="bui_media bui_vm dt_topNav">
+			<div class="bui_media_l bui_pr_48">
+				<img src="images/logo.png" />
+			</div>
+			<div class="bui_media_b">
+				<div class="bui_inline bui_atc_black bui_ahtc_black_f64 bui_at_noline" id="dt_topNav_pc"></div>
+			</div>
+		</div>
+	</div>
+	<!--nanBar-->
+	<hr />
+</div>
+<!--pc端页头-->
+<!--mobile端页头-->
+<div class="bui_mo_h bui_bgc_white bui_show_sm" onclick="javascript:dt_sideNav();">
+	<div class="bui_media bui_vm bui_fac_white_d64">
+		<div class="bui_media_l">
+			<a href="javascript:;" class="bui_btn_32 bui_m_8"><i class="fa fa-bars"></i></a>
+		</div>
+		<div class="bui_media_b">
+			<img src="images/logo.png" style="height: 24px;" />
+		</div>
+	</div>
+	<hr />
+</div>
+<!--mobile端页头-->
+<script type="text/javascript">
+	//插入顶部导航
+	insetTopNav();
+	//插入顶部导航
+	function GetQueryString(name) { 
+        var reg = new RegExp(name + "=(&|$)","i");
+        //alert(reg)
+        var r = window.location.search.substr(1).match(reg);  
+        if (r!=null) return (r[2]); 
+        return null; 
+    }
+	function insetTopNav() {
+		var _contentBox = $("#dt_topNav_pc");
+		var _list = '';
+		$.ajax({
+			type: "get",
+//			url: _jsonUrl + "/module/front/findModuleByParentId?parentId=0",
+			url: _jsonUrl + "/module/front/findModuleByParentId?parentId=0",
+			async: true,
+			dataType: 'json',
+//			data: {
+//				pId: 0
+//			},
+			error: function() {
+				_contentBox.html('<p class="bui_ts_14 bui_tc_white_d24">导航读取失败</p>');
+			},
+			success: function(data) {
+//				console.log(data);
+				$.map(data.data, function(data) {
+					_list += '<a href="' + data.link+'?typeid='+data.id + '" channelName="' + data.name + '">' + data.name + '</a>';
+				});
+				_contentBox.html('<a href="index.html" channelName="首页">首页</a>'+_list);
+				//导航高亮
+				topNavActive();
+			}
+		});
+	};
+	//展开侧边导航
+	function dt_sideNav() {
+		buijs_side_show({
+			setid: 'dt_sideNav',
+			side: 'l',
+			margin: 'mr_48',
+			bgc: 'white',
+			barbgc: 'white',
+			title: false
+		});
+		$("#dt_sideNav").attr('onclick', 'javascript:buijs_side_close();');
+		var _contentBox = $("#dt_sideNav .bui_mo_b");
+		var _list = '';
+		/*var _userMain = '<hr/>' +
+			'<div class="bui_inline bui_p_24 bui_ta_c">' +
+			'<div class="bui_bds_4 bui_bdc_blue bui_round" data-bui_img="" style="width:128px;height:128px;"><img src="pic/face_002.jpg"/></div>' +
+			'<br/>' +
+			'<p class="bui_ts_12">欢迎您，永远的小白哥！</p>' +
+			'</div>';*/
+		$.map(demoData.topNav, function(data) {
+			_list += '<li class="bui_at_noline"><a href="' + data.url + '" channelName="' + data.channelName + '" class="bui_media bui_ptb_12 bui_plr_24">' +
+				'<div class="bui_media_l"><i class="fa ' + data.icon + ' fa-fw bui_fac_blue_l64"></i></div>' +
+				'<div class="bui_media_b">' + data.name + '</div>' +
+				'<div class="bui_media_r"><i class="fa fa-angle-right fa-fw bui_fac_white_d24"></i></div>' +
+				'</a>' +
+				'<hr/></li>';
+		});
+		_contentBox.html('<div class="bui_pb_24" id="dt_topNav_mobile"><hr/>' + _list + '</div>');
+		_contentBox.find('[data-bui_img]').buijs_img();
+		//导航高亮
+		topNavActive();
+	};
+	//导航高亮
+	function topNavActive() {
+		var _channelName = $("#channelName").val();
+		$("#dt_topNav_pc a,#dt_topNav_mobile a").map(function() {
+			if ($(this).attr('channelName') == _channelName) {
+				$(this).addClass('active');
+			}
+		});
+	};
+</script>

@@ -1,0 +1,29 @@
+body,ul,p,h1,h2,h3,h4,dl,dd,form,input,textarea,select,img { padding:0; margin:0; font-family:'微软雅黑'; }
+li { list-style:none; }
+img { border:none; }
+a { text-decoration:none; }
+a:hover { text-decoration:underline; }
+
+.all{ background: url(../images/body_bg.png);}
+
+.mainDiv{ width: 1000px; height: auto; margin: 0 auto;}
+.header{width: 1000px; text-align: center; padding-top:140px; }
+.header img{}
+.header h1{ color: #787878;  font-weight: normal;}
+.header h1 span{ color: #dc522d;}
+.loginDiv{ width: 612px; /*height: 300px;*/ margin:100px auto 0; }
+.loginDiv li{ width: 100%; height: 80px; position: relative; margin-bottom: 20px;}
+.loginDiv .username,.password{ width: 374px; height: 65px; border-radius: 10px; border:none; outline: none; color: #9e9e9e; text-indent: 20px; font-size: 22px; float: right; margin-right: 120px; margin-top: 7px; }
+.loginDiv .loginBtn{ width: 65px; height: 65px; border-radius: 5px; background:#067d9d; border:none; outline: none; cursor: pointer; color: #fff; font-size: 20px; position: absolute; right: 10px; bottom: 8px;}
+.fjh{ width: 374px; margin:0 auto 24px;}
+.fjh .dl{ color: #4aa7c0; display: inline-block; background: url(../images/denglu_fjh.png) no-repeat left center; padding-left: 43px; font-size: 18px; cursor: pointer;}
+.fjh .on{background: url(../images/denglu_fjh_checked.png) no-repeat left center;}
+.fjh .bd{ color: #349670; float: right;display: inline-block;background: url(../images/bangding_fjh.png) no-repeat right center; padding-right: 43px; font-size: 18px;}
+.content_bottom{ width:374px; margin: 0 auto; padding-bottom: 30px;}
+.content_bottom a input{ width: 136px; height: 34px; color:#4aa7c0; border:2px solid #4aa7c0; text-align: center; background: none; border-radius: 10px; outline: none; font-size: 16px; cursor: pointer;}
+.forgetPsw{ color: #787878; float: right; line-height: 34px; padding-right: 57px; font-size: 16px;}
+#footer{ background: #cccccc; width: 520px; height: 200px; margin:0 auto;  padding-top: 35px;}
+#footer p{color: #999999; text-align: center;}
+#footer ul{width: 126px; height: 24px; margin: auto; padding-top: 22px; padding-bottom: 90px;}
+#footer li{ background: url(../images/down.png) no-repeat;}
+#footer li a{color: #838383; padding-left: 40px; }

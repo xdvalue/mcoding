@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:tx="http://www.springframework.org/schema/tx"
+     xmlns:context="http://www.springframework.org/schema/context"
+     xmlns:aop="http://www.springframework.org/schema/aop"
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+    
+    <!-- 获取springcontext的工具类，由于很多类启东的时候，需要这个，所以尽量往前 -->
+    <bean class="com.mcoding.base.ui.utils.spring.SpringContextHolder" />
+    
+    <bean id="defaultThreadPool" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">  
+        <property name="corePoolSize" value="20" />
+        <property name="queueCapacity" value="50" />
+        <property name="maxPoolSize" value="200" />  
+        <property name="keepAliveSeconds" value="1800" />  
+    </bean>
+    
+    <bean id="applicationEventMulticaster" class="org.springframework.context.event.SimpleApplicationEventMulticaster">
+        <property name="taskExecutor" ref="defaultThreadPool"></property>
+    </bean>
+    
+    <!-- 引入jdbc配置文件 -->
+    <bean id="sysConfig" class="org.springframework.beans.factory.config.PropertiesFactoryBean">  
+       <property name="locations">  
+           <list>  
+               <value>classpath:/conf.properties</value>  
+           </list>  
+       </property>
+    </bean>   
+    <context:property-placeholder ignore-unresolvable="true" properties-ref="sysConfig"/>
+    
+    <!-- quartz 定时任务配置 -->
+    <bean id="customSchedulerFactoryBean" lazy-init="false" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" />
+    
+    <bean id="quartzManager" class="com.mcoding.base.ui.plugin.schedule.impl.QuartzManagerImpl">
+        <property name="scheduler" ref="customSchedulerFactoryBean"></property>
+    </bean>
+    
+    <!-- 开启bean类的注解支持 -->
+    <context:annotation-config />
+    
+    <!-- 扫描文件自动注入service开启 -->
+    <context:component-scan base-package="com.mcoding" />
+    
+    <!-- 开启AOP的注解支持的 -->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    
+    <!-- 数据源配置 -->   
+	<!-- 方式1：容器JNDI数据源 
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/weimobDB"/>-->
+
+    <!-- 方式2：c3p0连接池数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">  
+        <property name="driverClass" value="${db.driver.class}" />  
+        <property name="jdbcUrl" value="${db.url}" />  
+        <property name="user" value="${db.username}" />  
+        <property name="password" value="${db.password}" />  
+        <property name="initialPoolSize" value="5" />  
+        <property name="minPoolSize" value="5" />  
+        <property name="maxPoolSize" value="20" />  
+        <property name="maxStatements" value="100" />  
+        <property name="maxIdleTime" value="3600" />  
+        <property name="acquireIncrement" value="2" />  
+        <property name="acquireRetryAttempts" value="10" />  
+        <property name="acquireRetryDelay" value="600" />  
+        <property name="testConnectionOnCheckin" value="true" />  
+        <property name="idleConnectionTestPeriod" value="1200" />  
+        <property name="checkoutTimeout" value="30000" />  
+    </bean> 
+    
+    <!-- 开启注解事务功能 -->
+    <tx:annotation-driven />
+
+    <!-- 定义一个默认的事务隔离级别和传播级别 -->
+    <bean id="transactionDefinition" class="org.springframework.transaction.support.DefaultTransactionDefinition">
+        <property name="propagationBehaviorName" value="PROPAGATION_REQUIRED"/>
+        <property name="isolationLevelName" value="ISOLATION_READ_COMMITTED"/>
+    </bean>
+
+    <!-- 开启spring的事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    
+    <!-- myBatis 工厂类配置 SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" autowire="byName">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="com.mcoding.**.bean" />
+        <property name="configLocation" value="/WEB-INF/classes/mybatis-config.xml" />
+        <property name="mapperLocations" value="classpath*:com.mcoding.**.persistence" />
+        <!-- <property name="basePackage" value="cn.wechat.**.domain" /> not support wildcard-->
+    </bean>
+
+    <!-- 扫描 myBatis 的mapper组件 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.mcoding.**.persistence" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+    
+</beans>

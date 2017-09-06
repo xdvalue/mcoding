@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.base.member.persistence.member.MemberFollowerMapper" >
+  <resultMap id="BaseResultMap" type="com.mcoding.base.member.bean.member.MemberFollower" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="parent_name" property="parentName" jdbcType="VARCHAR" />
+    <result column="parent_head_img_url" property="parentHeadImgUrl" jdbcType="VARCHAR" />
+    <result column="follower_id" property="followerId" jdbcType="INTEGER" />
+    <result column="follower_name" property="followerName" jdbcType="VARCHAR" />
+    <result column="follower_head_img_url" property="followerHeadImgUrl" jdbcType="VARCHAR" />
+    <result column="follow_time" property="followTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, parent_id, parent_name, parent_head_img_url, follower_id, follower_name, follower_head_img_url, 
+    follow_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mcoding.base.member.bean.member.MemberFollowerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_member_follower
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_member_follower
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_member_follower
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcoding.base.member.bean.member.MemberFollowerExample" >
+    delete from t_member_follower
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcoding.base.member.bean.member.MemberFollower" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_member_follower (parent_id, parent_name, parent_head_img_url, 
+      follower_id, follower_name, follower_head_img_url, 
+      follow_time)
+    values (#{parentId,jdbcType=INTEGER}, #{parentName,jdbcType=VARCHAR}, #{parentHeadImgUrl,jdbcType=VARCHAR}, 
+      #{followerId,jdbcType=INTEGER}, #{followerName,jdbcType=VARCHAR}, #{followerHeadImgUrl,jdbcType=VARCHAR}, 
+      #{followTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcoding.base.member.bean.member.MemberFollower" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_member_follower
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="parentName != null" >
+        parent_name,
+      </if>
+      <if test="parentHeadImgUrl != null" >
+        parent_head_img_url,
+      </if>
+      <if test="followerId != null" >
+        follower_id,
+      </if>
+      <if test="followerName != null" >
+        follower_name,
+      </if>
+      <if test="followerHeadImgUrl != null" >
+        follower_head_img_url,
+      </if>
+      <if test="followTime != null" >
+        follow_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="parentName != null" >
+        #{parentName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentHeadImgUrl != null" >
+        #{parentHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="followerId != null" >
+        #{followerId,jdbcType=INTEGER},
+      </if>
+      <if test="followerName != null" >
+        #{followerName,jdbcType=VARCHAR},
+      </if>
+      <if test="followerHeadImgUrl != null" >
+        #{followerHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="followTime != null" >
+        #{followTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcoding.base.member.bean.member.MemberFollowerExample" resultType="java.lang.Integer" >
+    select count(*) from t_member_follower
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_member_follower
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentName != null" >
+        parent_name = #{record.parentName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentHeadImgUrl != null" >
+        parent_head_img_url = #{record.parentHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.followerId != null" >
+        follower_id = #{record.followerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.followerName != null" >
+        follower_name = #{record.followerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.followerHeadImgUrl != null" >
+        follower_head_img_url = #{record.followerHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.followTime != null" >
+        follow_time = #{record.followTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_member_follower
+    set id = #{record.id,jdbcType=INTEGER},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      parent_name = #{record.parentName,jdbcType=VARCHAR},
+      parent_head_img_url = #{record.parentHeadImgUrl,jdbcType=VARCHAR},
+      follower_id = #{record.followerId,jdbcType=INTEGER},
+      follower_name = #{record.followerName,jdbcType=VARCHAR},
+      follower_head_img_url = #{record.followerHeadImgUrl,jdbcType=VARCHAR},
+      follow_time = #{record.followTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcoding.base.member.bean.member.MemberFollower" >
+    update t_member_follower
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="parentName != null" >
+        parent_name = #{parentName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentHeadImgUrl != null" >
+        parent_head_img_url = #{parentHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="followerId != null" >
+        follower_id = #{followerId,jdbcType=INTEGER},
+      </if>
+      <if test="followerName != null" >
+        follower_name = #{followerName,jdbcType=VARCHAR},
+      </if>
+      <if test="followerHeadImgUrl != null" >
+        follower_head_img_url = #{followerHeadImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="followTime != null" >
+        follow_time = #{followTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcoding.base.member.bean.member.MemberFollower" >
+    update t_member_follower
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      parent_name = #{parentName,jdbcType=VARCHAR},
+      parent_head_img_url = #{parentHeadImgUrl,jdbcType=VARCHAR},
+      follower_id = #{followerId,jdbcType=INTEGER},
+      follower_name = #{followerName,jdbcType=VARCHAR},
+      follower_head_img_url = #{followerHeadImgUrl,jdbcType=VARCHAR},
+      follow_time = #{followTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.mcoding.base.member.bean.member.MemberFollowerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_member_follower
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

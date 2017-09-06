@@ -1,0 +1,30 @@
+@charset "utf-8";
+/** 登陆页样式 */
+body{ width:100%; height:100%; background:url(../images/loginbg.jpg) repeat; font-family:"微软雅黑"; margin:0; padding:0;}
+.mainbox{ width:450px; margin:0 auto; margin-top:180px; text-align:center;}
+.mainbox .xrlogin{ width:101px; height:117px;}
+.mainbox p{ height:65px; font-size:24px; letter-spacing:3px; line-height:45px; color:#FFF; margin:0;}
+.mainbox .intbg{ background:url(../images/intbg.png) no-repeat; width:320px; height:40px; margin:0 auto; margin-bottom:10px; font-size:16px;}
+.mainbox .intbg .span1{ color:#1f6095; line-height:40px; float: left; margin-left:15px;}
+.mainbox .intbg input{ width:200px; height:30px; border:none; background-color:inherit; float:left; text-indent:5px; color: #3635ff; margin-top:5px;}
+.mainbox .butbg{ background:url(../images/denglu.png) no-repeat; width:119px; height:40px; border:none; float:right; margin-right:67px;}
+
+/** 登陆后的首页样式*/
+.l-layout-top {background: #102A49;color: White;}
+.l-layout-bottom {background: #E5EDEF;text-align: center;}
+.loading {position: absolute;left: 0px;top: 0px;background: white url('../images/loading.gif') no-repeat center;width: 100%;height: 100%;z-index: 99999;}
+.l-topmenu{margin:0 auto;background:url('../images/topbg.gif') repeat-x;}
+.l-topmenu-logo{width: 100%;margin: auto;position: relative;height: 80px;background: url('../images/index_02.gif') left no-repeat;}
+.hd-logo {float:left;width:314px;height:80px;background:url('../images/logo.png') no-repeat 0 -5px;}
+.l-topmenu-welcome {height: 30px;width: 569px;position: absolute;right: 0px;top: 0px;}
+.admintu {width:430px; height:30px; padding-left:26px; text-align:right; line-height:30px; float:right;}
+.uld{line-height:30px;font:12px "Arial";width:370px;float:left;}
+.uld li{ display:inline; line-height:28px;  }
+.uld li a {color: #000;text-decoration: none;outline: none;}
+.uld li a:hover {color: #184785;outline: none;}
+.userColumn {width: 70px;word-break: keep-all;overflow: hidden;white-space: nowrap;background: url('../images/admintu.gif') left center no-repeat;padding-left: 20px;text-overflow: ellipsis;-o-text-overflow: ellipsis;line-height:32px;}
+.pwdCls {background: url('../images/gncd.gif') left top no-repeat;width: 70px;padding-left: 20px;height: 28px;}
+.logoutBtnCls {background: url('../images/zhuxiao.gif') left top no-repeat;width: 48px;padding-left: 20px;height: 28px;}
+
+
+

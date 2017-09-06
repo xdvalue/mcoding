@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.base.product.persistence.product.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.mcoding.base.product.bean.product.Product" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="bar_code" property="barCode" jdbcType="VARCHAR" />
+    <result column="fake_code" property="fakeCode" jdbcType="VARCHAR" />
+    <result column="number_code" property="numberCode" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="label" property="label" jdbcType="INTEGER" />
+    <result column="slogan" property="slogan" jdbcType="VARCHAR" />
+    <result column="cover_img" property="coverImg" jdbcType="VARCHAR" />
+    <result column="sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="sale_status" property="saleStatus" jdbcType="INTEGER" />
+    <result column="gift_exchange_status" property="giftExchangeStatus" jdbcType="VARCHAR" />
+    <result column="set_status" property="setStatus" jdbcType="INTEGER" />
+    <result column="limit_status" property="limitStatus" jdbcType="INTEGER" />
+    <result column="limit_quota" property="limitQuota" jdbcType="INTEGER" />
+    <result column="limit_buy_quota" property="limitBuyQuota" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" extends="BaseResultMap"  type="com.mcoding.base.product.bean.product.Product" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="introduce" property="introduce" jdbcType="LONGVARCHAR" />
+    <result column="summary" property="summary" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, store_id, product_name, bar_code, fake_code, number_code, type, label, slogan, 
+    cover_img, sequence, sale_status, gift_exchange_status, set_status, limit_status, 
+    limit_quota, limit_buy_quota, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    content, introduce, summary
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.mcoding.base.product.bean.product.ProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mcoding.base.product.bean.product.ProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcoding.base.product.bean.product.ProductExample" >
+    delete from t_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcoding.base.product.bean.product.Product" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_product (store_id, product_name, bar_code, 
+      fake_code, number_code, type, 
+      label, slogan, cover_img, 
+      sequence, sale_status, gift_exchange_status, 
+      set_status, limit_status, limit_quota, 
+      limit_buy_quota, create_time, update_time, 
+      content, introduce, summary
+      )
+    values (#{storeId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{barCode,jdbcType=VARCHAR}, 
+      #{fakeCode,jdbcType=VARCHAR}, #{numberCode,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{label,jdbcType=INTEGER}, #{slogan,jdbcType=VARCHAR}, #{coverImg,jdbcType=VARCHAR}, 
+      #{sequence,jdbcType=INTEGER}, #{saleStatus,jdbcType=INTEGER}, #{giftExchangeStatus,jdbcType=VARCHAR}, 
+      #{setStatus,jdbcType=INTEGER}, #{limitStatus,jdbcType=INTEGER}, #{limitQuota,jdbcType=INTEGER}, 
+      #{limitBuyQuota,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=LONGVARCHAR}, #{introduce,jdbcType=LONGVARCHAR}, #{summary,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcoding.base.product.bean.product.Product" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="barCode != null" >
+        bar_code,
+      </if>
+      <if test="fakeCode != null" >
+        fake_code,
+      </if>
+      <if test="numberCode != null" >
+        number_code,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="label != null" >
+        label,
+      </if>
+      <if test="slogan != null" >
+        slogan,
+      </if>
+      <if test="coverImg != null" >
+        cover_img,
+      </if>
+      <if test="sequence != null" >
+        sequence,
+      </if>
+      <if test="saleStatus != null" >
+        sale_status,
+      </if>
+      <if test="giftExchangeStatus != null" >
+        gift_exchange_status,
+      </if>
+      <if test="setStatus != null" >
+        set_status,
+      </if>
+      <if test="limitStatus != null" >
+        limit_status,
+      </if>
+      <if test="limitQuota != null" >
+        limit_quota,
+      </if>
+      <if test="limitBuyQuota != null" >
+        limit_buy_quota,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="introduce != null" >
+        introduce,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="barCode != null" >
+        #{barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fakeCode != null" >
+        #{fakeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="numberCode != null" >
+        #{numberCode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=INTEGER},
+      </if>
+      <if test="slogan != null" >
+        #{slogan,jdbcType=VARCHAR},
+      </if>
+      <if test="coverImg != null" >
+        #{coverImg,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="saleStatus != null" >
+        #{saleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="giftExchangeStatus != null" >
+        #{giftExchangeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="setStatus != null" >
+        #{setStatus,jdbcType=INTEGER},
+      </if>
+      <if test="limitStatus != null" >
+        #{limitStatus,jdbcType=INTEGER},
+      </if>
+      <if test="limitQuota != null" >
+        #{limitQuota,jdbcType=INTEGER},
+      </if>
+      <if test="limitBuyQuota != null" >
+        #{limitBuyQuota,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcoding.base.product.bean.product.ProductExample" resultType="java.lang.Integer" >
+    select count(*) from t_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_product
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.productName != null" >
+        product_name = #{record.productName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.barCode != null" >
+        bar_code = #{record.barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fakeCode != null" >
+        fake_code = #{record.fakeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.numberCode != null" >
+        number_code = #{record.numberCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.label != null" >
+        label = #{record.label,jdbcType=INTEGER},
+      </if>
+      <if test="record.slogan != null" >
+        slogan = #{record.slogan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coverImg != null" >
+        cover_img = #{record.coverImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sequence != null" >
+        sequence = #{record.sequence,jdbcType=INTEGER},
+      </if>
+      <if test="record.saleStatus != null" >
+        sale_status = #{record.saleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.giftExchangeStatus != null" >
+        gift_exchange_status = #{record.giftExchangeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.setStatus != null" >
+        set_status = #{record.setStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.limitStatus != null" >
+        limit_status = #{record.limitStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.limitQuota != null" >
+        limit_quota = #{record.limitQuota,jdbcType=INTEGER},
+      </if>
+      <if test="record.limitBuyQuota != null" >
+        limit_buy_quota = #{record.limitBuyQuota,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.introduce != null" >
+        introduce = #{record.introduce,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.summary != null" >
+        summary = #{record.summary,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_product
+    set id = #{record.id,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      bar_code = #{record.barCode,jdbcType=VARCHAR},
+      fake_code = #{record.fakeCode,jdbcType=VARCHAR},
+      number_code = #{record.numberCode,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      label = #{record.label,jdbcType=INTEGER},
+      slogan = #{record.slogan,jdbcType=VARCHAR},
+      cover_img = #{record.coverImg,jdbcType=VARCHAR},
+      sequence = #{record.sequence,jdbcType=INTEGER},
+      sale_status = #{record.saleStatus,jdbcType=INTEGER},
+      gift_exchange_status = #{record.giftExchangeStatus,jdbcType=VARCHAR},
+      set_status = #{record.setStatus,jdbcType=INTEGER},
+      limit_status = #{record.limitStatus,jdbcType=INTEGER},
+      limit_quota = #{record.limitQuota,jdbcType=INTEGER},
+      limit_buy_quota = #{record.limitBuyQuota,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      introduce = #{record.introduce,jdbcType=LONGVARCHAR},
+      summary = #{record.summary,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_product
+    set id = #{record.id,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      product_name = #{record.productName,jdbcType=VARCHAR},
+      bar_code = #{record.barCode,jdbcType=VARCHAR},
+      fake_code = #{record.fakeCode,jdbcType=VARCHAR},
+      number_code = #{record.numberCode,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      label = #{record.label,jdbcType=INTEGER},
+      slogan = #{record.slogan,jdbcType=VARCHAR},
+      cover_img = #{record.coverImg,jdbcType=VARCHAR},
+      sequence = #{record.sequence,jdbcType=INTEGER},
+      sale_status = #{record.saleStatus,jdbcType=INTEGER},
+      gift_exchange_status = #{record.giftExchangeStatus,jdbcType=VARCHAR},
+      set_status = #{record.setStatus,jdbcType=INTEGER},
+      limit_status = #{record.limitStatus,jdbcType=INTEGER},
+      limit_quota = #{record.limitQuota,jdbcType=INTEGER},
+      limit_buy_quota = #{record.limitBuyQuota,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcoding.base.product.bean.product.Product" >
+    update t_product
+    <set >
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="barCode != null" >
+        bar_code = #{barCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fakeCode != null" >
+        fake_code = #{fakeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="numberCode != null" >
+        number_code = #{numberCode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="label != null" >
+        label = #{label,jdbcType=INTEGER},
+      </if>
+      <if test="slogan != null" >
+        slogan = #{slogan,jdbcType=VARCHAR},
+      </if>
+      <if test="coverImg != null" >
+        cover_img = #{coverImg,jdbcType=VARCHAR},
+      </if>
+      <if test="sequence != null" >
+        sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="saleStatus != null" >
+        sale_status = #{saleStatus,jdbcType=INTEGER},
+      </if>
+      <if test="giftExchangeStatus != null" >
+        gift_exchange_status = #{giftExchangeStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="setStatus != null" >
+        set_status = #{setStatus,jdbcType=INTEGER},
+      </if>
+      <if test="limitStatus != null" >
+        limit_status = #{limitStatus,jdbcType=INTEGER},
+      </if>
+      <if test="limitQuota != null" >
+        limit_quota = #{limitQuota,jdbcType=INTEGER},
+      </if>
+      <if test="limitBuyQuota != null" >
+        limit_buy_quota = #{limitBuyQuota,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introduce != null" >
+        introduce = #{introduce,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mcoding.base.product.bean.product.Product" >
+    update t_product
+    set store_id = #{storeId,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      bar_code = #{barCode,jdbcType=VARCHAR},
+      fake_code = #{fakeCode,jdbcType=VARCHAR},
+      number_code = #{numberCode,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      label = #{label,jdbcType=INTEGER},
+      slogan = #{slogan,jdbcType=VARCHAR},
+      cover_img = #{coverImg,jdbcType=VARCHAR},
+      sequence = #{sequence,jdbcType=INTEGER},
+      sale_status = #{saleStatus,jdbcType=INTEGER},
+      gift_exchange_status = #{giftExchangeStatus,jdbcType=VARCHAR},
+      set_status = #{setStatus,jdbcType=INTEGER},
+      limit_status = #{limitStatus,jdbcType=INTEGER},
+      limit_quota = #{limitQuota,jdbcType=INTEGER},
+      limit_buy_quota = #{limitBuyQuota,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR},
+      introduce = #{introduce,jdbcType=LONGVARCHAR},
+      summary = #{summary,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcoding.base.product.bean.product.Product" >
+    update t_product
+    set store_id = #{storeId,jdbcType=INTEGER},
+      product_name = #{productName,jdbcType=VARCHAR},
+      bar_code = #{barCode,jdbcType=VARCHAR},
+      fake_code = #{fakeCode,jdbcType=VARCHAR},
+      number_code = #{numberCode,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      label = #{label,jdbcType=INTEGER},
+      slogan = #{slogan,jdbcType=VARCHAR},
+      cover_img = #{coverImg,jdbcType=VARCHAR},
+      sequence = #{sequence,jdbcType=INTEGER},
+      sale_status = #{saleStatus,jdbcType=INTEGER},
+      gift_exchange_status = #{giftExchangeStatus,jdbcType=VARCHAR},
+      set_status = #{setStatus,jdbcType=INTEGER},
+      limit_status = #{limitStatus,jdbcType=INTEGER},
+      limit_quota = #{limitQuota,jdbcType=INTEGER},
+      limit_buy_quota = #{limitBuyQuota,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="ResultMapWithBLOBs" parameterType="com.mcoding.base.product.bean.product.ProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_product
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+
+  <select id="findConditionByPage" parameterType="map" resultMap="BaseResultMap" >
+    <if test="categoryId != null" >
+    select p.* from t_product_category_ref pf,(
+    </if>
+      select
+      'true' as QUERYID,
+      <include refid="Base_Column_List" />
+      from t_product
+      <if test="_parameter != null" >
+        <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    <if test="categoryId != null" >
+    ) p
+    where
+      p.id = pf.product_id and pf.category_id = #{categoryId}
+    </if>
+    <if test="example.orderByClause != null" >
+      order by ${example.orderByClause}
+    </if>
+  </select>
+</mapper>

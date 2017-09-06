@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.base.sns.persistence.statistical.SnsStatisticalMapper" >
+  <select id="newUserForDayByPage" parameterType="map" resultType="map">
+    select count(*) newUser, logindate
+    from(
+      SELECT
+        t_member_point_record.member_name ,
+        DATE_FORMAT(t_member_point_record.create_time,'%Y-%m-%d')  logindate
+      FROM
+        t_member_point_record
+      WHERE
+        t_member_point_record.store_id = #{storeId,jdbcType=INTEGER} AND
+        <if test="startTime != null" >
+          t_member_point_record.create_time >= #{startTime,jdbcType=TIMESTAMP} AND 
+        </if>
+        <if test="endTime != null" >
+          t_member_point_record.create_time <![CDATA[ <  ]]> #{endTime,jdbcType=TIMESTAMP} AND
+        </if>
+        t_member_point_record.module_type = 100 AND
+        t_member_point_record.source_type = 104
+    ) a
+    group by a.logindate
+    order by a.logindate desc
+   
+  </select>
+  <select id="loginedUserForDayByPage" parameterType="map" resultType="map">
+    select count(*) loginedUser, logindate
+    from(
+      SELECT
+        t_member_point_record.member_name ,
+        DATE_FORMAT(t_member_point_record.create_time,'%Y-%m-%d')  logindate
+      FROM
+        t_member_point_record
+      WHERE
+        <if test="startTime != null" >
+          t_member_point_record.create_time >= #{startTime,jdbcType=TIMESTAMP} AND 
+        </if>
+        <if test="endTime != null" >
+          t_member_point_record.create_time <![CDATA[ <  ]]> #{endTime,jdbcType=TIMESTAMP} AND
+        </if>
+        t_member_point_record.store_id = #{storeId,jdbcType=INTEGER} AND
+        t_member_point_record.module_type = 100 AND
+        t_member_point_record.source_type in ( 104, 103)
+    ) a
+    group by a.logindate
+    order by a.logindate desc
+  </select>
+  <select id="postCountForDayByPage" parameterType="map" resultType="map">
+    select count(*) postCount, createtime
+    from (
+      SELECT
+        DATE_FORMAT(t_sns_post.create_time,'%Y-%m-%d') createtime,
+        t_sns_post.id
+      FROM
+        t_sns_post
+      WHERE
+        <if test="startTime != null" >
+          t_sns_post.create_time >= #{startTime,jdbcType=TIMESTAMP} AND 
+        </if>
+        <if test="endTime != null" >
+          t_sns_post.create_time <![CDATA[ <  ]]> #{endTime,jdbcType=TIMESTAMP} AND
+        </if>
+          t_sns_post.store_id = #{storeId,jdbcType=INTEGER} 
+    ) a
+    group by a.createtime
+    order by a.createtime desc
+  </select>
+  <select id="commentCountForDayByPage" parameterType="map" resultType="map">
+    select count(*) commentCount, createtime
+    from (
+      SELECT
+        DATE_FORMAT(t_sns_comment.create_time,'%Y-%m-%d') createtime,
+        t_sns_comment.id
+      FROM
+        t_sns_comment
+      WHERE
+        <if test="startTime != null" >
+          t_sns_comment.create_time >= #{startTime,jdbcType=TIMESTAMP} AND 
+        </if>
+        <if test="endTime != null" >
+          t_sns_comment.create_time <![CDATA[ <  ]]> #{endTime,jdbcType=TIMESTAMP} AND
+        </if>
+          t_sns_comment.store_id = #{storeId,jdbcType=INTEGER} 
+    ) a
+    group by a.createtime
+    order by a.createtime desc
+  </select>
+  <select id="postViewCount" parameterType="map" resultType="int">
+    SELECT
+      Sum(t_sns_post_ext_info.view_num) postViewCount
+    FROM
+      t_sns_post_ext_info
+  </select>
+</mapper>

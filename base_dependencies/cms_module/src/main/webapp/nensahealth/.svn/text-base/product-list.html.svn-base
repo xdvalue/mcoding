@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>{{language('Welcome toNensaHealth','灵鲨官网')}}</title>
+		<script src="js/workSpace.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body class="bui_fs_12 nensahealth bui_bgc_black">
+		<com-header channel="product"></com-header>
+		<section class="bui_p_48_tb bui_bgc_white">
+			<div class="bui_auto_w">
+				<div class="bui_row_p_64">
+					<!--侧边菜单-->
+					<div class="bui_col_3">
+						<div class="bui_row_p_24">
+							<div>
+								<dl class="bui_ta_c bui_at_noline">
+									<dt class="bui_bgc_blue bui_bds_1 bui_bdc_blue bui_fc_white bui_p_12 bui_ta_c bui_radius bui_fs_16">{{language('产品中心','product')}}</dt>
+									<dd class="bui_bgc_silver_l bui_m_12_t bui_radius bui_bds_1 bui_bdc_silver_l" style="overflow: hidden;">
+										<li class="bui_bgc_white_f">
+											<a href="product-list.html" class="bui_media bui_vm bui_p_12" :class="!url.typeId?'bui_bgc_blue bui_fc_white':'bui_bgc_white_h bui_fc_black'">
+												<div class="bui_media_b">
+													{{language('促销信息','Promotion')}}
+												</div>
+												<div class="bui_media_r">
+													<i class="fa fa-angle-right fa-fw"></i>
+												</div>
+											</a>
+										</li>
+										<template v-for="data in page.side.queryResult">
+											<li class="bui_bgc_white_f bui_bds_1_t bui_bdc_silver_l">
+												<a href="product-list.html?typeId={{data.id}}" class="bui_media bui_vm bui_p_12" :class="url.typeId==data.id?'bui_bgc_blue bui_fc_white':'bui_bgc_white_h bui_fc_black'">
+													<div class="bui_media_b">
+														{{language(data.title,data.subTitle)}}
+													</div>
+													<div class="bui_media_r">
+														<i class="fa fa-angle-right fa-fw"></i>
+													</div>
+												</a>
+											</li>
+										</template>
+									</dd>
+								</dl>
+							</div>
+
+						</div>
+
+					</div>
+					<!--侧边菜单-->
+					<div class="bui_col_9">
+						<!--促销活动-->
+						<template v-if="!url.typeId">
+							<div class="bui_row_p_24 bui_at_noline">
+								<template v-for="data in page.content.queryResult">
+									<div>
+										<a href="product-article-detail.html?articleId={{data.id}}" class="bui_radius bui_bgc_blue bui_bgc_yellow_h bui_p_6 bui_fc_black bui_fc_yellow_h bui_block">
+											<div class="bui_radius bui_bgc_white bui_media bui_vm bui_p_32">
+												<div class="bui_media_b">
+													<p class="bui_fs_20">{{language(data.title,data.subTitle)}}</p>
+													<hr class="bui_m_12_tb bui_bdc_silver_l" />
+													<p class="bui_fs_12 bui_fc_silver_d">{{language(data.summary,data.summary)}}</p>
+												</div>
+												<div class="bui_media_r bui_p_32_l" v-if="data.coverImage">
+													<img :src="data.coverImage" style="width: 10rem;" />
+												</div>
+											</div>
+										</a>
+									</div>
+								</template>
+							</div>
+							<div class="bui_ta_c bui_p_24">
+								<com-page :data="page.content" :size="3"></com-page>
+							</div>
+						</template>
+						<!--促销活动-->
+						<!--产品列表-->
+						<template v-if="url.typeId">
+							<div class="bui_avg_3 bui_row_p_48 bui_at_noline">
+								<template v-for="data in page.content.queryResult">
+									<li>
+										<a href="product-detail.html?productId={{data.id}}" class="bui_bgc_silver_l bui_bgc_yellow_h bui_fc_black bui_fc_white_h bui_block">
+											<div style="padding: 2px;">
+												<div class="bui_bgc_white" buijs_imgadapt data-ratio="1:1">
+													<img :src="data.coverImg" />
+												</div>
+
+											</div>
+											<div class="bui_ta_c bui_p_12">
+												<h5 class="bui_unstrong bui_fs_14">{{language(data.productName,data.productName)}}</h5>
+
+											</div>
+										</a>
+									</li>
+								</template>
+							</div>
+							<div class="bui_ta_c bui_p_24">
+								<com-page :data="page.content" :size="3"></com-page>
+							</div>
+						</template>
+						<!--产品列表-->
+					</div>
+				</div>
+			</div>
+
+		</section>
+		<com-footer></com-footer>
+
+	</body>
+	<script type="text/javascript">
+		buijs.ready(function() {
+			//获得分类列表
+			buiVue.vueGetJson({
+				url: workSpace.jsonUrlDemo + 'product-type.json',
+				vueName: 'page.side',
+				success: function() {
+					//促销列表
+					if(!vm.url.typeId) {
+						buiVue.vueGetJson({
+							url: workSpace.jsonUrl + 'article/front/selectModuleByPage',
+							vueName: 'page.content',
+							data: {
+								iDisplayStart: buijs.url.return('pageNo') ? buijs.url.return('pageNo') : 1,
+								iDisplayLength: 5,
+								moduleId: 16
+							}
+
+						});
+					}
+					//产品列表
+					else {
+						buiVue.vueGetJson({
+							url: workSpace.jsonUrl + '/product/front/findConditionByPage',
+							vueName: 'page.content',
+							data: {
+								pageNo: vm.url.pageNo ? vm.url.pageNo : 1,
+								pageSize: 12
+							},
+							success: function(data) {
+								setTimeout(function() {
+									buijs.img.adapt.set($("[buijs_imgadapt]"))
+								})
+							}
+						})
+					}
+				}
+			});
+
+		});
+	</script>
+
+</html>

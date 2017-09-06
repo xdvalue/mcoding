@@ -1,0 +1,47 @@
+<div id="module">
+	<p class="bui_ta_c bui_p_24 bui_tc_white_d48"><i class="fa fa-circle-o-notch fa-spin"></i> 正在处理中...</p>
+</div>
+
+<script type="text/javascript">
+	var oneLevelArray= [];
+	var twoLevelArray= [];
+	var contentList= '';
+	var _type='';
+	$.ajax({
+		type: 'get',
+		url: _jsonUrl+ 'snsModule/front/findAllModules',
+		dataType: 'json',
+		success: function(data) {
+			$.map(data.data,function(item){
+				if (item.parentId=="0") {
+					oneLevelArray.push(item);
+
+				}else if (item.parentId!="0") {
+					twoLevelArray.push(item)
+				}
+			});
+
+			oneLevelArray && $.map(oneLevelArray,function(item) {
+				var twoList = '';
+				$.map(twoLevelArray,function(A){
+					if (A.parentId == item.id) {
+						//alert(_type)
+						twoList+='<a href="javascript:clickA(\''+A.name+'\','+A.id+');" class="bui_bgc_white bui_block module_li_a" style="text-align: left">'+A.name+'</a>';
+					}
+				});
+				var _oneList= '<li class="bui_bgc_white"><p class="bui_ts_15 bui_ptb_6 bui_plr_12 bui_tc_white_d72" style="background-color: #F0F0F0">'+item.name+'</p><hr/><div class="bui_plr_24">'+twoList+'</div></li>';
+				contentList+=_oneList;
+			});
+			$("#module").html(contentList);
+		},
+		error: function (data,reo){
+			buijs_alert({
+				content: "网络超时,请刷新重试。("+data.status+":"+reo+")"
+			})
+		}
+	});
+
+	function clickA (typeName,id) {
+		window.location.href= "community_list.html?typeName="+typeName+"&id="+id;
+	}
+</script>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>base_dependencies</artifactId>
+        <groupId>com.mcoding.base</groupId>
+        <version>2.1.1-RELEASE</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>order_module</artifactId>
+
+    <packaging>war</packaging>
+    <name>order_module Maven Webapp</name>
+    <url>http://maven.apache.org</url>
+
+    <properties>
+        <com.mcoding>2.1.1-RELEASE</com.mcoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.mcoding.base</groupId>
+            <artifactId>base_module</artifactId>
+            <version>${com.mcoding}</version>
+            <type>jar</type>
+            <classifier>classes</classifier>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+			<groupId>com.mcoding.base</groupId>
+			<artifactId>member_module</artifactId>
+			<version>${com.mcoding}</version>
+			<type>jar</type>
+			<classifier>classes</classifier>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.mcoding.base</groupId>
+			<artifactId>product_module</artifactId>
+			<version>${com.mcoding}</version>
+			<classifier>classes</classifier>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mcoding.base</groupId>
+			<artifactId>product_module</artifactId>
+			<version>${com.mcoding}</version>
+			<type>war</type>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+    </dependencies>
+    <build>
+        <finalName>order_module</finalName>
+    </build>
+</project>

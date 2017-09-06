@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.base.sns.persistence.post.SnsPostMapper" >
+  <resultMap id="BaseResultMap" type="com.mcoding.base.sns.bean.post.SnsPost" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="memeber_id" property="memeberId" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="member_img_url" property="memberImgUrl" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="module_id" property="moduleId" jdbcType="INTEGER" />
+    <result column="module_name" property="moduleName" jdbcType="VARCHAR" />
+    <result column="comment_num" property="commentNum" jdbcType="INTEGER" />
+    <result column="like_num" property="likeNum" jdbcType="INTEGER" />
+    <result column="dislike_num" property="dislikeNum" jdbcType="INTEGER" />
+    <result column="type_flag" property="typeFlag" jdbcType="INTEGER" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="store_name" property="storeName" jdbcType="VARCHAR" />
+    <result column="is_enable" property="isEnable" jdbcType="INTEGER" />
+    <result column="is_check" property="isCheck" jdbcType="INTEGER" />
+    <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="order_in_home" property="orderInHome" jdbcType="INTEGER" />
+    <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="memeber_id"  property="member" jdbcType="INTEGER" typeHandler="com.mcoding.base.member.utils.mybatis.MemberTypeHandler"/>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.mcoding.base.sns.bean.post.SnsPost" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithImgs" type="com.mcoding.base.sns.bean.post.SnsPost" extends="ResultMapWithBLOBs" >
+     <collection property="postImgs" column="id" ofType="com.mcoding.base.sns.bean.post.SnsPostImg" 
+         select="com.mcoding.base.sns.persistence.post.SnsPostImgMapper.selectByPostId">
+     </collection>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, open_id, memeber_id, member_name, member_img_url, title, module_id, module_name, 
+    comment_num, like_num, dislike_num, type_flag, store_id, store_name, is_enable, is_check, 
+    order_num, order_in_home, reply_time, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.mcoding.base.sns.bean.post.SnsPostExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_sns_post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mcoding.base.sns.bean.post.SnsPostExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_sns_post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithImgs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_sns_post
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_sns_post
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcoding.base.sns.bean.post.SnsPostExample" >
+    delete from t_sns_post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcoding.base.sns.bean.post.SnsPost" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_sns_post (open_id, memeber_id, member_name, 
+      member_img_url, title, module_id, 
+      module_name, comment_num, like_num, 
+      dislike_num, type_flag, store_id, 
+      store_name, is_enable, is_check, 
+      order_num, order_in_home, reply_time, 
+      create_time, update_time, content
+      )
+    values (#{openId,jdbcType=VARCHAR}, #{memeberId,jdbcType=INTEGER}, #{memberName,jdbcType=VARCHAR}, 
+      #{memberImgUrl,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{moduleId,jdbcType=INTEGER}, 
+      #{moduleName,jdbcType=VARCHAR}, #{commentNum,jdbcType=INTEGER}, #{likeNum,jdbcType=INTEGER}, 
+      #{dislikeNum,jdbcType=INTEGER}, #{typeFlag,jdbcType=INTEGER}, #{storeId,jdbcType=INTEGER}, 
+      #{storeName,jdbcType=VARCHAR}, #{isEnable,jdbcType=INTEGER}, #{isCheck,jdbcType=INTEGER}, 
+      #{orderNum,jdbcType=INTEGER}, #{orderInHome,jdbcType=INTEGER}, #{replyTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcoding.base.sns.bean.post.SnsPost" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_sns_post
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="memeberId != null" >
+        memeber_id,
+      </if>
+      <if test="memberName != null" >
+        member_name,
+      </if>
+      <if test="memberImgUrl != null" >
+        member_img_url,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="moduleId != null" >
+        module_id,
+      </if>
+      <if test="moduleName != null" >
+        module_name,
+      </if>
+      <if test="commentNum != null" >
+        comment_num,
+      </if>
+      <if test="likeNum != null" >
+        like_num,
+      </if>
+      <if test="dislikeNum != null" >
+        dislike_num,
+      </if>
+      <if test="typeFlag != null" >
+        type_flag,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="storeName != null" >
+        store_name,
+      </if>
+      <if test="isEnable != null" >
+        is_enable,
+      </if>
+      <if test="isCheck != null" >
+        is_check,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="orderInHome != null" >
+        order_in_home,
+      </if>
+      <if test="replyTime != null" >
+        reply_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="memeberId != null" >
+        #{memeberId,jdbcType=INTEGER},
+      </if>
+      <if test="memberName != null" >
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberImgUrl != null" >
+        #{memberImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleId != null" >
+        #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="moduleName != null" >
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentNum != null" >
+        #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="likeNum != null" >
+        #{likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="dislikeNum != null" >
+        #{dislikeNum,jdbcType=INTEGER},
+      </if>
+      <if test="typeFlag != null" >
+        #{typeFlag,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null" >
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isCheck != null" >
+        #{isCheck,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="orderInHome != null" >
+        #{orderInHome,jdbcType=INTEGER},
+      </if>
+      <if test="replyTime != null" >
+        #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcoding.base.sns.bean.post.SnsPostExample" resultType="java.lang.Integer" >
+    select count(*) from t_sns_post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_sns_post
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.openId != null" >
+        open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memeberId != null" >
+        memeber_id = #{record.memeberId,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberName != null" >
+        member_name = #{record.memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberImgUrl != null" >
+        member_img_url = #{record.memberImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleId != null" >
+        module_id = #{record.moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleName != null" >
+        module_name = #{record.moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentNum != null" >
+        comment_num = #{record.commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.likeNum != null" >
+        like_num = #{record.likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.dislikeNum != null" >
+        dislike_num = #{record.dislikeNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeFlag != null" >
+        type_flag = #{record.typeFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.storeName != null" >
+        store_name = #{record.storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isEnable != null" >
+        is_enable = #{record.isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="record.isCheck != null" >
+        is_check = #{record.isCheck,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNum != null" >
+        order_num = #{record.orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderInHome != null" >
+        order_in_home = #{record.orderInHome,jdbcType=INTEGER},
+      </if>
+      <if test="record.replyTime != null" >
+        reply_time = #{record.replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_sns_post
+    set id = #{record.id,jdbcType=INTEGER},
+      open_id = #{record.openId,jdbcType=VARCHAR},
+      memeber_id = #{record.memeberId,jdbcType=INTEGER},
+      member_name = #{record.memberName,jdbcType=VARCHAR},
+      member_img_url = #{record.memberImgUrl,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      module_id = #{record.moduleId,jdbcType=INTEGER},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      comment_num = #{record.commentNum,jdbcType=INTEGER},
+      like_num = #{record.likeNum,jdbcType=INTEGER},
+      dislike_num = #{record.dislikeNum,jdbcType=INTEGER},
+      type_flag = #{record.typeFlag,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      store_name = #{record.storeName,jdbcType=VARCHAR},
+      is_enable = #{record.isEnable,jdbcType=INTEGER},
+      is_check = #{record.isCheck,jdbcType=INTEGER},
+      order_num = #{record.orderNum,jdbcType=INTEGER},
+      order_in_home = #{record.orderInHome,jdbcType=INTEGER},
+      reply_time = #{record.replyTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_sns_post
+    set id = #{record.id,jdbcType=INTEGER},
+      open_id = #{record.openId,jdbcType=VARCHAR},
+      memeber_id = #{record.memeberId,jdbcType=INTEGER},
+      member_name = #{record.memberName,jdbcType=VARCHAR},
+      member_img_url = #{record.memberImgUrl,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      module_id = #{record.moduleId,jdbcType=INTEGER},
+      module_name = #{record.moduleName,jdbcType=VARCHAR},
+      comment_num = #{record.commentNum,jdbcType=INTEGER},
+      like_num = #{record.likeNum,jdbcType=INTEGER},
+      dislike_num = #{record.dislikeNum,jdbcType=INTEGER},
+      type_flag = #{record.typeFlag,jdbcType=INTEGER},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      store_name = #{record.storeName,jdbcType=VARCHAR},
+      is_enable = #{record.isEnable,jdbcType=INTEGER},
+      is_check = #{record.isCheck,jdbcType=INTEGER},
+      order_num = #{record.orderNum,jdbcType=INTEGER},
+      order_in_home = #{record.orderInHome,jdbcType=INTEGER},
+      reply_time = #{record.replyTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcoding.base.sns.bean.post.SnsPost" >
+    update t_sns_post
+    <set >
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="memeberId != null" >
+        memeber_id = #{memeberId,jdbcType=INTEGER},
+      </if>
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberImgUrl != null" >
+        member_img_url = #{memberImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleId != null" >
+        module_id = #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="moduleName != null" >
+        module_name = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="commentNum != null" >
+        comment_num = #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="likeNum != null" >
+        like_num = #{likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="dislikeNum != null" >
+        dislike_num = #{dislikeNum,jdbcType=INTEGER},
+      </if>
+      <if test="typeFlag != null" >
+        type_flag = #{typeFlag,jdbcType=INTEGER},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="storeName != null" >
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null" >
+        is_enable = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isCheck != null" >
+        is_check = #{isCheck,jdbcType=INTEGER},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+      <if test="orderInHome != null" >
+        order_in_home = #{orderInHome,jdbcType=INTEGER},
+      </if>
+      <if test="replyTime != null" >
+        reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mcoding.base.sns.bean.post.SnsPost" >
+    update t_sns_post
+    set open_id = #{openId,jdbcType=VARCHAR},
+      memeber_id = #{memeberId,jdbcType=INTEGER},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      member_img_url = #{memberImgUrl,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      module_id = #{moduleId,jdbcType=INTEGER},
+      module_name = #{moduleName,jdbcType=VARCHAR},
+      comment_num = #{commentNum,jdbcType=INTEGER},
+      like_num = #{likeNum,jdbcType=INTEGER},
+      dislike_num = #{dislikeNum,jdbcType=INTEGER},
+      type_flag = #{typeFlag,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      is_enable = #{isEnable,jdbcType=INTEGER},
+      is_check = #{isCheck,jdbcType=INTEGER},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      order_in_home = #{orderInHome,jdbcType=INTEGER},
+      reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcoding.base.sns.bean.post.SnsPost" >
+    update t_sns_post
+    set open_id = #{openId,jdbcType=VARCHAR},
+      memeber_id = #{memeberId,jdbcType=INTEGER},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      member_img_url = #{memberImgUrl,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      module_id = #{moduleId,jdbcType=INTEGER},
+      module_name = #{moduleName,jdbcType=VARCHAR},
+      comment_num = #{commentNum,jdbcType=INTEGER},
+      like_num = #{likeNum,jdbcType=INTEGER},
+      dislike_num = #{dislikeNum,jdbcType=INTEGER},
+      type_flag = #{typeFlag,jdbcType=INTEGER},
+      store_id = #{storeId,jdbcType=INTEGER},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      is_enable = #{isEnable,jdbcType=INTEGER},
+      is_check = #{isCheck,jdbcType=INTEGER},
+      order_num = #{orderNum,jdbcType=INTEGER},
+      order_in_home = #{orderInHome,jdbcType=INTEGER},
+      reply_time = #{replyTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="ResultMapWithImgs" parameterType="com.mcoding.base.sns.bean.post.SnsPostExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_sns_post
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <update id="addOrRemoveLike" parameterType="map">
+    update
+    t_sns_post
+    set
+    <choose >
+      <when test="isLike == true" >
+      like_num = like_num + 1
+      </when>
+      <otherwise>
+      like_num = like_num - 1
+      </otherwise>
+    </choose>
+    where
+      t_sns_post.id = #{postId,jdbcType=INTEGER}
+  </update>
+  <update id="addOrRemoveDislike" parameterType="map">
+    update
+    t_sns_post
+    set
+    <choose >
+      <when test="isDisLike == true" >
+      dislike_num = dislike_num + 1
+      </when>
+      <otherwise>
+      dislike_num = dislike_num - 1
+      </otherwise>
+    </choose>
+    where
+      t_sns_post.id = #{postId,jdbcType=INTEGER}
+  </update>
+  <!-- <update id="addOrRemoveComment" parameterType="map">
+  	update
+    	t_sns_post
+    set
+    <choose >
+      <when test="isAdd == true" >
+      	comment_num = comment_num + 1
+      </when>
+      <otherwise>
+      	comment_num = comment_num - 1
+      </otherwise>
+    </choose>
+    where t_sns_post.id = #{postId,jdbcType=INTEGER}
+  </update> -->
+  
+  <update id="updateReplyTimeByPostId" parameterType="map">
+  	update 
+  		t_sns_post 
+  	set 
+  		reply_time = CURRENT_TIMESTAMP 
+  	WHERE id = #{postId,jdbcType=INTEGER}
+  </update>
+  <update  id="updateOrderNumAsMax" parameterType="map">
+     update t_sns_post,(
+       SELECT
+         (Max(t_sns_post.order_num) + 1) as m
+       FROM
+         t_sns_post
+       WHERE t_sns_post.store_id = #{storeId,jdbcType=INTEGER}
+       ) postmax
+     set t_sns_post.order_num = postmax.m
+     where t_sns_post.id = #{postId,jdbcType=INTEGER}
+  </update>
+  <update  id="updateOrderNumInHomeAsMax" parameterType="map">
+     update t_sns_post,(
+       SELECT
+         (Max(t_sns_post.order_in_home) + 1) as m
+       FROM
+         t_sns_post
+       WHERE t_sns_post.store_id = #{storeId,jdbcType=INTEGER}
+       ) postmax
+     set t_sns_post.order_in_home = postmax.m
+     where t_sns_post.id = #{postId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

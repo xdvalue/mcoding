@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>{{language('Welcome toNensaHealth','灵鲨官网')}}</title>
+		<script src="js/workSpace.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body class="bui_fs_12 nensahealth bui_bgc_black">
+		<com-header channel="Encyclopedia"></com-header>
+		<section class="bui_p_48_tb bui_bgc_white">
+			<div class="bui_auto_w">
+				<div class="bui_row_p_64">
+					<!--侧边菜单-->
+					<div class="bui_col_3">
+						<div class="bui_row_p_24">
+							<div>
+								<dl class="bui_ta_c bui_at_noline">
+									<dt class="bui_bgc_blue bui_bds_1 bui_bdc_blue bui_fc_white bui_p_12 bui_ta_c bui_radius bui_fs_16">灵鲨知道</dt>
+									<dd v-if="page.side.data.length!=0" class="bui_bgc_silver_l bui_m_12_t bui_radius bui_bds_1 bui_bdc_silver_l" style="overflow: hidden;">
+										<template v-for="data in page.side.data">
+											<li class="bui_bgc_white_f" :class="$index!=0?'bui_bds_1_t bui_bdc_silver_l':null">
+												<a href="encyclopedia-list.html?typeId={{data.id}}" class="bui_media bui_vm bui_p_12" :class="page.content.data.moduleId==data.id?'bui_bgc_blue bui_fc_white':'bui_bgc_white_h bui_fc_black'">
+													<div class="bui_media_b">
+														{{language(data.name,data.code)}}
+													</div>
+													<div class="bui_media_r">
+														<i class="fa fa-angle-right fa-fw"></i>
+													</div>
+												</a>
+											</li>
+										</template>
+									</dd>
+								</dl>
+							</div>
+
+						</div>
+					</div>
+					<!--侧边菜单-->
+					<div class="bui_col_9">
+						<div v-bluebox>
+							<template v-if="!page.content">
+								<com-unfind style="height:480px;"></com-unfind>
+							</template>
+							<template v-if="page.content">
+								<p class="bui_fs_24 bui_fc_blue">{{language(page.content.data.title,page.content.data.title)}}</p>
+								<hr class="bui_m_24_tb" />
+
+								<div class="bui_bgc_silver_l bui_media bui_p_24 bui_radius">
+									<div class="bui_media_l">
+										<img src="{{page.content.data.coverImage}}" style="width: 4rem;" />
+									</div>
+									<div class="bui_media_b">
+										{{language(page.content.data.summary,page.content.data.summary)}}
+									</div>
+								</div>
+
+								<div class="nensahealth-content bui_fs_14 bui_m_24_t">
+									{{{language(page.content.data.content,page.content.data.content)}}}
+								</div>
+							</template>
+
+						</div>
+						<!--<pre>{{page.content|json}}</pre>-->
+					</div>
+				</div>
+			</div>
+
+		</section>
+		<com-footer></com-footer>
+	</body>
+	<script type="text/javascript">
+		buijs.ready(function() {
+			//获得分类列表
+			buiVue.vueGetJson({
+				url: workSpace.jsonUrl + 'module/front/findModuleByParentId',
+				data: {
+					parentId: 3
+				},
+				vueName: 'page.side',
+				success: function(data) {
+					//获得文章内容
+					buiVue.vueGetJson({
+						url: workSpace.jsonUrl + 'article/front/findByArticleId',
+						data: {
+							articleId: vm.url.articleId
+						},
+						vueName: 'page.content',
+					});
+				}
+			});
+
+		});
+	</script>
+
+</html>

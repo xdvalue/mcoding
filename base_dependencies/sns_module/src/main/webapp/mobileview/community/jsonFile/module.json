@@ -1,0 +1,93 @@
+{
+	"data": [
+		{
+			"id": "1",
+			"level": "1",
+			"name": "每日没加产品",
+			"parentId": "0"
+		},
+		{
+			"id": "2",
+			"level": "1",
+			"name": "加粉乐园",
+			"parentId": "0"
+		},
+		{
+			"id": "3",
+			"level": "1",
+			"name": "社区生活",
+			"parentId": "0"
+		},
+		{
+			"id": "4",
+			"level": "2",
+			"name": "鱼油软胶囊",
+			"parentId": "1"
+		},
+		{
+			"id": "5",
+			"level": "2",
+			"name": "鱼油软胶囊",
+			"parentId": "1"
+		},
+		{
+			"id": "6",
+			"level": "2",
+			"name": "维生素C",
+			"parentId": "1"
+		},{
+			"id": "7",
+			"level": "2",
+			"name": "维生素A",
+			"parentId": "1"
+		},
+		{
+			"id": "8",
+			"level": "2",
+			"name": "维生素B",
+			"parentId": "1"
+		},
+		{
+			"id": "9",
+			"level": "2",
+			"name": "维生素D",
+			"parentId": "1"
+		},
+		{
+			"id": "10",
+			"level": "2",
+			"name": "优惠活动",
+			"parentId": "2"
+		},
+		{
+			"id": "11",
+			"level": "2",
+			"name": "加粉杂烩",
+			"parentId": "2"
+		},
+		{
+			"id": "13",
+			"level": "2",
+			"name": "每日每加大本营",
+			"parentId": "3"
+		},
+		{
+			"id": "14",
+			"level": "2",
+			"name": "谈天说地",
+			"parentId": "3"
+		},
+		{
+			"id": "15",
+			"level": "2",
+			"name": "社区办公室",
+			"parentId": "3"
+		},
+		{
+			"id": "16",
+			"level": "2",
+			"name": "每日每加那些事儿",
+			"parentId": "3"
+		}
+	]
+}

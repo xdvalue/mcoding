@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="UTF-8">
+        <script src="workspace.js" type="text/javascript" charset="utf-8"></script>
+        <title>数据价值网</title>
+        <script type="text/javascript">
+            //插入banner数据
+            var i = new Index();
+                $(function() {
+                    //buijs_showloading();
+                	i.getBannerList();
+                    i.getTagList();
+//                  i.getObjectList();
+                });
+                function Index() {
+                    this.indexArticleList;
+                }
+//              ok
+            Index.prototype.getBannerList = function()  {
+                var _this = this;
+                var postData = new Object();
+                postData.articleProp=2
+                
+                postData.iDisplayStart = 0;
+                postData.iDisplayLength = 5;
+//              $.getJSON(_jsonUrl + "/btApi/queryArticlesByTitleIdByPage.html",postData, function(result){
+//              $.getJSON(_jsonUrl + "/article/front/queryArticlePage",postData, function(result){
+                $.getJSON(_jsonUrl + "/article/front/selectTypeByPage?typeId=2",postData, function(result){
+					var _contentBox = $("#indexBanner_pc .indexBanner,#indexBanner_mobile .indexBanner");
+                	var _list = ''
+					var data = result.queryResult;
+					for (var i = 0; i < data.length ; i ++) {
+                        _list += '<a href="news_detail.html?article&newsId='+ data[i].id + '&articleId='+data[i].id+'"  class="item bui_block" data-bui_img=""><img src="' + data[i].thumbnail + '"/><div class="bui_bgc_black_f32" style="position: absolute;width:100%;bottom:0px;left:0px;z-index:1;"><div class="bui_p_24 bui_tc_white"><p class="bui_ts_24">' + data[i].title + '</p><p class="bui_ts_12 bui_tc_white_f96">' + data[i].summary + '...</p></div></div></a>'
+                    };                 
+                	_contentBox.html('<div class="box">' + _list + '</div>');
+                	_contentBox.buijs_swiper({
+	                    play: 2000,
+	                    speed: 1000,
+	                    nav: false,
+	                    btn: false
+	                });
+                });
+            };
+            //插入Article数据
+            function getArticleList(pageNo) {
+                var _contentBox = $("#dt_art");
+                var _list = '';
+                $.ajax({
+                    type: "get",
+//                  url: _jsonUrl + "/btApi/queryArticlesByTitleIdByPage.html",
+                    url: _jsonUrl + "/article/front/queryArticlePage",
+                    async: true,
+                    cache: false,
+                    dataType: 'json',
+                    data: {
+                        iDisplayStart: pageNo,
+                        iDisplayLength: 10
+                    },
+                    error: function() {                     
+                        $("#more").html('<i class="fa fa-close fa-fw"></i> 数据读取失败...');                      
+                    },
+                    success: function(data) {
+                            //有内容
+                           
+                        var data = data.queryResult;
+//                     	console.log(data);
+                        if (data) {
+                        	
+                            $.map(data, function(data) {
+//                          	 console.log(data);
+                                var n=data.readnums;
+                                if(n >= 10000){
+                                    var num=n/10000;
+                                    var number=num.toFixed(1) + '万';
+                                }else{
+                                    var number=n;
+                                } 
+                                	
+//                          
+                                var marks='';
+                                var tag=data.tag || '';
+                                
+                                if(tag!==''){
+									var strs= new Array();
+									strs=tag.split(","); //字符分割 
+									
+	                                $.map(strs, function(ele) {
+	                                	marks+='<a href="tag_detail.html?tag&mark='+ encodeURI(ele) + '"  class="bui_atc_orange">' + ele+ '、</a>'
+	                                });
+                                }
+                                
+                               _list += '<li>' +
+                                '<div class = "bui_row_p_24"> ' +
+                                '<div class = "bui_col_md_4 bui_col_sm_12"><a href = "news_detail.html?article&newsId='+ data.id + '&articleId='+data.id+'" class= "bui_radius" style = "width: 100%;height: 144px;" data-bui_img = ""><img src = "' + data.coverImage + '" /></a></div>' +
+                                '<div class = "bui_col_md_8 bui_col_sm_12"> ' +
+                                '<div class = "bui_row_p_12"> ' +
+                                '<p><a href="news_detail.html?article&newsId='+ data.id + '&articleId='+data.id+'">' + data.title + '</a></p>' +
+                                '<p class = "bui_ts_12 bui_tc_orange"> <i class = "fa fa-tag fa-fw"> </i>' +marks + '</p> ' +
+                                '<p class = "bui_ts_14 bui_tc_white_d72">' + data.summary + '</p>' +
+                                '<p class = "bui_row_p_12 bui_ts_12 bui_fac_orange"> ' +
+                                '<span> <i class = "fa fa-user fa-fw"> </i> ' + data.author + '</span> ' +
+                                '<span> <i class = "fa fa-clock-o fa-fw"> </i> ' + changeDateTimeFormat(data.publishTime) + '</span> ' +
+                                '<span> <i class = "fa fa-eye fa-fw"> </i> ' + data.clickCount + '</span> ' +
+                                '</p>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '<hr class = "bui_mt_24" /> ' +
+                                '</li>';
+                        });
+                        _contentBox.append(_list);
+                        
+                        _contentBox.find('[data-bui_img]').buijs_img();
+                        } else {
+                            $("#more").html('没有更多数据了哦...');
+                            $("#more_art").hide();
+                        }
+                        //loading
+                        buijs_closeloading();
+                        $("#dt_article .jiazai").remove();
+                    }
+                });
+            };
+            $(document).ready(function() {
+                var _pageNo = 0;
+                //读取数据
+                getArticleList(_pageNo);
+                //点击加载
+                $(document).on("click","#lookmore",function(){
+                	console.log(_pageNo)
+                	_pageNo = _pageNo + 10;
+                	getArticleList(_pageNo);
+                    //$("#more_art").hide();
+                	/*$(window).scroll(function() {
+	                    var gg=$(".bui_wrap").height();
+	                    var scropTop=$(window).scrollTop();
+	                    console.log(gg,scropTop,gg-scropTop)
+	                    if(gg-scropTop<=600){
+	                    	 _pageNo = _pageNo + 1;
+	                    	 console.log(_pageNo)
+	                    	 getArticleList(_pageNo);
+	                    }
+	                });*/
+                });
+            });
+
+            //ok  插入Tag数据
+            Index.prototype.getTagList = function() {
+                var _this = this;
+//              $.getJSON(_jsonUrl + "/labelApi/queryHitWithTypeByPage.html?pageNo=1&pageSize=10&labelTypeId=1", function(result){
+                $.getJSON(_jsonUrl + "/label/service/findByPage", function(result){
+					var _list = '';
+					var data = result.queryResult;
+					
+					for (var i = 0; i < data.length ; i ++) {
+                        _list += '<li><a href="tag_detail.html?tag&mark='+ encodeURI(data[i].mark) + '" class="bui_bds_1 bui_bdc_white_d48 bui_ahbgc_blue bui_radius bui_plr_6" style="white-space: nowrap;">' + data[i].mark + '</a></li>';
+                    };
+                    $('#dt_tag').html('<div class="bui_inline bui_row_p_12 bui_ts_16 bui_at_noline">' + _list + '</div>')
+                });
+			}
+            //插入我的业务数据，
+            Index.prototype.getObjectList = function() {
+                var _this = this;
+                var postData = new Object();
+                postData.pageNo = 1;
+                postData.pageSize = 10;
+                var _this = this;
+                $.getJSON(_jsonUrl + "/btApi/queryDTBusinessByPage.html",postData, function(result){
+						var _list = '';
+						var data = result.queryResult;
+						var length = 6;
+						if (data.length < 6) {
+							length = data.length;
+						}
+						for (var i = 0; i < length ; i ++) {
+							_list += '<li>' +
+	                            '<div class = "bui_media"> ' +
+	                            '<div class = "bui_media_l" style="padding-right: 0 !important;"> ' +
+	                            '<a href = "'+ data[i].href +'" class= "bui_radius object" data-bui_img = ""><img src="' + data[i].bgimg + '"/></div>' +
+	                            '</a>' +	                            
+	                            '</div>' +
+	                            '<div class = "bui_media_b" style="margin-top:10px;"> ' +
+	                            '<p class="bui_ts_14 bui_atc_orange"><a href="'+ data[i].href +'">' + data[i].name + '</a></p>' +
+	                            '</div>' +
+	                            '<hr class = "bui_mt_12" /> ' +
+	                            '</li>';                       
+                        };
+                        $("#dt_object").html('<div class="bui_row_p_12 bui_mt_0">' + _list + '</div>');                        
+                });
+			}
+
+        </script>
+    </head>
+
+    <body class="dt_body bui_atc_black bui_ahtc_blue">
+        <input type="hidden" name="channelName" id="channelName" value="首页" />
+        <div class="bui_wrap">
+            <div class="bui_mo"  id="in">
+                <!--页头-->
+                <div id="dt_header"></div>
+                <!--页头-->
+                <div class="bui_mo_b bui_mo_b_h">
+                    <!--页面-->
+                    <div class="bui_ptb_32">
+                        <div class="bui_auto_w">
+                            <!--indexBanner_pc-->
+                            <div id="indexBanner_pc" class="bui_hide_sm">
+                                <!--幻灯片-->
+                                <div class="indexBanner" style="height: 425px;"></div>
+                            </div>
+                            <!--indexBanner_pc-->
+
+                            <!--indexBanner_mobile-->
+                            <div id="indexBanner_mobile" class="bui_show_sm">
+                                <div class="indexBanner" style="height: 240px;"></div>
+                            </div>
+                            <!--indexBanner_mobile-->
+
+                            <div class="bui_row_p_24 bui_mt_24">
+                                <!--左侧-->
+                                <div class="bui_col_md_8" id="kk">
+                                    <p>最新文章</p>
+                                    <hr class="bui_mtb_12" />
+                                    <div id="dt_article">
+                                        <i class="fa fa-circle-o-notch fa-spin jiazai"></i>
+                                        <div class="bui_row_p_24 bui_mt_0" id="dt_art"></div>
+                                    </div>
+                                    <div class="bui_p_24 bui_ta_c bui_tc_white_d48" id="more"></div>
+                                    <div class="bui_ptb_24 bui_ta_c" id="more_art"><a href="javascript:;" class="bui_btn_32 bui_bgc_blue bui_radius bui_ts_14" id="lookmore">查看更多</a></div>
+                                </div>
+                                <!--左侧-->
+                                <!--右侧-->
+                                <div class="bui_col_md_4"> 
+								   <!--热门标签--> 
+								   <p>热门标签</p> 
+								   <hr class="bui_mtb_12" /> 
+								   <div id="dt_tag">
+								    
+								   </div> 
+								   <!--热门标签--> 
+								   <!--广告图--> 
+								   <div class="bui_mt_24"> 
+								    <img src="pic/index_pic_001.png" style="width: 100%;" /> 
+								   </div> 
+								   <!--广告图--> 
+								   <!--我的业务--> 
+								   <p class="bui_mt_24">我的业务</p> 
+								   <hr class="bui_mtb_12" /> 
+								   <div id="dt_object">
+								    <div class="bui_row_p_12 bui_mt_0">
+								     <li>
+								      <div class="bui_media"> 
+								       <div class="bui_media_l" style="padding-right: 0 !important;"> 
+								        <a href="#" class="bui_radius object" data-bui_img=""><img src="http://www.coding.mobi/EMIS/resources/uploads/dtbusiness/20160118175832_6465.png" /></a>
+								       </div>
+								      </div>
+								      <div class="bui_media_b" style="margin-top:10px;"> 
+								       <p class="bui_ts_14 bui_atc_orange"><a href="#">社群运营中心</a></p>
+								      </div>
+								      <hr class="bui_mt_12" /> </li>
+								     <li>
+								      <div class="bui_media"> 
+								       <div class="bui_media_l" style="padding-right: 0 !important;"> 
+								        <a href="#" class="bui_radius object" data-bui_img=""><img src="http://www.coding.mobi/EMIS/resources/uploads/dtbusiness/20160118175942_5835.png" /></a>
+								       </div>
+								      </div>
+								      <div class="bui_media_b" style="margin-top:10px;"> 
+								       <p class="bui_ts_14 bui_atc_orange"><a href="#">DT数据研究所</a></p>
+								      </div>
+								      <hr class="bui_mt_12" /> </li>
+								     <li>
+								      <div class="bui_media"> 
+								       <div class="bui_media_l" style="padding-right: 0 !important;"> 
+								        <a href="#" class="bui_radius object" data-bui_img=""><img src="http://www.coding.mobi/EMIS/resources/uploads/dtbusiness/20160118180046_5288.png" /></a>
+								       </div>
+								      </div>
+								      <div class="bui_media_b" style="margin-top:10px;"> 
+								       <p class="bui_ts_14 bui_atc_orange"><a href="#">DT数据创投孵化器</a></p>
+								      </div>
+								      <hr class="bui_mt_12" /> </li>
+								     <li>
+								      <div class="bui_media"> 
+								       <div class="bui_media_l" style="padding-right: 0 !important;"> 
+								        <a href="http://www.iq900.com" class="bui_radius object" data-bui_img=""><img src="http://www.coding.mobi/EMIS/resources/uploads/dtbusiness/20160118180130_7527.png" /></a>
+								       </div>
+								      </div>
+								      <div class="bui_media_b" style="margin-top:10px;"> 
+								       <p class="bui_ts_14 bui_atc_orange"><a href="http://www.iq900.com">智商900</a></p>
+								      </div>
+								      <hr class="bui_mt_12" /> </li>
+								     <li>
+								      <div class="bui_media"> 
+								       <div class="bui_media_l" style="padding-right: 0 !important;"> 
+								        <a href="#" class="bui_radius object" data-bui_img=""><img src="http://www.coding.mobi/EMIS/resources/uploads/dtbusiness/20160118180213_4314.png" /></a>
+								       </div>
+								      </div>
+								      <div class="bui_media_b" style="margin-top:10px;"> 
+								       <p class="bui_ts_14 bui_atc_orange"><a href="#">熹鼎技术</a></p>
+								      </div>
+								      <hr class="bui_mt_12" /> </li>
+								    </div>
+								   </div> 
+								   <!--我的业务--> 
+								  </div>
+                                <!--右侧-->
+                            </div>
+                        </div>
+                    </div>
+                    <!--页面-->
+                    <!--页脚-->
+                    <div id="dt_footer"></div>
+                    <!--页脚-->
+                </div>
+
+            </div>
+
+        </div>
+    </body>
+
+</html>

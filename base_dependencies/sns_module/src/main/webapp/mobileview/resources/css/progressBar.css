@@ -1,0 +1,13 @@
+
+/**流程显示*/
+.flowstep .step-no, .flowstep .step-sub-box .step-sub { background: url('../images/topshow.png') no-repeat scroll 50% -102px transparent; }
+.flowstep { width: 100%; margin: -15px auto; padding:20px 0 30px 0px; }
+.flowstep ol { overflow: hidden;list-style: none outside none;  }
+.flowstep li { float: left; text-align: center; }
+.flowstep .step-name { padding: 3px 0px; font-weight: 400; color: rgb(136, 136, 136);font:12px/1.5 tahoma,arial,"宋体";}
+.flowstep .step-no { height: 34px; line-height: 34px; font-family: 'arial black'; color: rgb(255, 255, 255); font-size: 18px; }
+.flowstep .step-last .step-no { background-position: 50% -136px; }
+.flowstep .step-done .step-no { background-position: 50% -170px; }
+.flowstep .step-first .step-done .step-no { background-position: 50% -204px; }
+.flowstep-4 { width: 100%; margin-left: 20px; font-size:5pt;}
+.flowstep-4 li { width: 15%; }

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>{{language('Welcome toNensaHealth','灵鲨官网')}}</title>
+		<script src="js/workSpace.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body class="bui_fs_12 nensahealth bui_bgc_black">
+		<com-header channel="contact"></com-header>
+		<section class="bui_p_48_tb bui_bgc_white">
+			<div class="bui_auto_w">
+				<div class="bui_row_p_64">
+					<!--侧边菜单-->
+					<div class="bui_col_3">
+						<div class="bui_row_p_24">
+							<div>
+								<com-sidenav :bartitle="language('联系方式','Contact')" :array="" :activeid="experience.id"></com-sidenav>
+							</div>
+						</div>
+
+					</div>
+					<!--侧边菜单-->
+					<div class="bui_col_9"></div>
+				</div>
+			</div>
+
+		</section>
+		<com-footer></com-footer>
+
+	</body>
+	<script type="text/javascript">
+		buijs.ready(function() {
+			//获得当前分类
+			vm.$set('contact.id', buijs.url.return('id') || 1);
+		});
+	</script>
+
+</html>

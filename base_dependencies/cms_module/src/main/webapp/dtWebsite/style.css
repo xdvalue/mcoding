@@ -1,0 +1,137 @@
+.dt_body .bui_wrap {
+	overflow-y: auto;
+	
+}
+
+.dt_body .bui_auto_w {
+	max-width: 980px;
+}
+
+
+/*页头*/
+
+.dt_topBar {
+	background-image: url(images/topcloud.png);
+	background-size: auto 50%;
+	background-repeat: repeat-x;
+	background-color: #DEE3E8;
+}
+
+.dt_topNav {
+	background-image: url(images/topnavbg.png);
+	background-position: center right;
+	background-size: auto 100%;
+	background-repeat: repeat-y;
+}
+
+.dt_topNav .bui_media_l img {
+	height: 32px;
+
+}
+
+.dt_topNav .bui_media_b a {
+	padding: 16px 12px;
+	border-bottom: 3px #fff solid;
+}
+
+.dt_topNav .bui_media_b a:hover {
+	border-color: #ccc;
+}
+
+.dt_topNav .bui_media_b a.active {
+	border-color: #3EC4FF;
+}
+
+#dt_topNav_mobile a.active {
+	background-color: #f5f5f5;
+	color: #3EC4FF !important;
+}
+
+
+
+/*导航菜单*/
+
+#indexBanner_pc {
+	position: relative;
+}
+
+#indexLogoBox {
+	position: absolute;
+	top: 0;
+	right: 0px;
+	width: 310px;
+	height: 100%;
+}
+#erweima{
+	width: 160px;
+	height: 160px;
+	position: fixed;
+	top: 50%;
+	margin-top: -80px;
+	left: 50%;
+	margin-left: -80px;
+	z-index: 1000;
+}
+@media only screen and (min-width: 641px){
+	#erweima {
+    width: 260px;
+	height: 260px;
+	position: fixed;
+	top: 50%;
+	margin-top: -130px;
+	left: 50%;
+	margin-left: -130px;
+	z-index: 1000;
+	}
+}
+.object{
+	width: 100%;
+	height: auto;
+}
+@media only screen and (min-width: 641px){
+	.object {
+    width: 310px;
+	height: 98px;
+	}
+}
+.object img{
+		opacity: 1; 
+		transition: transform 0.3s; 
+		width: 100%; 
+		height: auto; 
+		margin-top: 6px; 
+		margin-left: 0px;
+}
+@media only screen and (min-width: 641px){
+	.object img{
+		opacity: 1; 
+		transition: transform 0.3s; 
+		width: 310px; 
+		height: auto; 
+		margin-top: -4px; 
+		margin-left: 0px;
+	}
+}
+.tabs_banner {
+    margin: 0 auto;
+    width: 100%;
+    overflow: hidden;
+}
+.tabs_banner .tabs_img {
+    width: 120px;
+    height: 120px;
+    margin: 44px auto 0;
+    background-image: url(images/tag_bg.png);
+    background-repeat: no-repeat;
+}
+.tabs_banner .tabs_img .tabs_info {
+    width: 120px;
+    height: 120px;
+    padding: 0 10px;
+    display: table-cell;
+    text-shadow: 2px 2px 2px #808080;
+    vertical-align: middle;
+    font-size: 24px;
+    text-align: center;
+    color: #fff;
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>{{language('Welcome toNensaHealth','灵鲨官网')}}</title>
+		<script src="js/workSpace.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body class="bui_fs_12 nensahealth bui_bgc_black">
+		<com-header channel="index"></com-header>
+		<!--products-->
+		<section class="bui_p_48_tb bui_bgc_white">
+			<div class="bui_auto_w">
+				<div class="bui_ta_c bui_fs_16">
+					<template v-if="global.language=='en'">
+						<p class="bui_fc_silver">灵鲨主打产品</p>
+						<p class="bui_fc_blue">Nensa Products</p>
+					</template>
+					<template v-else>
+						<p class="bui_fc_silver">Nensa Products</p>
+						<p class="bui_fc_blue">灵鲨主打产品</p>
+					</template>
+				</div>
+				<div class="bui_p_48_t">
+					<div class="bui_avg_3 bui_row_p_64 bui_at_noline">
+						<template v-for="data in index.product.queryResult" v-if="$index<3">
+							<div>
+								<div class="bui_ta_c">
+									<img :src="data.coverImg" class="bui_block" />
+									<p class="bui_fs_16">{{language(data.productName,data.productName)}}</p>
+									<p class="bui_fs_14 bui_fc_silver">{{language(data.summary,data.summary)}}</p>
+									<p class="bui_m_24_t">
+										<a href="product-detail.html?productId={{data.productId}}" class="bui_btn bui_btn_32 bui_bgc_yellow bui_bgc_blue_h bui_round">{{language('了解详情','learn more')}}</a>
+									</p>
+								</div>
+							</div>
+						</template>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!--products-->
+		<section class="bui_p_48_tb bui_bgc_silver_l">
+			<div class="bui_auto_w">
+				<div class="bui_avg_2 bui_row_p_32">
+					<!--灵鲨知道-->
+					<div>
+						<div class="bui_bgc_blue bui_p_6 bui_radius">
+							<div class="bui_bgc_white bui_p_32">
+								<div class="bui_fs_16">
+									<p class="bui_fc_blue">{{language('灵鲨知道','Encyclopedia')}}</p>
+									<p class="bui_fc_silver">{{language('Encyclopedia','灵鲨知道')}}</p>
+								</div>
+								<hr class="bui_bdc_silver_l bui_m_24_t" />
+								<div>
+									<a href="encyclopedia-detail.html?articleId={{data.id}}" v-for="data in index.encyclopediaList.queryResult" v-if="$index<2" class="bui_media bui_vt bui_p_24_tb" :class="$index!=0?'bui_bds_1_t bui_bdc_silver_l':null">
+										<div class="bui_media_l" v-if="data.coverImage">
+											<div buijs-imgadapt data-ratio="1:1" style="width: 6rem;">
+												<img :src="data.coverImage" />
+											</div>
+										</div>
+										<div class="bui_media_b">
+											<div class="bui_row_p_6">
+												<p class="bui_fs_14 bui_fc_yellow">{{language(data.title,data.title)}}</p>
+												<p class="bui_fc_silver_d">{{strLength(language(data.summary,data.summary),90)}}...</p>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--灵鲨知道-->
+					<!--灵鲨足迹-->
+					<div>
+						<div class="bui_bgc_blue bui_p_6 bui_radius">
+							<div class="bui_bgc_white bui_p_32">
+								<div class="bui_fs_16">
+									<p class="bui_fc_blue">{{language('灵鲨足迹','Experience')}}</p>
+									<p class="bui_fc_silver">{{language('Experience','灵鲨足迹')}}</p>
+								</div>
+								<hr class="bui_bdc_silver_l bui_m_24_t" />
+								<div>
+									<a href="experience-detail.html?articleId={{data.id}}" v-for="data in index.experienceList.queryResult" v-if="$index<2" class="bui_media bui_vt bui_p_24_tb" :class="$index!=0?'bui_bds_1_t bui_bdc_silver_l':null">
+										<div class="bui_media_l" v-if="data.coverImage">
+											<div buijs-imgadapt data-ratio="1:1" style="width: 6rem;">
+												<img :src="data.coverImage" />
+											</div>
+										</div>
+										<div class="bui_media_b">
+											<div class="bui_row_p_6">
+												<p class="bui_fs_14 bui_fc_yellow">{{language(data.title,data.title)}}</p>
+												<p class="bui_fc_silver_d">{{strLength(language(data.summary,data.summary),90)}}...</p>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--灵鲨足迹-->
+				</div>
+
+			</div>
+		</section>
+		<com-footer></com-footer>
+	</body>
+	<script type="text/javascript">
+		buijs.ready(function() {
+			//获得主打产品
+			buiVue.vueGetJson({
+				url: workSpace.jsonUrl + '/product/front/findConditionByPage',
+				data: {
+					pageSize: 3,
+					pageNo: 1
+				},
+				vueName: 'index.product'
+			});
+			//获得灵鲨知道列表
+			buiVue.vueGetJson({
+				url: workSpace.jsonUrl + 'article/front/selectModuleByPage',
+				data: {
+					moduleId: 10,
+					pageSize: 2,
+					pageNo: 1
+				},
+				vueName: 'index.encyclopediaList',
+				success: function() {
+					setTimeout(function() {
+						buijs.img.adapt.set($("[buijs-imgadapt]"));
+					})
+				}
+			});
+			//获得灵鲨足迹列表
+			buiVue.vueGetJson({
+				url: workSpace.jsonUrl + 'article/front/selectModuleByPage',
+				data: {
+					moduleId: 10,
+					pageSize: 2,
+					pageNo: 1
+				},
+				vueName: 'index.experienceList',
+				success: function() {
+					setTimeout(function() {
+						buijs.img.adapt.set($("[buijs-imgadapt]"));
+					})
+				}
+			})
+
+		})
+	</script>
+
+</html>

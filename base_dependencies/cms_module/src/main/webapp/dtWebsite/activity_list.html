@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<script src="workspace.js" type="text/javascript" charset="utf-8"></script>
+		<title>数据价值网</title>
+		<script type="text/javascript">
+			//插入活动列表
+			var a = new Activity();
+			var typeId=GetQueryString('typeid');
+                $(function() {
+                    a.getBannerList();
+                })
+
+                function Activity() {
+                    this.activityList;                   
+                }
+            Activity.prototype.getBannerList = function()  {
+                var _this = this;
+                var data = this.activityList;
+                var postData = new Object();
+                postData.titleId = dt_TypeId;
+                postData.iDisplayStart = 0;
+                postData.iDisplayLength = 1;
+//              $.getJSON(_jsonUrl + "/btApi/queryArticlesByTitleIdByPage.html",postData, function(result){
+//              $.getJSON(_jsonUrl + "/article/front/queryArticlePage?paramType=moduleId&paramValue="+typeId,postData, function(result){
+                $.getJSON(_jsonUrl + "/article/front/selectModuleByPage?moduleId="+typeId,postData, function(result){
+                	console.log(1);
+                	console.log(result);
+                    var _list = ''
+                    var data = result.queryResult;
+                    for (var i = 0; i < data.length ; i ++) {
+                        _list += '<div class="bui_row_p_12">'+
+                                    '<p><img src="' + data[i].thumbnail + '" style="width: 100%; height: auto;" /></p>' +
+                                    '<p class="bui_ts_12 bui_tc_orange bui_ta_l">发布日期：' +changeDateTimeFormats(data[i].publishTime) + '&nbsp;&nbsp;|&nbsp;&nbsp;作者：' + data[i].author + '</p>' +
+                                    '<p class="bui_ts_12 bui_ta_l">' + data[i].summary +'</p>' +
+                                    '<p class="bui_inline"><a href="news_detail.html?active&newsId='+ data[i].id + '&articleId='+data[i].id+'" class="bui_btn_48 bui_bgc_blue bui_radius bui_ts_14">查看详情</a></p>' +
+                                '</div>'
+                    };                 
+                    $("#current_active").html(_list);
+                });
+            };
+            function getActivityArtList(iDisplayStart) {
+                var _contentBox = $("#dt_activity");
+                var _list = '';
+              
+                $.ajax({
+                    type: "get",
+//                  url: _jsonUrl + "/btApi/queryArticlesByTitleIdByPage.html",
+//                 	url:_jsonUrl + "/article/front/queryArticlePage?paramType=moduleId&paramValue="+typeId,
+                   	url:_jsonUrl + "/article/front/selectModuleByPage?moduleId="+typeId,
+                    async: true,
+                    cache: false,
+                    dataType: 'json',
+                    data: {
+//                      titleId: dt_TypeId,
+                        'iDisplayStart': iDisplayStart,
+                        'iDisplayLength': 10
+                    },
+                    error: function() {                     
+                        $("#more").html('<i class="fa fa-close fa-fw"></i> 数据读取失败...');                      
+                    },
+                    success: function(data) {
+                            //有内容
+                            console.log(data);
+                        var data = data.queryResult;
+                        if (data.length > 0) {
+                            $.map(data, function(data) {
+                                var t=data.title;
+                                var jmz = {};
+                                jmz.GetLength = function(str) {
+                                    return str.replace(/[\u0391-\uFFE5]/g,"aa").length;
+                                };
+                                var tlen=jmz.GetLength(t);
+                                if(tlen>30){
+                                    var tt=t.substring(0,21)+"...";
+                                    //alert(tt)  
+                                }else{
+                                    var tt=t;
+                                }                       
+                               _list += '<li>' +
+                                '<a href="news_detail.html?active&newsId='+ data.id + '&articleId='+data.id+'" class="bui_media bui_vm bui_ptb_24 bui_md_plr_24">' +
+                                '<div class="bui_media_b">' +
+                                '<p>' + tt + '</p>' +
+                                '<p class="bui_ts_12 bui_tc_white_d64">' + changeDateTimeFormat(data.publishTime) + '</p>' +
+                                '</div>' +
+                                '<div class="bui_media_r"><div class="bui_radius" data-bui_img="" style="width:64px;height:64px"><img src="' + data.coverImage + '"/></div></div>' +
+                                '</a><hr /></li>';
+                        });
+                        _contentBox.append(_list);
+                        _contentBox.find('[data-bui_img]').buijs_img();
+                        } else {
+                            $("#more").html('没有更多数据了哦...');
+                            $("#more_art").hide();
+                        }
+                        //loading
+                        buijs_closeloading();
+                        $("#dt_activity .jiazai").remove();
+                    }
+                });
+            };
+            $(document).ready(function() {
+                var _pageNo = 0;
+                //读取数据
+                getActivityArtList(_pageNo);
+                //点击加载
+                $(document).on("click","#lookmore",function(){
+                    //console.log(_pageNo)
+                    _pageNo = _pageNo + 10;
+                    getActivityArtList(_pageNo);
+                });
+            });
+            
+		</script>
+	</head>
+
+	<body class="dt_body bui_atc_black bui_ahtc_blue">
+		<input type="hidden" name="channelName" id="channelName" value="活动" />
+		<div class="bui_wrap">
+			<div class="bui_mo">
+				<!--页头-->
+				<div id="dt_header"></div>
+				<!--页头-->
+				<div class="bui_mo_b bui_mo_b_h">
+					<!--页面-->
+					<div class="bui_ptb_32">
+						<div class="bui_auto_w">
+							<!--当前活动-->
+							<div class="bui_inline bui_ta_c" id="current_active">
+							</div>
+							<!--当前活动-->
+							<!--往期活动-->
+							<p class="bui_ts_14 bui_ta_c bui_mt_24">往期活动</p>
+							<hr class="bui_mt_12" />
+							<div id="dt_activity" class="bui_avg_md_2">
+                                <i class="fa fa-circle-o-notch fa-spin jiazai"></i>
+                            </div>
+                            <div class="bui_p_24 bui_ta_c bui_tc_white_d48" id="more"></div>
+							<p class="bui_ta_c bui_ptb_24" id="more_art"><a href="javascript:;" class="bui_btn_48 bui_bgc_white bui_radius bui_ts_14" id="lookmore">查看更多</a></p>
+							<!--往期活动-->
+						</div>
+					</div>
+					<!--页面-->
+					<!--页脚-->
+					<div id="dt_footer"></div>
+					<!--页脚-->
+				</div>
+
+			</div>
+
+		</div>
+	</body>
+
+</html>

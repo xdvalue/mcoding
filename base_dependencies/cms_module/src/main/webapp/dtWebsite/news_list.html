@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<script src="workspace.js" type="text/javascript" charset="utf-8"></script>
+		<title>数据价值网</title>
+		<script type="text/javascript">
+			//插入Tag数据
+			var e = new Newsart();
+			var typeId=GetQueryString('typeid');
+            $(function() {
+                e.getNewsTagList();
+            })
+
+            function Newsart() {
+                this.newsartList;
+            }
+			Newsart.prototype.getNewsTagList = function() {
+                var _this = this;
+//              $.getJSON(_jsonUrl + "/label/service/findByPage", function(result){
+                $.getJSON(_jsonUrl + "/label/service/findByPage", function(result){
+                    var _list = '';
+                    var data = result.queryResult;
+                    for (var i = 0; i < data.length ; i ++) {
+                        _list += '<li><a href="tag_detail.html?tag&mark='+ encodeURI(data[i].mark) + '" class="bui_bds_1 bui_bdc_white_d48 bui_ahbgc_blue bui_radius bui_plr_6" style="white-space: nowrap;">' + data[i].mark + '</a></li>';
+                    };
+                    $('#dt_tag').html('<div class="bui_inline bui_row_p_12 bui_ts_16 bui_at_noline">' + _list + '</div>')
+                });
+            }
+			//插入Article数据
+            function getNewsartList(pageNo) {
+                var _contentBox = $("#newsart");
+                var _list = '';
+                $.ajax({
+                    type: "get",
+//                  url: _jsonUrl + "/article/front/queryArticlePage?paramType=moduleId&paramValue="+typeId,
+//                  url: _jsonUrl + "/article/front/queryArticlePage?paramType=moduleId&paramValue="+typeId,
+                    url: _jsonUrl + "/article/front/selectModuleByPage?moduleId="+typeId,
+                    async: true,
+                    cache: false,
+                    dataType: 'json',
+                    data: {
+//                      titleId: dt_TypeId,
+                        iDisplayStart: pageNo,
+                        iDisplayLength: 10
+                    },
+                    error: function() {                     
+                        $("#more").html('<i class="fa fa-close fa-fw"></i> 数据读取失败...');                      
+                    },
+                    success: function(data) {
+                    	console.log(data);
+                            //有内容
+                        var data = data.queryResult;
+                        if (data.length > 0) {
+                            $.map(data, function(data) {
+                                var t=data.title;
+                                var sum=data.summary;
+                                var jmz = {};
+                                jmz.GetLength = function(str) {
+                                    return str.replace(/[\u0391-\uFFE5]/g,"aa").length;
+                                };
+                                var tlen=jmz.GetLength(t);
+                                var sum_len=jmz.GetLength(sum);
+                                  
+                                if(tlen>30){
+                                    var tt=t.substring(0,17)+"...";
+                                    //alert(tt)  
+                                }else{
+                                    var tt=t;
+                                }
+                                if(sum_len>24){
+                                    var summary=sum.substring(0,20)+"...";
+                                    //alert(tt)  
+                                }else{
+                                    var summary=sum;
+                                }
+                                var marks='';
+                                var tag=data.tag || '';
+                                
+                                if(tag!==''){
+									var strs= new Array();
+									strs=tag.split(","); //字符分割 
+									
+	                                $.map(strs, function(ele) {
+	                                	marks+='<a href="tag_detail.html?tag&mark='+ encodeURI(ele) + '"  class="bui_atc_orange">' + ele+ '、</a>'
+	                                });
+                                }
+                                
+                               _list += '<li>' +
+                            '<div class = "bui_row_p_24 bui_ptb_24 bui_md_plr_24"> ' +
+                            '<div class = "bui_col_md_4 bui_col_sm_12"><a href = "news_detail.html?article&newsId='+ data.id + '&articleId='+data.id+'" class= "bui_radius" style = "width: 100%;height: 144px;" data-bui_img = ""><img src = "' + data.thumbnail + '" /></a></div>' +
+                            '<div class = "bui_col_md_8 bui_col_sm_12"> ' +
+                            '<div class = "bui_row_p_12"> ' +
+                            '<p><a href="news_detail.html?article&newsId='+ data.id + '&articleId='+data.id+'">' + tt + '</a></p>' +
+                            '<p class = "bui_ts_12 bui_tc_orange"> <i class = "fa fa-tag fa-fw"> </i>' + marks + '</p> ' +
+                            '<p class = "bui_ts_14 bui_tc_white_d72">' + summary + '</p>' +
+                            '<p class = "bui_row_p_12 bui_ts_12 bui_fac_orange"> ' +
+                            '<span> <i class = "fa fa-user fa-fw"> </i> ' + data.author + '</span> ' +
+                            '<span> <i class = "fa fa-clock-o fa-fw"> </i> ' + changeDateTimeFormat(data.publishTime) + '</span> ' +
+                            '<span> <i class = "fa fa-eye fa-fw"> </i> ' + data.clickCount + '</span> ' +
+                            '</p>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '<hr /> ' +
+                            '</li>';
+                        });
+                        _contentBox.append(_list);
+                        _contentBox.find('[data-bui_img]').buijs_img();
+                        } else {
+                            $("#more").html('没有更多数据了哦...');
+                            $("#more_art").hide();
+                        }
+                        buijs_closeloading();
+                        $("#dt_newsart .jiazai").remove();
+                    }
+                });
+            };
+            $(document).ready(function() {
+                var _pageNo = 0;
+                //读取数据
+                getNewsartList(_pageNo);
+                //点击加载
+                $(document).on("click","#lookmore",function(){
+                    //console.log(_pageNo)
+                    _pageNo = _pageNo + 10;
+                    getNewsartList(_pageNo);
+                });
+            });			
+		</script>
+	</head>
+
+	<body class="dt_body bui_atc_black bui_ahtc_blue">
+		<input type="hidden" name="channelName" id="channelName" value="资讯" />
+		<div class="bui_wrap">
+			<div class="bui_mo">
+				<!--页头-->
+				<div id="dt_header"></div>
+				<!--页头-->
+				<div class="bui_mo_b bui_mo_b_h">
+					<!--页面-->
+					<div class="bui_ptb_32">
+						<div class="bui_auto_w">
+							<div class="bui_inline bui_ta_c">
+								<div style="max-width: 640px;" class="bui_ta_l">
+									<!--头图-->
+									<div class="bui_ptb_24 bui_inline bui_ta_c">
+										<img src="pic/article_pic_001.png" style="max-width: 80%;" />
+									</div>
+									<!--头图-->
+									<!--tag-->
+									<div id="dt_tag"></div>
+									<!--tag-->
+								</div>
+							</div>
+							<!--资讯列表-->
+							<p class="bui_ts_14 bui_ta_c bui_mt_24">资讯列表</p>
+							<hr class="bui_mtb_12" />
+							<div id="dt_newsart">
+                                <i class="fa fa-circle-o-notch fa-spin jiazai"></i>
+                                <div class="bui_avg_md_2" id="newsart"></div>                      
+                            </div>
+                            <div class="bui_p_24 bui_ta_c bui_tc_white_d48" id="more"></div>
+							<div class="bui_ptb_24 bui_ta_c" id="more_art"><a href="javascript:;" class="bui_btn_32 bui_bgc_blue bui_radius bui_ts_14" id="lookmore">查看更多</a></div>
+							<!--资讯列表-->
+
+						</div>
+					</div>
+					<!--页面-->
+					<!--页脚-->
+					<div id="dt_footer"></div>
+					<!--页脚-->
+				</div>
+
+			</div>
+
+		</div>
+	</body>
+
+</html>

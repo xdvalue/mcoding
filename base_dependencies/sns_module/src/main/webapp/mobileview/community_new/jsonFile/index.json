@@ -1,0 +1,79 @@
+{
+	"code": "0",
+	"data": {
+
+	},
+	"insetIndexBannerImg": [
+		{
+			"coverimg": "./images/demobanner01.jpg",
+			"title": "demobanner",
+			"id": "1"
+		},
+		{
+			"coverimg": "./images/index_server_01.png",
+			"title": "index_server",
+			"id": "2"
+		},
+		{
+			"coverimg": "./images/index_server_02.png",
+			"title": "index_server",
+			"id": "3"
+		}
+	],
+	"insetPerfectText": [
+		{
+			"state": "2",
+			"name": "一万张员工手写明信片送给都亲不是你哦送送送送送",
+			"id": "23"
+		},
+		{
+			"state": "1",
+			"name": "往返北京的交通由我们为你妥的一万张员工手写明信片",
+			"id": "25"
+		},
+		{
+			"state": "2",
+			"name": "一万张员工手写明信片送给都亲不是你哦送送送送送",
+			"id": "24"
+		}
+	],
+	"contentPostData": [
+		{
+			"id": "89",
+			"memberLevel": "1",
+			"name": "小风车",
+			"faceImg": "./facePict/face_001.jpg",
+			"createTime": "1456977506482",
+			"title": "哇，为什么这么好看？好想去",
+			"desc": "地方没看见放得订单的多岁的风格爱时间都I昂就是滴哦啊就是滴哦啊就死都就爱圣诞节阿斯顿骄傲死的就爱送的I昂就送第几啊死哦大家都是辅导费健康放得开房间打开附件放到空间都很幸福工商局代发货的地方进口。",
+			"coverimg" : ["./images/demobanner01.jpg","./images/index_server_01.png","./images/demobanner01.jpg"],
+			"goodNum" : "1228",
+			"messageNum" : "6869"
+		},
+		{
+			"id": "88",
+			"memberLevel": "2",
+			"name": "小风车",
+			"faceImg": "./facePict/face_003.jpg",
+			"createTime": "1456977506482",
+			"title": "哇，为什么这么好看？好想去",
+			"desc": "地方没看见放得订单的多岁的风格辅导费健康放得开房间打开附件放到空间都很幸福工商局代发货的地方进口。",
+			"coverimg" : ["./images/demobanner01.jpg","./images/index_server_01.png"],
+			"goodNum" : "1228",
+			"messageNum" : "6869"
+		},
+		{
+			"id": "87",
+			"memberLevel": "3",
+			"name": "小风车",
+			"faceImg": "./facePict/face_005.jpg",
+			"createTime": "1456977506482",
+			"title": "哇，为什么这么好看？好想去",
+			"desc": "地方没看见放得订单的多岁的风格辅导费健康放得开房间打开附件放到空间都很幸福工商局代发货的地方进口。",
+			"coverimg" : ["./images/demobanner01.jpg","./images/index_server_01.png"],
+			"goodNum" : "1228",
+			"messageNum" : "6869"
+		}
+	],
+	"msg" : "获取数据成功!"
+}

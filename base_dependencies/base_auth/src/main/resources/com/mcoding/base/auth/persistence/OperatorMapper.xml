@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.base.auth.persistence.OperatorMapper" >
+  <resultMap id="BaseResultMap" type="com.mcoding.base.auth.bean.Operator" >
+    <id column="operId" property="operId" jdbcType="INTEGER" />
+    <result column="operName" property="operName" jdbcType="VARCHAR" />
+    <result column="operCode" property="operCode" jdbcType="VARCHAR" />
+    <result column="operURL" property="operURL" jdbcType="VARCHAR" />
+    <result column="menuId" property="menuId" jdbcType="INTEGER" />
+    <result column="createTime" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="updateTime" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    operId, operName, operCode, operURL, menuId, createTime, updateTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mcoding.base.auth.bean.OperatorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_base_operator
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_base_operator
+    where operId = #{operId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_base_operator
+    where operId = #{operId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcoding.base.auth.bean.OperatorExample" >
+    delete from t_base_operator
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcoding.base.auth.bean.Operator" useGeneratedKeys="true" keyProperty="operId" >
+    insert into t_base_operator (operName, operCode, operURL, 
+      menuId, createTime, updateTime
+      )
+    values (#{operName,jdbcType=VARCHAR}, #{operCode,jdbcType=VARCHAR}, 
+      #{operURL,jdbcType=VARCHAR}, #{menuId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcoding.base.auth.bean.Operator" useGeneratedKeys="true" keyProperty="operId" >
+    insert into t_base_operator
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="operName != null" >
+        operName,
+      </if>
+      <if test="operCode != null" >
+        operCode,
+      </if>
+      <if test="operURL != null" >
+        operURL,
+      </if>
+      <if test="menuId != null" >
+        menuId,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="updateTime != null" >
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="operName != null" >
+        #{operName,jdbcType=VARCHAR},
+      </if>
+      <if test="operCode != null" >
+        #{operCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operURL != null" >
+        #{operURL,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null" >
+        #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcoding.base.auth.bean.OperatorExample" resultType="java.lang.Integer" >
+    select count(*) from t_base_operator
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_base_operator
+    <set >
+      <if test="record.operId != null" >
+        operId = #{record.operId,jdbcType=INTEGER},
+      </if>
+      <if test="record.operName != null" >
+        operName = #{record.operName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operCode != null" >
+        operCode = #{record.operCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operURL != null" >
+        operURL = #{record.operURL,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuId != null" >
+        menuId = #{record.menuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        updateTime = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_base_operator
+    set operId = #{record.operId,jdbcType=INTEGER},
+      operName = #{record.operName,jdbcType=VARCHAR},
+      operCode = #{record.operCode,jdbcType=VARCHAR},
+      operURL = #{record.operURL,jdbcType=VARCHAR},
+      menuId = #{record.menuId,jdbcType=INTEGER},
+      createTime = #{record.createTime,jdbcType=TIMESTAMP},
+      updateTime = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcoding.base.auth.bean.Operator" >
+    update t_base_operator
+    <set >
+      <if test="operName != null" >
+        operName = #{operName,jdbcType=VARCHAR},
+      </if>
+      <if test="operCode != null" >
+        operCode = #{operCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operURL != null" >
+        operURL = #{operURL,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null" >
+        menuId = #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        updateTime = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where operId = #{operId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcoding.base.auth.bean.Operator" >
+    update t_base_operator
+    set operName = #{operName,jdbcType=VARCHAR},
+      operCode = #{operCode,jdbcType=VARCHAR},
+      operURL = #{operURL,jdbcType=VARCHAR},
+      menuId = #{menuId,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=TIMESTAMP},
+      updateTime = #{updateTime,jdbcType=TIMESTAMP}
+    where operId = #{operId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.mcoding.base.auth.bean.OperatorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_base_operator
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="queryByMenuId" parameterType="string" resultType="com.mcoding.base.auth.bean.Operator">
+        select o.*, m.menuName from t_base_operator o left join t_base_menu m on o.menuId = m.menuId where o.menuId = #{value}
+    </select>
+
+    <select id="queryByMenuIdByPage" parameterType="map" resultType="com.mcoding.base.auth.bean.Operator">
+        select o.*, m.menuName from t_base_operator o left join t_base_menu m on o.menuId = m.menuId
+        <if test="menuId != null and menuId != ''">
+            where o.menuId = #{menuId}
+        </if>
+
+    </select>
+</mapper>

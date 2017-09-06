@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript"
+	src="//cdn.bootcss.com/sockjs-client/1.1.1/sockjs.js"></script>
+<script type="text/javascript"
+	src="//cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
+
+</head>
+<body>
+<div id="content"></div>
+<script type="text/javascript">
+
+var WsClient = function(setting){
+	return{
+		connect : connect,
+		disconnect : disconnect
+	}
+	
+	var url = setting.url || 'http://' +window.location.host + "/sns_module/sns_ws";
+	var sysMsgHandler = setting.sysMsgHandler || function(msg){alert('收到一条系统消息!')};
+	var commentMsgHandler = setting.commentMsgHandler || function(msg){alert('收到一条评论!')};
+	var pointMsgHandler = setting.commentMsgHandler || function(msg){alert('获取了积分!')};
+
+	var stompClient = null;
+
+	function connect(){
+		var socket = new SockJS(url);
+		stompClient = Stomp.over(socket);
+
+		stompClient.connect({}, function(connect_ack_msg){
+			if(!connect_ack_msg){
+				return;
+			}
+
+			var member = JSON.stringify(frame.body);
+			if(!member || !member.id){
+				return;
+			}
+
+			stompClient.subscribe('/msgNotify/sysMsg', function(message){
+				sysMsgHandler(message);
+	        });
+	
+	        stompClient.subscribe('/user/'+member.id+'/msgNotify/comment', function(message){
+	        	commentMsgHandler(message);
+	        });
+
+	        stompClient.subscribe('/user/'+member.id+'/msgNotify/point', function(message){
+	        	pointMsgHandler(message);
+	        });
+
+		});
+	}
+
+	function disconnect(){
+		if(stompClient != null ){
+			stompClient.disconnect();
+		}
+	}
+}
+
+var wsClient = new WsClient();
+wsClient.connect();
+
+window.onbeforeunload = function (event) {
+		
+	wsClient.disconnect();
+};
+
+</script>
+
+</body>
+</html>

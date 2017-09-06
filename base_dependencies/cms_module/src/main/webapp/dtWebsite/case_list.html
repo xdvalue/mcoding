@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <script src="workspace.js" type="text/javascript" charset="utf-8"></script>
+        <title>数据价值网</title>
+        <script type="text/javascript">
+            //插入Article数据
+            var typeId=GetQueryString('typeid');
+            function getCaseList(pageNo) {
+                var _contentBox = $("#case");
+                var _list = '';
+                $.ajax({
+                    type: "get",
+//                  url: _jsonUrl + "/article/front/queryArticlePage?paramType=moduleId&paramValue="+typeId,
+                    url: _jsonUrl + "/article/front/selectModuleByPage?moduleId="+typeId,
+                    async: true,
+                    cache: false,
+                    dataType: 'json',
+                    data: {
+                        titleId: dt_TypeId,
+                        iDisplayStart: pageNo,
+                        iDisplayLength: 10
+                    },
+                    error: function() {                     
+                        $("#more").html('<i class="fa fa-close fa-fw"></i> 数据读取失败...');                      
+                    },
+                    success: function(data) {
+                            //有内容
+                        var data = data.queryResult;
+                        if (data.length > 0) {
+                            $.map(data, function(data) {
+                                var t=data.title;
+                                var sum=data.summary;
+                                var jmz = {};
+                                jmz.GetLength = function(str) {
+                                    return str.replace(/[\u0391-\uFFE5]/g,"aa").length;
+                                };
+                                var tlen=jmz.GetLength(t);
+                                var sum_len=jmz.GetLength(sum)
+                                //alert(sum_len)
+                                if(tlen>30){
+                                    var tt=t.substring(0,20)+"...";
+                                    //alert(tt)  
+                                }else{
+                                    var tt=t;
+                                }
+                                if(sum_len>34){
+                                    var summary=sum.substring(0,28)+"...";
+                                    //alert(tt)  
+                                }else{
+                                    var summary=sum;
+                                }
+                               _list += '<li>' +
+                                '<div class = "bui_media bui_ptb_24 bui_md_plr_24"> ' +
+                                '  <div class = "bui_media_l"><div class= "bui_round bui_bds_4 bui_bdc_blue_l12" style = "width: 64px;height: 64px;" data-bui_img = ""><img src = "' + data.thumbnail + '" /></div></div>' +
+                                '  <div class = "bui_media_b"> ' +
+                                '    <p><a href="news_detail.html?case&newsId='+ data.id + '&articleId='+data.id+'">' + tt + '</a></p>' +
+                                '    <p class = "bui_ts_12 bui_tc_white_d72" style="margin-top: 4px; line-height:24px;">' + summary + '</p>' +
+                                '  </div>' +
+                                '  </div>' +
+                                '  <hr /> ' +
+                                '</li>';
+                        });
+                        _contentBox.append(_list);
+                        _contentBox.find('[data-bui_img]').buijs_img();
+                        } else {
+                            $("#more").html('没有更多数据了哦...');
+                            $("#more_art").hide();
+                        }
+                        buijs_closeloading();
+                        $("#dt_case .jiazai").remove();
+                    }
+                });
+            };
+            $(document).ready(function() {
+                var _pageNo = 0;
+                //读取数据
+                getCaseList(_pageNo);
+                //点击加载
+                $(document).on("click","#lookmore",function(){
+                    //console.log(_pageNo)
+                    _pageNo = _pageNo + 10;
+                    getCaseList(_pageNo);
+                });
+            });
+        </script>
+    </head>
+
+    <body class="dt_body bui_atc_black bui_ahtc_blue">
+        <input type="hidden" name="channelName" id="channelName" value="投资案例" />
+        <div class="bui_wrap">
+            <div class="bui_mo">
+                <!--页头-->
+                <div id="dt_header"></div>
+                <!--页头-->
+                <div class="bui_mo_b bui_mo_b_h">
+                    <!--页面-->
+                    <div class="bui_ptb_32">
+                        <div class="bui_auto_w">
+                            <div class="bui_inline bui_ta_c">
+                                <div style="max-width: 640px;" class="bui_ta_l">
+                                    <!--头图-->
+                                    <div class="bui_ptb_24 bui_inline bui_ta_c">
+                                        <img src="pic/case_pic.png" style="max-width: 80%;" />
+                                    </div>
+                                    <!--头图-->
+                                </div>
+                            </div>
+
+                            <!--业务列表-->
+                            <p class="bui_ts_14 bui_ta_c bui_mt_24">DT旗下部分投资案例</p>
+                            <hr class="bui_mtb_12" />
+                            <div id="dt_case">
+                                <i class="fa fa-circle-o-notch fa-spin jiazai"></i>
+                                <div class="bui_avg_md_2" id="case"></div> 
+                            </div>
+                            <div class="bui_p_24 bui_ta_c bui_tc_white_d48" id="more"></div>
+                            <div class="bui_ptb_24 bui_ta_c" id="more_art"><a href="javascript:;" class="bui_btn_32 bui_bgc_blue bui_radius bui_ts_14" id="lookmore">查看更多</a></div>
+                            <!--业务列表-->
+
+                        </div>
+                    </div>
+                    <!--页面-->
+                    <!--页脚-->
+                    <div id="dt_footer"></div>
+                    <!--页脚-->
+                </div>
+
+            </div>
+
+        </div>
+    </body>
+
+</html>

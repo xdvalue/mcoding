@@ -1,0 +1,59 @@
+[
+	{
+		"text": "灵鲨首页",
+		"enText": "Home",
+		"channel": "index",
+		"banner": "images/banner-1.jpg",
+		"link": "index.html",
+		"target": null
+	}, {
+		"text": "关于灵鲨",
+		"enText": "about us",
+		"channel": "about us",
+		"banner": "images/banner-2.jpg",
+		"link": "aboutus.html",
+		"target": null
+	}, {
+		"text": "灵鲨产品",
+		"enText": "Product",
+		"channel": "product",
+		"banner": "images/banner-3.jpg",
+		"link": "product-list.html",
+		"target": null
+	}, {
+		"text": "灵鲨知道",
+		"enText": "Encyclopedia",
+		"channel": "encyclopedia",
+		"banner": "images/banner-4.jpg",
+		"link": "encyclopedia-list.html",
+		"target": null
+	}, {
+		"text": "灵鲨足迹",
+		"enText": "Experience",
+		"channel": "experience",
+		"banner": "images/banner-5.jpg",
+		"link": "experience-list.html",
+		"target": null
+	}, {
+		"text": "联系灵鲨",
+		"enText": "Contact",
+		"channel": "contact",
+		"banner": null,
+		"link": "contact.html",
+		"target": null
+	}, {
+		"text": "官方商城",
+		"enText": "Mall",
+		"channel": "mall",
+		"banner": null,
+		"link": "http://www.tmall.com",
+		"target": "_blank"
+	}, {
+		"text": "合作伙伴",
+		"enText": "Partner",
+		"channel": "partner",
+		"banner": "images/banner-6.jpg",
+		"link": "partner.html",
+		"target": null
+	}
+]

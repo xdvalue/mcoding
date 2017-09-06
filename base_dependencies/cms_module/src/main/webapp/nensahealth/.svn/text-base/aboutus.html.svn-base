@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>{{language('Welcome toNensaHealth','灵鲨官网')}}</title>
+		<script src="js/workSpace.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body class="bui_fs_12 nensahealth bui_bgc_black">
+		<com-header channel="aboutUs"></com-header>
+		<section class="bui_p_48_tb bui_bgc_white">
+			<div class="bui_auto_w">
+				<div class="bui_row_p_64">
+					<!--侧边菜单-->
+					<div class="bui_col_3">
+						<div class="bui_row_p_24">
+							<div>
+								<dl class="bui_ta_c bui_at_noline">
+									<dt class="bui_bgc_blue bui_bds_1 bui_bdc_blue bui_fc_white bui_p_12 bui_ta_c bui_radius bui_fs_16">{{language('关于灵鲨','About Us')}}</dt>
+									<dd v-if="page.side.queryResult.length!=0" class="bui_bgc_silver_l bui_m_12_t bui_radius bui_bds_1 bui_bdc_silver_l" style="overflow: hidden;">
+										<template v-for="data in page.side.queryResult">
+											<li class="bui_bgc_white_f" :class="$index!=0?'bui_bds_1_t bui_bdc_silver_l':null">
+												<a href="?articleId={{data.id}}" class="bui_media bui_vm bui_p_12" :class="url.articleId==data.id?'bui_bgc_blue bui_fc_white':'bui_bgc_white_h bui_fc_black'">
+													<div class="bui_media_b">
+														{{language(data.title,data.subTitle)}}
+													</div>
+													<div class="bui_media_r">
+														<i class="fa fa-angle-right fa-fw"></i>
+													</div>
+												</a>
+											</li>
+										</template>
+									</dd>
+								</dl>
+							</div>
+							<div>
+								<dl class="bui_ta_c bui_at_noline">
+									<dt class="bui_bgc_yellow bui_bds_1 bui_bdc_yellow bui_fc_white bui_p_12 bui_ta_c bui_radius bui_fs_16">{{language('活力灵鲨','Liven')}}</dt>
+									<dd v-if="page.sideChildren.queryResult.length!=0" class="bui_bgc_silver_l bui_m_12_t bui_radius bui_bds_1 bui_bdc_silver_l" style="overflow: hidden;">
+										<template v-for="data in page.sideChildren.queryResult">
+											<li class="bui_bgc_white_f" :class="$index!=0?'bui_bds_1_t bui_bdc_silver_l':null">
+												<a href="?articleId={{data.id}}" class="bui_media bui_vm bui_p_12" :class="url.articleId==data.id?'bui_bgc_yellow bui_fc_white':'bui_bgc_white_h bui_fc_black'">
+													<div class="bui_media_b">
+														{{language(data.title,data.subTitle)}}
+													</div>
+													<div class="bui_media_r">
+														<i class="fa fa-angle-right fa-fw"></i>
+													</div>
+												</a>
+											</li>
+										</template>
+									</dd>
+								</dl>
+							</div>
+						</div>
+
+					</div>
+					<!--侧边菜单-->
+					<div class="bui_col_9">
+						<div class="bui_bgc_blue bui_p_6 bui_radius">
+							<div class="bui_bgc_white bui_p_64 bui_radius">
+								<template v-if="!page.content">
+									<com-unfind style="height:480px;"></com-unfind>
+								</template>
+								<template v-if="page.content">
+									<p class="bui_fs_24 bui_fc_blue">{{language(page.content.data.title,page.content.data.subTitle)}}</p>
+									<hr class="bui_m_24_tb" />
+									<div class="nensahealth-content bui_fs_14">
+										{{{page.content.data.content}}}
+									</div>
+								</template>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</section>
+		<com-footer></com-footer>
+	</body>
+	<script type="text/javascript">
+		buijs.ready(function() {
+			//获得分类列表
+			buiVue.vueGetJson({
+				url: workSpace.jsonUrl + 'article/front/selectModuleByPage',
+				data: {
+					moduleId: 1
+				},
+				vueName: 'page.side',
+				success: function(data) {
+					vm.url.articleId ? null : vm.$set('url.articleId', data.queryResult[0].id);
+					//获得当前文章
+					buiVue.vueGetJson({
+						url: workSpace.jsonUrl + 'article/front/findByArticleId',
+						data: {
+							articleId: vm.url.articleId,
+						},
+						vueName: 'page.content'
+					})
+				}
+			});
+
+			//获得分类列表
+			buiVue.vueGetJson({
+				url: workSpace.jsonUrl + 'article/front/selectModuleByPage',
+				data: {
+					moduleId: 9
+				},
+				vueName: 'page.sideChildren',
+			});
+
+		});
+	</script>
+
+</html>

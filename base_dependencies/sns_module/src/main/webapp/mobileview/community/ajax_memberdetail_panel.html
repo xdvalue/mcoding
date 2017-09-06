@@ -1,0 +1,288 @@
+<div id="memberDetail_face" class="bui_p_24 bui_inline bui_ta_c" hg_style="bgc">
+	<div class="bui_round bui_bds_4 bui_bdc_white" style="width: 96px;height: 96px;line-height: 96px;">
+		<i class="fa fa-user bui_fac_white bui_fas_96" style="line-height: 128px;"></i>
+	</div>
+</div>
+
+<div class="bui_bgc_white">
+	<li>
+		<div class="bui_plr_12">
+			<div class="bui_ipg_48 bui_block">
+				<i class="fa fa-mobile bui_fas_24 bui_fl bui_tc_black_f48" hg_style="tc"></i>
+				<input type="tel" name="memberDetail_mobilePhone" id="memberDetail_mobilePhone" placeholder="手机号码" maxlength="11" value="" class="bui_ipt_48 bui_bds_0 bui_ts_14" />
+			</div>
+		</div>
+		<hr/>
+	</li>
+
+	<li id="memberDetail_CodeInput" style="display: none;">
+		<div class="bui_plr_12">
+			<div class="bui_ipg_48 bui_block">
+				<i class="fa fa-copy bui_fl bui_tc_black_f48" hg_style="tc"></i>
+				<div class="bui_fr" id="memberDetail_CodeBtn">
+					<button onclick="javascript:getSmsCode();" class="bui_btn_24 bui_ts_12 bui_radius bui_bgc_white">获取</button>
+				</div>
+				<input type="tel" name="memberDetail_Code" id="memberDetail_Code" placeholder="验证码" maxlength="6" value="" class="bui_ipt_48 bui_bds_0 bui_ts_14" />
+			</div>
+		</div>
+		<hr/>
+	</li>
+
+	<li>
+		<div class="bui_plr_12">
+			<div class="bui_ipg_48 bui_block">
+				<i class="fa fa-user bui_fl bui_tc_black_f48" hg_style="tc"></i>
+				<input type="text" name="memberDetail_fullname" id="memberDetail_fullname" placeholder="姓名" maxlength="20" value="" class="bui_ipt_48 bui_bds_0 bui_ts_14" />
+			</div>
+		</div>
+		<hr/>
+	</li>
+
+	<li>
+		<div class="bui_plr_12">
+			<div class="bui_ipg_48 bui_block">
+				<i class="fa fa-intersex bui_fl bui_tc_black_f48" hg_style="tc"></i>
+				<select name="memberDetail_gender" id="memberDetail_gender" class="bui_ipt_48 bui_bds_0 bui_ts_14">
+					<option>男</option>
+					<option>女</option>
+				</select>
+			</div>
+		</div>
+		<hr/>
+	</li>
+
+	<li>
+		<div class="bui_plr_12">
+			<div class="bui_ipg_48 bui_block">
+				<i class="fa fa-birthday-cake bui_fl bui_tc_black_f48" hg_style="tc"></i>
+				<input type="text" name="memberDetail_birthday" id="memberDetail_birthday" placeholder="生日" value="" class="bui_ipt_48 bui_bds_0 bui_ts_14" readonly="readonly" />
+			</div>
+		</div>
+		<hr/>
+	</li>
+
+	<!-- <li>
+		<div class="bui_plr_12">
+			<div class="bui_ipg_48 bui_block">
+				<i class="fa fa-male bui_fl bui_tc_black_f48" hg_style="tc"></i>
+				<select name="memberDetail_height" id="memberDetail_height" class="bui_ipt_48 bui_bds_0 bui_ts_14">
+					<option>请设置您的身高</option>
+				</select>
+			</div>
+		</div>
+		<hr/>
+	</li> -->
+
+	<!-- <li>
+		<div class="bui_plr_12">
+			<div class="bui_ipg_48 bui_block">
+				<i class="fa fa-balance-scale bui_fl bui_tc_black_f48" hg_style="tc"></i>
+				<select name="memberDetail_weight" id="memberDetail_weight" class="bui_ipt_48 bui_bds_0 bui_ts_14">
+					<option>请设置您的体重</option>
+				</select>
+			</div>
+		</div>
+		<hr/>
+	</li> -->
+
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		//获取个人信息
+		getMemberDetail();
+		//按钮跟随滚动
+		buijs_ipt_scroll();
+		//引用第三方日历插件
+		$("#memberDetail_birthday").buijs_date({
+			positions: 'bottom',
+			start: 4,
+			min: 2
+		});
+	});
+	//全局变量
+	var _isNewUser; //是否新用户
+	var _smsCode= ""; //验证短信
+	//获取个人信息
+	function getMemberDetail() {
+		//未绑定手机
+		if (buijs_formcheck_mobile(hg_memberInfo.mobilephone) == false) {
+			_isNewUser = true;
+			$("#memberDetail_CodeInput").show();
+			$("#memberDetail_mobilePhone").val('').prop('disabled', false);
+		}
+		//已绑定手机
+		else {
+			_isNewUser = false;
+			$("#memberDetail_CodeInput").hide();
+			$("#memberDetail_mobilePhone").val(hg_memberInfo.mobilephone).prop('disabled', true);
+		};
+		//插入头像
+		if (hg_memberInfo.headImgUrl != '' && hg_memberInfo.headImgUrl != null) {
+			$("#memberDetail_face").html('<div class="bui_round bui_bds_4 bui_bdc_white_d24" style="width:96px;height:96px;" data-bui_img=""><img src="' + hg_memberInfo.headImgUrl + '"/></div>').find('[data-bui_img]').buijs_img();
+		}else {
+			$("#memberDetail_face").html('<div class="bui_round bui_bds_4 bui_bdc_white_d24" style="width:96px;height:96px;" data-bui_img=""><img src="' + hg_memberInfo.wxMember.wxHeadimgurl + '"/></div>').find('[data-bui_img]').buijs_img();
+		};
+		//昵称
+		$("#memberDetail_fullname").val(hg_memberInfo.name || "未知用户");
+		//性别
+		$("#memberDetail_gender option").map(function() {
+			if ($(this).text().indexOf(hg_memberInfo.gender == 1? "男": "女") > -1) {
+				$(this).prop('selected', true).siblings('option').prop('selected', false);
+			}
+		});
+		//生日
+		var birthdayV= hg_memberInfo.birthday;
+		$("#memberDetail_birthday").val(birthdayV || '');
+		//身高
+		var _demoHeight = '';
+		var _heightList = '';
+		for (_height_i = 140; _height_i <= 230; _height_i++) {
+			_heightList += '<option>' + _height_i + 'cm</option>'
+		};
+		$("#memberDetail_height").html('<option>请设置您的身高</option><option>140cm以下</option>' + _heightList + '<option>230cm以上</option>');
+		if (_demoHeight) {
+			$("#memberDetail_height option").map(function() {
+				if (parseInt($(this).val()) == _demoHeight) {
+					$(this).prop('selected', true).siblings('option').prop('selected', false);
+				}
+			});
+		} else {
+			$("#memberDetail_height option:first").prop('selected', true).siblings('option').prop('selected', false);
+		}
+		//体重
+		var _demoWeight = '';
+		var _weightList = '';
+		for (_weight_i = 30; _weight_i <= 200; _weight_i++) {
+			_weightList += '<option>' + _weight_i + 'kg</option>'
+		};
+		$("#memberDetail_weight").html('<option>请设置您的体重</option><option>30kg以下</option>' + _weightList + '<option>200kg以上</option>');
+		if (_demoWeight) {
+			$("#memberDetail_weight option").map(function() {
+				if (parseInt($(this).val()) == _demoWeight) {
+					$(this).prop('selected', true).siblings('option').prop('selected', false);
+				}
+			});
+		} else {
+			$("#memberDetail_weight option:first").prop('selected', true).siblings('option').prop('selected', false);
+		};
+		if (hg_memberInfo.ext1) {
+			$("#memberDetail_height").val(hg_memberInfo.ext1);
+		}
+		if (hg_memberInfo.ext2) {
+			$("#memberDetail_weight").val(hg_memberInfo.ext2);
+		}
+	};
+	//获取验证码
+	function getSmsCode() {
+		if (buijs_formcheck_mobile($("#memberDetail_mobilePhone").val()) == false) {
+			buijs_alert({
+				content: '手机格式不正确'
+			});
+			return false;
+		} else {
+			$.ajax({
+				type: "get",
+				url: _jsonUrl + "member/front/sendVerifyCode?phoneNum="+$("#memberDetail_mobilePhone").val(),
+				async: true,
+				cache: false,
+				dataType: 'json',
+				error: function (data,reo){
+					buijs_alert({
+						content: "网络超时,请刷新重试。("+data.status+":"+reo+")"
+					})
+				},
+				success: function(data) {
+					_smsCode = data.data
+					console.log(data);
+					$("#memberDetail_CodeBtn button").prop('disabled', true).removeClass('bui_bgc_white').addClass('bui_bgc_black').html('60s');
+					//倒计时
+					var i = 60;
+					var int = setInterval(smsCodecountDown, 1000);
+
+					function smsCodecountDown() {
+						i = i - 1;
+						if (i >= 0) {
+							$("#memberDetail_CodeBtn button").html(i + 's');
+						} else {
+							$("#memberDetail_CodeBtn button").prop('disabled', false).html('获取');
+							window.clearInterval(int);
+						}
+					};
+				}
+			});
+		};
+	};
+	//更新个人信息
+	function updataMemberDetail() {
+		console.log(_isNewUser);
+		//前端校验
+		if (buijs_formcheck_mobile($("#memberDetail_mobilePhone").val()) == false) {
+			buijs_alert({
+				content: '手机格式不正确'
+			});
+			return false;
+		// } else if (_isNewUser == true && buijs_formcheck_length($("#memberDetail_Code").val(), 6, 6) == false) {
+		// 	buijs_alert({
+		// 		content: '验证码格式不正确'
+		// 	});
+		// 	return false;
+		// } else if (_isNewUser == true && $("#memberDetail_Code").val() != _smsCode) {
+		// 	buijs_alert({
+		// 		content: '验证码错误'
+		// 	});
+		// 	return false;
+		} else if (buijs_formcheck_length($("#memberDetail_fullname").val(), 20, 2) == false) {
+			buijs_alert({
+				content: '昵称格式不正确'
+			});
+			return false;
+		} else if (buijs_formcheck_length($("#memberDetail_birthday").val(), 20, 1) == false) {
+			buijs_alert({
+				content: '请设置您的生日'
+			});
+			return false;
+		}
+		//后端校验
+		else {
+			var birthday= $('#memberDetail_birthday').val();
+			buijs_showloading('black_f72');
+			var updataMemberDetailData = {
+				mobilephone: $('#memberDetail_mobilePhone').val(),
+				gender: $("#memberDetail_gender option:selected").text() == "男"? 1 : 0,
+				name: $('#memberDetail_fullname').val(),
+				birthday: birthday,
+			};
+			$.ajax({
+				type: "post",
+				url: _jsonUrl + "member/front/editCurrentMember?verifyCode="+$("#memberDetail_Code").val(),
+				contentType: "application/json",
+				dataType: "json",
+				complete: function () {
+					buijs_closeloading();
+				},
+				data: JSON.stringify(updataMemberDetailData),
+				error: function (data,reo){
+					buijs_alert({
+						content: "网络超时,请刷新重试。("+data.status+":"+reo+")"
+					})
+				},
+				success: function(data) {
+					console.log(updataMemberDetailData)
+					if (data.status=="00"){
+						buijs_alert({
+							content: "修改成功"
+						});
+						getMyInfo();   //my.js 里面的方法
+						history.go(-1);
+					}else {
+						buijs_alert({
+							content: data.msg
+						});
+					}
+					
+				}
+			});
+		};
+	};
+</script>

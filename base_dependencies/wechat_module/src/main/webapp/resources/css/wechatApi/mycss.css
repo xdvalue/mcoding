@@ -1,0 +1,20 @@
+.pre_menu_list {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: 1px solid #e7e7eb;
+    background: transparent url(../images/bg_mobile_foot_default2968da.png) no-repeat 0 0;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    padding-left: 43px;
+}
+
+.pre_menu_link {
+    border: 1px solid #44b549;
+    line-height: 48px;
+    background-color: #fff;
+    color: #44b549;
+    width:91.3125px;
+    height:50px
+}

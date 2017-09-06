@@ -1,0 +1,47 @@
+{
+	"status": "00",
+	"msg": "ok",
+	"queryResult": [
+		{
+			"id": 1,
+			"title": {
+				"cn": "公司简介",
+				"en": "Company profile"
+			},
+			"content": {
+				"cn": "<div style='float:right;margin:2rem;'><img src='images/logo.png'/></div><p>广州灵鲨健康科技有限公司于2015年7月在花城广州成立，座落在广州体育学院的体育产业服务中心。</p><p>企业发起人是一群有着几十年世界500强医药保健公司的管理和销售经验的运动爱好者。</p><p>专业和专注是灵鲨健康的核心竞争力，我们联合国内顶级的医药保健和运动学专家，将领先行业的产品理念和实际应用相结合，为运动爱好者提供专业健康的产品。</p><p>我们也将持续并积极配合国内的各项运动赛事和健康论坛，与运动爱好者保持紧密的联系，以为运动爱好者提供科学、专业的产品为使命驱使我们前进！</p>",
+				"en": "<div  style='float:right;margin:2rem;'><img src='images/logo.png'/></div><p> Guangzhou NensaHealth Technology Co., Ltd. was founded in July 2015 in Huacheng Guangzhou, located in the sports industry service center of Guangzhou Sports University. </p><p> enterprise promoter is a group of sports enthusiasts with decades of management and marketing experience in the world's top 500 pharmaceutical care companies. </p><p> professional and dedicated spirit is the core competitiveness of NensaHealth, medical care and domestic top experts in our joint kinematics, the leading product concept and practical application of the combination of industry, to provide professional health products for sports enthusiasts. </p><p> we will continue to actively cooperate with the domestic and the sports and health forum, to maintain close contact with sports enthusiasts think sports enthusiasts to provide scientific and professional products for the mission that drives us forward! </p>"
+			}
+		}, {
+			"id": 2,
+			"title": {
+				"cn": "发展历程",
+				"en": "Course"
+			},
+			"content": {
+				"cn": "<p>广州灵鲨健康科技有限公司于2015年7月在花城广州成立，座落在广州体育学院的体育产业服务中心。</p><p><img src='images/course.jpg' class='bui_block'/></p>",
+				"en": "<p>Guangzhou NensaHealth Technology Co., Ltd. was founded in July 2015 in NensaHealth Guangzhou, located in the Guangzhou Sports University sports industry service center.</p><p><img src='images/course.jpg' class='bui_block'/></p>"
+			}
+		}, {
+			"id": 3,
+			"title": {
+				"cn": "企业文化",
+				"en": "Culture"
+			},
+			"content": {
+				"cn": "<div class='bui_media bui_vt'><div class='bui_media_b'><p class='bui_ta_c'><img src='images/culture-2.jpg'/></p><p>创立以来，强调诚信丶专业的价值观，并据以形塑企业文化，将「专业的员工是最重要的无形资产」的信念。</p><p>因为对员工的尊重丶对工作环境品质的重视以及严谨的产品研发上，员工与企业共同创造出积极的良性循环。</p></div><div class='bui_media_r'><img src='images/culture-1.jpg'/></div></div>",
+				"en": "<div class='bui_media bui_vt'><div class='bui_media_b'><p class='bui_ta_c'><img src='images/culture-2.jpg'/></p><p>Since its inception, emphasis has been placed on the values of honesty and professionalism, and on the belief that corporate culture is the 「most important intangible asset for professional employees」.</p><p>Because of respect for employees, attention to the quality of the work environment, and rigorous product development, employees and enterprises to create a positive and virtuous circle.</p></div><div class='bui_media_r'><img src='images/culture-1.jpg'/></div></div>"
+			}
+		}, {
+			"id": 4,
+			"title": {
+				"cn": "核心价值",
+				"en": "Core"
+			},
+			"content": {
+				"cn": "<div class='bui_row_p_24'><div class='bui_media bui_vm'><div class='bui_media_l'><img src='images/core-1.png'/></div><div class='bui_media_b'><p>集结国内顶级的医药保健及营养专家，坚持以医学理论和运动实践相结合，发挥专家优势，打造专业的品牌形象、和专业的运动营养解决方案。我们相信唯有专业才能把事情做好，严谨而有计划的做最好的产品。秉持严谨的专业分工，各司其职，正视问题核心，研拟解决方案。</p></div></div><div class='bui_media bui_vm'><div class='bui_media_l'><img src='images/core-2.png'/></div><div class='bui_media_b'><p>因为专业，我们专注在我们熟悉的领域，持续以研发创新的精神精增进生产效能丶产品品质丶以及新品品项。不做一时兴起的产品，为永续的发展奠基。在不断发展的运动市场，始终关注运动者的需求变化，专注于运动市场的保健营养产品研发。 </p></div></div><div class='bui_media bui_vm'><div class='bui_media_l'><img src='images/core-3.png'/></div><div class='bui_media_b'><p>因为健康是一切幸福的根本，我们研发好的产品，为你的幸福把关，开发行销对人体健康及环境友善的产品</p></div></div></div>",
+				"en": "<div class='bui_row_p_24'><div class='bui_media bui_vm'><div class='bui_media_l'><img src='images/core-1.png'/></div><div class='bui_media_b'><p>To build up the top medical, health and nutrition experts in China, and adhere to the combination of medical theory and sports practice, give full play to the advantages of experts, and build a professional brand image and professional sports nutrition solutions. We believe that only professional can do things well, rigorous and planned to do the best products. Uphold strict professional division of labor, perform their duties, face the core of the problem, and study solutions.</p></div></div><div class='bui_media bui_vm'><div class='bui_media_l'><img src='images/core-2.png'/></div><div class='bui_media_b'><p> Because professional, we focus on the areas we are familiar with, continue to R & D innovation spirit, improve production efficiency, product quality, and new items. Do not make a whim of the product, for sustainable development foundation. In the developing sports market, we always pay attention to the changing demands of the sports, and concentrate on the research and development of health care and nutrition products in the sports market. </p></div></div><div class='bui_media bui_vm'><div class='bui_media_l'><img src='images/core-3.png'/></div><div class='bui_media_b'><p> Because health is the root of all happiness, we have developed products that monitor your happiness, develop and sell products that are good for your health and your environment. </p></div></div></div>"
+			}
+		}
+	]
+}

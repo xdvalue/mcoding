@@ -1,0 +1,30 @@
+<div id="classfiyModule">
+    <p class="bui_ta_c bui_p_24 bui_tc_white_d48"><i class="fa fa-circle-o-notch fa-spin"></i> 正在处理中...</p>
+</div>
+
+<script type="text/javascript">
+    $.ajax({
+        type: 'get',
+        url: _jsonUrl+'snsModule/front/findAllModules',
+        dataType: 'json',
+        success: function(data) {
+            var _list='';
+            $.map(data.data, function(data) {
+                // if(data.parentId!="0"){
+                   _list+='<a href="javascript:clickA(\''+data.name+'\','+ data.id+ ');" class="bui_bgc_white bui_block module_li_a" style="text-align: left">'+data.name+'</a>'; 
+                // }
+            });
+            $("#classfiyModule").html('<div class="bui_bgc_white bui_plr_24">'+_list+'</div>');
+        },
+        error: function (data,reo){
+            buijs_alert({
+                content: "网络超时,请刷新重试。("+data.status+":"+reo+")"
+            })
+        }
+    });
+    function clickA (name,id) {
+        window.history.go(-1);
+        $("#choiceName").val(name);
+        moduleId = id;    //post_message.js里面的一个全局参数
+    }
+</script>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>社区主页</title>
+		<meta charset="UTF-8">
+		<!--引入全局路径配置js-->
+		<script src="workspace_v2.0.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="" type="text/javascript" charset="utf-8"></script>
+		<script src="../resources/js/common/wechatShare.js"></script>
+		<script type="text/javascript" src="./script/upload.js"></script>
+		<!--引入当前页面js-->
+		<script src="./script/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body class="hg_body bui_tc_black_a bui_at_noline">
+		<!--所属板块标记-->
+		<input type="hidden" name="hg_channelName" id="hg_channelName" value="hg_channel_Index" />
+		<!--所属板块标记-->
+		<div class="bui_wrap">
+			<div class="bui_mo bui_bgc_white_d12">
+				<!--页头-->
+				<div class="bui_mo_h bui_bgc_white bui_bds_1_b">
+					<div class="bui_media bui_vm">
+						<!--左侧按钮-->
+						<div class="bui_media_l bui_pl_12 bui_pt_6">
+							<img src="./images/jldLogo.png" style="height: 32px">
+						</div>
+						<!--左侧按钮-->
+						<!--中间文字-->
+						<div class="bui_media_b">
+							<p class="bui_ta_c"></p>
+						</div>
+						<!--中间文字-->
+						<!--右侧按钮 如不许要可删除-->
+						<div class="bui_media_r bui_p_0 bui_tc_black_l48">
+							<a href="news_center.html" class="bui_btn bui_btn_sq bui_bds_0 bui_m_8" style="position: relative;">
+								<div id="haveNews" class="bui_round bui_bds_2 bui_bdc_white bui_bgc_red" style="display: none;position: absolute; top: 2px; right: 1px; width: 13px; height: 13px; line-height: 14px;"></div>
+								<i class="fa fa-envelope-o" style="font-size: 24px"></i>
+							</a>
+							<a href="javascript:history.go(0)" class="bui_btn bui_btn_sq bui_bds_0 bui_m_8" style="position: relative;">
+								<i class="fa fa-refresh" style="font-size: 24px"></i>
+							</a>
+						</div>
+						<!--右侧按钮 如不许要可删除-->
+					</div>
+					<!--导航菜单-->
+					<div class="bui_bgc_black_l64 bui_tc_white_a bui_avg_4" id="indexHeaderNav" style="display: none;">
+						<li v-for="data in indexNav" :class="[$index>0?'bui_bds_1_l':'','bui_bdc_black_f48']">
+							<a href="{{data.url}}" class="bui_p_12 bui_block bui_inline bui_ta_c">
+								<img src="{{data.img}}" class="bui_btn bui_btn_sq" />
+								<p class="bui_ts_14 bui_block">{{data.name}}</p>
+							</a>
+
+						</li>
+					</div>
+					<!--导航菜单-->
+				</div>
+				<!--页头-->
+
+				<!--页面-->
+				<div class="bui_mo_b bui_mo_b_h indexBg" style="-webkit-overflow-scrolling: touch">
+					<!--这里放主要内容-->
+
+					<!--幻灯片-->
+					<div id="indexBanner">
+						<div data-bui_swiper style="height: 10rem;" :style="{display: indexBanner.length<=0?'none':'block'}">
+							<div class="box">
+								<a href="{{data.aUrl}}" v-for="data in indexBanner.data" class="item" data-bui_img>
+									<img src="{{data.imgUrl}}" />
+								</a>
+							</div>
+						</div>
+					</div>
+					<!--幻灯片-->
+					<hr />
+
+					<!--导航菜单-->
+					<div class="bui_bgc_white bui_avg_4 bui_bds_1_b">
+						<li v-for="data in indexNav" class="bui_bds_1_r">
+							<a href="{{data.url}}" class="bui_p_12 bui_block bui_inline bui_ta_c">
+								<img src="{{data.img}}" class="bui_btn bui_btn_sq" />
+								<p class="bui_ts_14 bui_block">{{data.name}}</p>
+							</a>
+
+						</li>
+					</div>
+					<!--导航菜单-->
+
+					<!--分类模块-->
+					<div class="bui_bgc_white bui_mt_12 bui_bds_1_t bui_avg_2">
+						<li v-for="data in findAllModules.data" class="bui_bds_1_r bui_bds_1_b">
+							<a href="community_list.html?typeName={{encodeURIComponent(data.name)}}&id={{data.id}}" class="bui_media bui_vm bui_p_6">
+								<div class="bui_media_l"><img src="{{data.imgUrl}}" class="bui_btn bui_btn_sq" /></div>
+								<div class="bui_media_b">
+									<p class="bui_ts_14">{{data.name}}</p>
+									<p class="bui_ts_12 bui_tc_white_d72">帖子：<span class="bui_tc_red">{{data.postCount||0}}</span></p>
+								</div>
+							</a>
+						</li>
+					</div>
+					<!--分类模块-->
+					<!--帖子列表-->
+					<div class="bui_mt_12">
+						<div class="bui_row_p_12">
+							<div v-for="data in postArray">
+								<a href="#action=modalArticle/#id={{data.id}}" class="bui_bgc_white bui_bds_1 bui_p_12 bui_block">
+									<!--用户头像姓名-->
+									<div class="bui_media bui_vm">
+										<div class="bui_media_l">
+											<img src="{{data.memberImgUrl}}" style="width: 3rem;" class="bui_round" />
+										</div>
+										<div class="bui_media_b">
+											<p>{{data.memberName}} <span class="bui_plr_6 bui_bgc_red bui_tc_white bui_ts_10 bui_round">Lv {{data.member.levelList[0].grade}}</span></p>
+											<p class="bui_ts_12 bui_tc_white_d48">{{dateDiff(data.createTime,global_nowTime)}}</p>
+										</div>
+									</div>
+									<!--用户头像姓名-->
+									<p class="bui_mt_6">{{data.title}}</p>
+									<p class="bui_mt_6 bui_ts_14 bui_tc_white_d72">{{clearHtml(data.content,66)}}{{clearHtml(data.content).length>66?'...':''}}</p>
+
+									<div class="bui_mt_6">
+										<div class="bui_avg_3 bui_row_p_12">
+											<li v-for="pic in data.postImgs" v-if="$index < 3">
+												<div class="" data-bui_img style="height: 96px;">
+													<img src="{{jsonUrl+pic.imgUrl}}" />
+												</div>
+
+											</li>
+										</div>
+									</div>
+									<div class="bui_mt_6 bui_inline bui_row_p_6 bui_ts_12">
+										<div>
+											<div class="bui_bgc_white_d64 bui_round bui_plr_6 bui_tc_white"><i class="fa fa-eye fa-fw"></i> {{data.snsPostExtInfo.viewNum}}</div>
+										</div>
+										<div>
+											<div class="bui_bgc_white_d64 bui_round bui_plr_6 bui_tc_white"><i class="fa fa-commenting fa-fw"></i> {{data.snsPostExtInfo.commentNum}}</div>
+										</div>
+										<div>
+											<div class="bui_bgc_white_d64 bui_round bui_plr_6 bui_tc_white"><i class="fa fa-thumbs-o-up fa-fw"></i> {{data.snsPostExtInfo.likeNum}}</div>
+										</div>
+									</div>
+								</a>
+							</div>
+
+						</div>
+					</div>
+					<!--帖子列表-->
+
+					<!--列表加载提示-->
+					<div class="bui_p_24 bui_ta_c bui_inlin bui_vm bui_tc_white_d64">
+						<template v-if="listPageLoad">
+							<i class="fa fa-check bui_ts_24"></i>
+							<span>已加载完成</span>
+						</template>
+						<template v-else>
+							<i class="fa fa-circle-o-notch fa-spin bui_ts_24"></i>
+							<span>正在加载中...</span>
+						</template>
+					</div>
+					<!--列表加载提示-->
+
+				</div>
+				<!--页面-->
+			</div>
+		</div>
+
+	</body>
+
+</html>

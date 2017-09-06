@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns:context="http://www.springframework.org/schema/context"
+     xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+     xsi:schemaLocation="
+     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    
+    
+    <dubbo:application name="dubbo_consumer_member"/>
+    
+    <dubbo:registry address="zookeeper://120.24.79.86:2181" check="false" />
+    <dubbo:consumer retries="2" timeout="5000"></dubbo:consumer>
+    <dubbo:reference interface="com.mcoding.base.member.service.member.MemberService" id="mcodingMemberService" />
+    <dubbo:reference interface="com.mcoding.base.member.service.member.MemberExtInfoService" id="mcodingMemberExtInfoService" />
+    <dubbo:reference interface="com.mcoding.base.member.service.level.MemberLevelService" id="mcodingMemberLevelService"  />
+    <dubbo:reference interface="com.mcoding.base.member.service.point.MemberPointRecordService" id="mCodingMemberPointRecordService"  />
+    <dubbo:reference interface="com.mcoding.base.member.service.wechat.StoreWxRefService" id="mcodingStoreWxRefService"  />
+    
+</beans>

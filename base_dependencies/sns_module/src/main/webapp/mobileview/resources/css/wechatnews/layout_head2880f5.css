@@ -1,0 +1,198 @@
+.head .inner {
+	height: 60px;
+}
+.head .inner::after {
+	height: 0px; clear: both; display: block; content: "\200B";
+}
+.head .inner.wrp {
+	width: 1200px; margin-right: auto; margin-left: auto;
+}
+.head_box {
+	border-top-color: rgb(68, 181, 73); border-bottom-color: rgb(217, 218, 220); border-top-width: 4px; border-bottom-width: 1px; border-top-style: solid; border-bottom-style: solid; position: relative; background-color: rgb(255, 255, 255);
+}
+.icon_subscribe_label {
+	background: url("/mpres/zh_CN/htmledition/comm_htmledition/style/base/layout_head_z26f6ea.png") no-repeat 0px 0px; width: 38px; height: 14px; line-height: 100px; overflow: hidden; vertical-align: middle; display: inline-block;
+}
+.icon_service_label {
+	background: url("/mpres/zh_CN/htmledition/comm_htmledition/style/base/layout_head_z26f6ea.png") no-repeat 0px -24px; width: 38px; height: 14px; line-height: 100px; overflow: hidden; vertical-align: middle; display: inline-block;
+}
+.icon_verify_label {
+	width: 37px; height: 14px; line-height: 100px; overflow: hidden; vertical-align: middle; display: inline-block;
+}
+.icon_verify_label.fail {
+	background: url("/mpres/zh_CN/htmledition/comm_htmledition/style/base/layout_head_z26f6ea.png") no-repeat 0px -48px;
+}
+.icon_verify_label.success {
+	background: url("/mpres/zh_CN/htmledition/comm_htmledition/style/base/layout_head_z26f6ea.png") no-repeat 0px -72px;
+}
+.icon_inbox {
+	background: url("/mpres/zh_CN/htmledition/comm_htmledition/style/base/layout_head_z26f6ea.png") no-repeat 0px -96px; width: 20px; height: 15px; line-height: 100px; overflow: hidden; vertical-align: middle; display: inline-block;
+}
+.account {
+	padding-top: 10px; float: right;
+}
+.account_meta {
+	vertical-align: bottom; display: inline-block;
+}
+.account_faq {
+	padding-top: 18px;
+}
+.account_line {
+	margin: 0px 5px; top: -1px; color: rgb(141, 141, 141); font-size: 12px; font-style: normal; font-weight: 400; position: relative;
+}
+.account {
+	font-size: 0px;
+}
+.account_meta {
+	font-size: 14px;
+}
+.account_meta_primary a {
+	color: rgb(34, 34, 34);
+}
+.account_meta_primary a:hover {
+	color: rgb(69, 154, 233);
+}
+.account_info {
+	position: relative; min-width: 80px;
+}
+.account_info .avatar {
+	left: -50px; top: 0px; width: 38px; height: 38px; position: absolute; background-color: rgb(240, 240, 240);
+}
+.account_info .type_wrp {
+	left: 0px; top: 2px; position: absolute;
+}
+.account_info .type_wrp .type {
+	vertical-align: top;
+}
+.account_info .nickname {
+	font-style: normal; font-weight: 400; margin-top: 18px; display: inline-block;
+}
+.icon_dot_notices {
+	margin: 0px 9px; height: 16px; color: rgb(255, 255, 255); line-height: 16px; font-size: 12px; display: inline-block; position: relative; background-color: rgb(255, 80, 39);
+}
+.icon_dot_notices_left {
+	background: url("/mpres/htmledition/images/icon/widget/account/icon_notice_dot_left2880f5.png") no-repeat 0px 0px; left: -9px; top: 0px; width: 9px; height: 16px; vertical-align: middle; display: inline-block; position: absolute;
+}
+.icon_dot_notices_right {
+	background: url("/mpres/htmledition/images/icon/widget/account/icon_notice_dot_right2880f5.png") no-repeat 0px 0px; top: 0px; width: 9px; height: 16px; right: -9px; vertical-align: middle; display: inline-block; position: absolute;
+}
+.account_inbox {
+	top: 3px; margin-left: 5px; position: relative; z-index: 1;
+}
+.account_inbox .icon_inbox {
+	margin-left: 3px;
+}
+.account_inbox.on .account_inbox_switch {
+	position: relative; z-index: 1;
+}
+.account_inbox .account_inbox_switch {
+	
+}
+.account_inbox .icon_dot_notices {
+	
+}
+.account_inbox_switch {
+	border-width: 1px 1px 0px; border-style: solid; border-color: transparent; border-image: none; height: 28px; text-align: center; line-height: 28px; display: block;
+}
+.account_inbox_switch:hover {
+	text-decoration: none;
+}
+.account_inbox_switch:hover .icon_dot_notices {
+	color: rgb(255, 255, 255);
+}
+.account_inbox_switch i.icon_common {
+	margin-top: 16px; vertical-align: top; cursor: pointer;
+}
+.account_inbox_switch i.inbox {
+	
+}
+.account_inbox_switch i.notices {
+	margin-left: -12px;
+}
+.account_message_box {
+	padding: 18px 0px 16px; border: 1px solid rgb(179, 179, 180); border-image: none; top: 37px; right: -32px; font-size: 12px; margin-top: -1px; position: absolute; box-shadow: 0px 2px #d5d5d5; background-color: rgb(255, 254, 236); -moz-box-shadow: 0 2px #d5d5d5; -webkit-box-shadow: 0 2px #d5d5d5;
+}
+.account_message_box ul {
+	width: 320px;
+}
+.account_message_box li.highlight .account_message_link {
+	color: rgb(34, 34, 34);
+}
+.account_message_box li.highlight .account_message_link:hover {
+	color: rgb(34, 34, 34);
+}
+.account_message_box li.highlight .account_message_link strong {
+	max-width: 84%;
+}
+.account_message_box .btn_closed {
+	top: 4px; width: 18px; height: 18px; text-align: center; right: 5px; line-height: 999px; overflow: hidden; position: absolute; cursor: pointer; background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASBAMAAACk4JNkAAAAElBMVEUAAACen6Gen6Gen6Gen6Gen6HHskWrAAAABXRSTlMAowNbXKRhl0MAAAA2SURBVAjXYyAeGCowMAmDWaJCDIqBIAaQUgJyQIBJVDBQgQEiGAoUgrMQsggdCFPgJosQ7xAAAoEFuCOFwmEAAAAASUVORK5CYII=");
+}
+.account_message_box .btn_closed:hover {
+	background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASBAMAAACk4JNkAAAAElBMVEUAAACHhoaHhoaHhoaHhoaHhoYqfBoTAAAABXRSTlMAowNbXKRhl0MAAAA2SURBVAjXYyAeGCowMAmDWaJCDIqBIAaQUgJyQIBJVDBQgQEiGAoUgrMQsggdCFPgJosQ7xAAAoEFuCOFwmEAAAAASUVORK5CYII=");
+}
+.account_message_box .message_arrow {
+	border-width: 0px 6px 6px; border-style: dashed dashed solid; border-color: transparent transparent rgb(179, 179, 180); width: 0px; height: 0px; right: 40px; margin-top: -6px; margin-left: -6px; display: inline-block; position: absolute;
+}
+.account_message_box .message_arrow_out {
+	top: 0px;
+}
+.account_message_box .message_arrow_in {
+	top: 1px; border-bottom-color: rgb(255, 254, 236);
+}
+.account_message_link {
+	line-height: 28px; padding-right: 32px; padding-left: 16px; display: block; position: relative;
+}
+.account_message_link strong {
+	width: auto; overflow: hidden; font-style: normal; font-weight: 400; vertical-align: top; display: inline-block; white-space: nowrap; cursor: pointer; -ms-word-wrap: normal; -ms-text-overflow: ellipsis; max-width: 100%;
+}
+.account_message_link strong::before {
+	color: rgb(141, 141, 141); content: " ";
+}
+.account_message_link .read_more {
+	color: rgb(69, 154, 233); margin-left: 0.5em; vertical-align: top; display: inline-block; cursor: pointer;
+}
+.account .account_message_link {
+	color: rgb(141, 141, 141);
+}
+.account .account_message_link:hover {
+	color: rgb(141, 141, 141);
+}
+.account .account_message_link:hover strong {
+	text-decoration: underline;
+}
+.account .account_message_link:hover .read_more {
+	text-decoration: underline;
+}
+.account_message_link .icon_dot {
+	color: rgb(255, 59, 48); font-size: 12px; margin-top: -3px; margin-right: 7px;
+}
+.btn.btn_inbox_closed {
+	border-color: rgb(231, 231, 235); margin: 10px 18px 0px; width: auto; height: 30px; color: rgb(34, 34, 34); line-height: 30px; padding-right: 0px; padding-left: 0px; font-size: 11px; display: block; background-image: linear-gradient(rgb(255, 255, 255) 0px, rgb(255, 255, 255) 100%); background-color: rgb(255, 255, 255);
+}
+.btn.btn_inbox_closed button {
+	color: rgb(34, 34, 34);
+}
+.btn.btn_inbox_closed:hover {
+	border-color: rgb(218, 219, 224); color: rgb(0, 0, 0); box-shadow: none; background-image: linear-gradient(rgb(231, 231, 235) 0px, rgb(231, 231, 235) 100%); background-color: rgb(231, 231, 235); -moz-box-shadow: none; -webkit-box-shadow: none;
+}
+.btn.btn_inbox_closed:hover button {
+	color: rgb(34, 34, 34);
+}
+.btn.btn_inbox_closed:hover {
+	color: rgb(34, 34, 34);
+}
+.account_logout a {
+	line-height: 16px; padding-left: 14px; margin-top: 18px; margin-left: 5px; border-left-color: rgb(231, 231, 235); border-left-width: 1px; border-left-style: solid; display: inline-block;
+}
+.account_faq a {
+	display: inline-block;
+}
+.logo {
+	padding-top: 10px; font-size: 24px; float: left;
+}
+.logo a {
+	width: 248px; height: 40px; overflow: hidden; text-decoration: none; display: block;
+}
+.logo a::before {
+	display: inline-block; content: url(/mpres/htmledition/images/bg/bg_logo2491a6.png);
+}

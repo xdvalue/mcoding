@@ -1,0 +1,21 @@
+body.nensahealth .bui_auto_w {
+  min-width: 980px !important; }
+body.nensahealth .bui_bgc_yellow, body.nensahealth .bui_bgc_yellow_h:hover {
+  background: -webkit-linear-gradient(#F9DA03, #F3A408);
+  background: -o-linear-gradient(#F9DA03, #F3A408);
+  background: -moz-linear-gradient(#F9DA03, #F3A408);
+  background: linear-gradient(#F9DA03, #F3A408); }
+body.nensahealth .bui_bgc_blue, body.nensahealth .bui_bgc_blue_h:hover {
+  background: -webkit-linear-gradient(#59BDD7, #0460A3);
+  background: -o-linear-gradient(#59BDD7, #0460A3);
+  background: -moz-linear-gradient(#59BDD7, #0460A3);
+  background: linear-gradient(#59BDD7, #0460A3); }
+
+header [data-btn].active {
+  background-image: url(../images/arrow.png);
+  background-position: bottom center; }
+
+.nensahealth-content p {
+  padding: 0.5rem; }
+
+/*# sourceMappingURL=style.css.map */

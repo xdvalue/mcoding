@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>社区</title>
+		<meta charset="UTF-8">
+		<script src="workspace_v2.0.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./script/my.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body class="hg_body bui_atc_black bui_at_noline">
+		<!--所属板块标记-->
+		<input type="hidden" name="hg_channelName" id="hg_channelName" value="hg_channel_myCenter" />
+		<!--所属板块标记-->
+		<div class="bui_wrap">
+			<div class="bui_mo bui_bgc_white_d12">
+				<!--页头-->
+				<div class="bui_mo_h bui_bgc_white" id="hg_header" hg_style="header tc">
+                    <div class="bui_media bui_vm">
+                        <div class="bui_media_l bui_p_0 bui_ts_24" style="position: relative;">
+                            <a href="index.html" class="bui_btn_32 bui_btnsq bui_m_8"><i class="fa fa-angle-left"></i></a>
+                        </div>
+                        <div class="bui_media_b">
+                            <p class="bui_ta_c" id="">个人中心</p>
+                        </div>
+                        <div class="bui_media_r bui_p_0">
+                            <div class="bui_btn_32 bui_btnsq bui_m_8"></div>
+                        </div>
+                    </div>
+                    <hr style="border-color:#d7d7d7;">
+                </div>
+				<!--页头-->
+
+				<!--页面-->
+				<div class="bui_mo_b bui_mo_b_h">
+					<!--头像名称-->
+					<div id="hg_myPanel" hg_style="bgc" style="background-image: url(images/membercenter_bg.jpg);background-position: center center;background-size: 100% auto;">
+						<p class="bui_ta_c bui_ptb_48"><i class="fa fa-circle-o-notch fa-spin bui_fas_32 bui_tc_white_f64"></i></p>
+					</div>
+					<!--头像名称-->
+
+					<!--主要功能菜单-->
+					<!-- <div class="bui_bgc_white">
+						<div class="bui_avg_sm_4 bui_ts_12 bui_fas_16 bui_fac_white bui_ta_c">
+							<li class="bui_col_line_r bui_col_line_b">
+								<a href="order_list.html" class="bui_ptb_12 bui_block bui_inline">
+									<div class="bui_round bui_bgc_blue" style="width: 32px;height: 32px;"><i class="fa bui_fas_24 nmi nmi-oder" style="line-height: 32px;"></i></div>
+									<p class="bui_block">我的订单</p>
+								</a>
+							</li>
+							<li class="bui_col_line_r bui_col_line_b">
+								<a href="javascript:hg_showCartPanel();" class="bui_ptb_12 bui_block bui_inline">
+									<div style="position: relative">
+										<div class="bui_round bui_bgc_green" style="width: 32px;height: 32px; position: relative;overflow: hidden;">
+											<i class="fa bui_fas_24 nmi nmi-cart" style="line-height: 32px;"></i></div>
+										<div name="cartNum" class="bui_bgc_red bui_tc_white bui_ts_10 bui_round" style="position: absolute; top:-2px;right:-2px;width:16px;height:16px;line-height:16px;display:none">...</div>
+									</div>
+									<p class="bui_block">购物车</p>
+								</a>
+							</li>
+							<li class="bui_col_line_r bui_col_line_b">
+								<a href="javascript:hg_showAddressPanel();" class="bui_ptb_12 bui_block bui_inline">
+									<div class="bui_round bui_bgc_purple" style="width: 32px;height: 32px;"><i class="fa bui_fas_24 nmi nmi-map-marker-o" style="line-height: 32px;"></i></div>
+									<p class="bui_block">收货地址</p>
+								</a>
+							</li>
+							<li class="bui_col_line_r bui_col_line_b">
+								<a href="javascript:;" class="bui_ptb_12 bui_block bui_inline">
+									<div class="bui_round bui_bgc_red" style="width: 32px;height: 32px;"><i class="fa bui_fas_24 nmi nmi-users-o" style="line-height: 32px;"></i></div>
+									<p class="bui_block">会员俱乐部</p>
+								</a>
+							</li>
+							<li class="bui_col_line_r bui_col_line_b">
+								<a href="my_article_list.html?operation=comment&type=article" class="bui_ptb_12 bui_block bui_inline">
+									<div class="bui_round bui_bgc_green_d12" style="width: 32px;height: 32px;"><i class="fa bui_fas_24 nmi nmi-pen" style="line-height: 32px;"></i></div>
+									<p class="bui_block">我的评论</p>
+								</a>
+							</li>
+							<li class="bui_col_line_r bui_col_line_b">
+								<a href="my_article_list.html?operation=favorites&type=article" class="bui_ptb_12 bui_block bui_inline" style="position: relative;">
+									<div class="bui_round bui_bgc_orange" style="width: 32px;height: 32px;"><i class="fa bui_fas_24 fa-star-o" style="line-height: 32px;"></i></div>
+									<p class="bui_block">收藏夹</p>
+								</a>
+							</li>
+							<li class="bui_col_line_r bui_col_line_b">
+								<a href="my_article_list.html?operation=praise&type=article" class="bui_ptb_12 bui_block bui_inline">
+									<div class="bui_round bui_bgc_red_d12" style="width: 32px;height: 32px;"><i class="fa bui_fas_24 nmi nmi-thumb-good-o" style="line-height: 32px;"></i></div>
+									<p class="bui_block">我的赞</p>
+								</a>
+							</li>
+							<li class="bui_col_line_r bui_col_line_b">
+								<a href="my_test_list.html#test" class="bui_ptb_12 bui_block bui_inline">
+									<div class="bui_round bui_bgc_yellow" style="width: 32px;height: 32px;"><i class="fa bui_fas_24 nmi nmi-clock" style="line-height: 32px;"></i></div>
+									<p class="bui_block">检测历史</p>
+								</a>
+							</li>
+						</div>
+					</div> -->
+					<!--个人相关-->
+					<div class="bui_bgc_white bui_mt_12">
+						<hr />
+						<a href="http://v.gymmaxer.com/gMall/member_sign.html?gameid=33" class="bui_media bui_ptb_12 bui_plr_24">
+							<div class="bui_media_l bui_tc_black_f48" onclick="window.location.href='http://v.merryplus.com/wMall/sign.html?gameid=31'">
+								<i class="fa fa-pencil fa-fw"></i>
+							</div>
+							<div class="bui_media_b">
+								<p>签到</p>
+							</div>
+							<div class="bui_media_r">
+								<i class="fa fa-angle-right"></i>
+							</div>
+						</a>
+						<hr />
+					</div>
+					<!--个人相关-->
+
+					<!--杂项-->
+					<div class="bui_bgc_white bui_mtb_12">
+						<hr />
+						<a href="javascript:hg_showMyInfo();" class="bui_media bui_ptb_12 bui_plr_24">
+							<div class="bui_media_l bui_tc_black_f48">
+								<i class="fa fa-user fa-fw"></i>
+							</div>
+							<div class="bui_media_b">
+								<p>完善个人资料</p>
+							</div>
+							<div class="bui_media_r">
+								<i class="fa fa-angle-right"></i>
+							</div>
+						</a>
+						<hr />
+						<a href="community_list.html?typeName=my" class="bui_media bui_ptb_12 bui_plr_24">
+							<div class="bui_media_l bui_tc_black_f48">
+								<i class="fa fa-file-text-o fa-fw"></i>
+							</div>
+							<div class="bui_media_b">
+								<p>我的帖子</p>
+							</div>
+							<div class="bui_media_r">
+								<i class="fa fa-angle-right"></i>
+							</div>
+						</a>
+						<hr />
+						<a href="community_list.html?typeName=discussed" class="bui_media bui_ptb_12 bui_plr_24">
+							<div class="bui_media_l bui_tc_black_f48">
+								<i class="fa fa-file-text-o fa-fw"></i>
+							</div>
+							<div class="bui_media_b">
+								<p>评论过的帖子</p>
+							</div>
+							<div class="bui_media_r">
+								<i class="fa fa-angle-right"></i>
+							</div>
+						</a>
+						<hr />
+						<a href="javascript:;" class="bui_media bui_ptb_12 bui_plr_24">
+							<div class="bui_media_l bui_tc_black_f48">
+								<i class="fa fa-cog fa-fw"></i>
+							</div>
+							<div class="bui_media_b">
+								<p>是否打开信息推送</p>
+							</div>
+							<div class="bui_media_r">
+								<div id="myChose" class="my_chose_wrap">
+									<div class="my_chose_round"></div>
+								</div>
+							</div>
+						</a>
+						<hr />
+						<!-- <a href="javascript:;" class="bui_media bui_ptb_12 bui_plr_24">
+							<div class="bui_media_l bui_tc_black_f48">
+								<i class="fa fa-envelope-o fa-fw"></i>
+							</div>
+							<div class="bui_media_b">
+								<p>消息中心</p>
+							</div>
+							<div class="bui_media_r">
+								<i class="fa fa-angle-right"></i>
+							</div>
+						</a>
+						<hr /> -->
+					</div>
+					<!--杂项-->
+				</div>
+				<!--页面-->
+				<!--页脚-->
+				<!-- <div class="bui_mo_f bui_bgc_white" id="hg_footer"></div> -->
+				<!--页脚-->
+			</div>
+		</div>
+
+	</body>
+
+</html>

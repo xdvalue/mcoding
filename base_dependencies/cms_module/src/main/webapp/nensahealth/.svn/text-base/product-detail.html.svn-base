@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>{{language('Welcome toNensaHealth','灵鲨官网')}}</title>
+		<script src="js/workSpace.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body class="bui_fs_12 nensahealth bui_bgc_black">
+		<com-header channel="product"></com-header>
+		<section class="bui_p_48_tb bui_bgc_white">
+			<div class="bui_auto_w">
+				<div class="bui_row_p_64">
+					<!--侧边菜单-->
+					<div class="bui_col_3">
+						<div class="bui_row_p_24">
+							<div>
+								<dl class="bui_ta_c bui_at_noline">
+									<dt class="bui_bgc_blue bui_bds_1 bui_bdc_blue bui_fc_white bui_p_12 bui_ta_c bui_radius bui_fs_16">{{language('产品中心','product')}}</dt>
+									<dd class="bui_bgc_silver_l bui_m_12_t bui_radius bui_bds_1 bui_bdc_silver_l" style="overflow: hidden;">
+										<li class="bui_bgc_white_f">
+											<a href="product-list.html" class="bui_media bui_vm bui_p_12" :class="!url.productId?'bui_bgc_blue bui_fc_white':'bui_bgc_white_h bui_fc_black'">
+												<div class="bui_media_b">
+													{{language('促销信息','Promotion')}}
+												</div>
+												<div class="bui_media_r">
+													<i class="fa fa-angle-right fa-fw"></i>
+												</div>
+											</a>
+										</li>
+										<template v-for="data in page.side.queryResult">
+											<li class="bui_bgc_white_f bui_bds_1_t bui_bdc_silver_l">
+												<a href="product-list.html?typeId={{data.id}}" class="bui_media bui_vm bui_p_12" :class="page.content.data.categoryId==data.id?'bui_bgc_blue bui_fc_white':'bui_bgc_white_h bui_fc_black'">
+													<div class="bui_media_b">
+														{{language(data.title,data.subTitle)}}
+													</div>
+													<div class="bui_media_r">
+														<i class="fa fa-angle-right fa-fw"></i>
+													</div>
+												</a>
+											</li>
+										</template>
+									</dd>
+								</dl>
+							</div>
+						</div>
+
+					</div>
+					<!--侧边菜单-->
+					<div class="bui_col_9">
+						<div v-bluebox>
+							<div class="bui_media bui_vt">
+								<div class="bui_media_l bui_p_32_r">
+									<div buijs-swiper style="width: 20rem;" data-play="2000" data-ratio="1:1" class="bui_bds_1">
+										<div buijs-swiper-wrap>
+											<div buijs-swiper-item v-for="data in page.content.data.imgList">
+												<img :src="data.url" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="bui_media_b">
+									<div class="bui_row_p_12 bui_fs_14 bui_fc_silver_d">
+										<p class="bui_fs_20 bui_fc_blue">{{language(page.content.data.productName,page.content.data.productName)}}</p>
+										<p>{{language(page.content.data.slogan.cn,page.content.data.slogan.en)}}</p>
+										<p>{{language('建议零售价','Price')}}<span class="bui_fc_red bui_fs_24"><i class="fa fa-rmb fa-fw"></i> {{page.content.data.priceList[0].value/100}}</span></p>
+										<div>
+											<div class="bui_inline bui_row_p_12">
+												<a href="{{page.content.data.tmallUrl}}" target="_blank" class="bui_btn bui_btn_48 bui_bgc_yellow bui_radius bui_vm"><i class="fa fa-cart-plus fa-fw"></i> <span>{{language('购买','Buy Now')}}</span></a>
+											</div>
+										</div>
+										<div class="nensahealth-content bui_fc_black bui_fs_12">{{{language(page.content.data.summary,page.content.data.summary)}}}</div>
+									</div>
+								</div>
+							</div>
+							<hr class="bui_bdc_silver_l bui_m_32_tb" />
+							<!--宝贝图-->
+							<div class="nensahealth-content bui_ta_c">{{{page.content.data.content}}}</div>
+							<!--宝贝图-->
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</section>
+		<com-footer></com-footer>
+
+	</body>
+	<script type="text/javascript">
+		buijs.ready(function() {
+			//获得分类列表
+			buiVue.vueGetJson({
+				url: workSpace.jsonUrlDemo + 'product-type.json',
+				vueName: 'page.side',
+				success: function() {
+					//产品详情
+					buiVue.vueGetJson({
+						url: workSpace.jsonUrl + '/product/front/findDetailById',
+						vueName: 'page.content',
+						data: {
+							id: vm.url.productId
+						},
+						success: function(data) {
+							setTimeout(function() {
+								buijs.img.adapt.set($("[buijs_imgadapt]"))
+								buijs.swiper.set($("[buijs-swiper]"));
+							})
+						}
+					})
+
+				}
+			});
+		});
+	</script>
+
+</html>

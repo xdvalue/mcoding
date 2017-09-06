@@ -1,0 +1,25 @@
+{
+	"status": "00",
+	"msg": "ok",
+	"queryResult": [
+		{
+			"id": 1,
+			"title": {
+				"cn": "活动赞助",
+				"en": "Sponsor"
+			}
+		}, {
+			"id": 2,
+			"title": {
+				"cn": "赛事参与",
+				"en": "Match"
+			}
+		}, {
+			"id": 3,
+			"title": {
+				"cn": "赛事报道",
+				"en": "News"
+			}
+		}
+	]
+}

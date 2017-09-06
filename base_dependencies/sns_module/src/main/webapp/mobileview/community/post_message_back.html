@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>健乐多社区</title>
+        <meta charset="UTF-8">
+        <!--引入全局路径配置js-->
+        <script src="workspace_v2.0.1.js" type="text/javascript" charset="utf-8"></script>
+        <script src="" type="text/javascript" charset="utf-8"></script>
+
+        <!--引入当前页面js-->
+        <script src="./script/post_message_back.js" type="text/javascript" charset="utf-8"></script>
+        <!-- <script src="./script/exif.js"></script> -->
+        <!-- <script type="text/javascript" src="./script/upload.js"></script> -->
+        <script src="./script/Wxfig.js"></script>
+        <!--引入模拟数据js 可删除-->
+
+        
+    </head>
+
+    <body class="hg_body bui_atc_black bui_at_noline">
+        <!--所属板块标记-->
+        <input type="hidden" name="hg_channelName" id="hg_channelName" value="hg_channel_Index" />
+        <!--所属板块标记-->
+        <div class="bui_wrap">
+            <div class="bui_mo bui_bgc_white_d12">
+                <!--页头-->
+                <div class="bui_mo_h bui_bgc_white" id="hg_header" hg_style="header tc">
+                    <div class="bui_media bui_vm">
+                        <div class="bui_media_l bui_p_0 bui_ts_24" style="position: relative;">
+                            <a href="javascript:history.go(-1);" class="bui_btn_32 bui_btnsq bui_m_8"><i class="fa fa-angle-left"></i></a>
+                        </div>
+                        <div class="bui_media_b">
+                            <p class="bui_ta_c" id="">发帖</p>
+                        </div>
+                        <div class="bui_media_r bui_p_0">
+                            <div class="bui_btn_32 bui_btnsq bui_m_8"></div>
+                        </div>
+                    </div>
+                    <hr style="border-color:#d7d7d7;">
+                </div>
+                <!--页头-->
+
+                <!--页面-->
+                <div class="bui_mo_b bui_mo_b_h bui_pt_12">
+                    <!--这里放主要内容-->
+                    <hr style="border-color:#d7d7d7;">
+                    <!-- 标题 -->
+                    <div class="bui_ts_14 bui_bgc_white">
+                        <div class="bui_media bui_vm">
+                            <div class="bui_media_r">
+                                <p class="bui_ts_16">标题</p>
+                            </div>
+                            <div class="bui_media_b">
+                                <div class="bui_ipg_48 bui_block">
+                                    <input id="title" type="text" placeholder="" class="bui_ipt_32 bui_bds_0 bui_ts_14">
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                    <!-- 标题 -->
+                    <hr style="border-color:#d7d7d7;">
+                    <!-- 选择分类 -->
+                    <!-- <div class="bui_ts_14 bui_bgc_white">
+                        <div class="bui_media bui_vm" onclick="hg_showClassfiyModule()">
+                            <div class="bui_media_r">
+                                <p class="bui_ts_16">选择分类</p>
+                            </div>
+                            <div class="bui_media_b">
+                                <input type="choiceName" name="choiceName" value="" readonly="readonly" id="choiceName" class="bui_ipt_32 bui_bds_0 bui_ts_16 bui_ta_c" data-date="">   
+                            </div>
+                            <div class="bui_media_l bui_ts_24" style="position: relative;">
+                                <div class="bui_btn_32 bui_btnsq bui_m_8"><i class="fa fa-angle-right"></i></div>
+                            </div>  
+                        </div>
+                    </div> -->
+                    <hr style="border-color:#d7d7d7;">
+                    <!-- 选择分类 -->
+                    
+                    <!-- 输入内容和图片 -->
+                    <div class="bui_ts_14 bui_bgc_white bui_mt_12">
+                        <hr style="border-color:#d7d7d7;">
+                        <div class="bui_p_12">
+                            <div style="width:100%; height:100%; font-size:16px; line-height:24px !important; border:none;">
+                                <textarea rows="4" class="bui_ipt_48 bui_block bui_bgc_white bui_ts_16" style="line-height:24px !important; border:none; padding:0 " placeholder="请输入..." name="mesContent" id="mesContent"></textarea>
+                            </div>    
+                        </div>
+                        <div class="bui_p_6">
+                            <ul class="bui_avg_sm_3" id="addImg">
+                                <li class="bui_p_6" id="addBox" style="position: relative;">
+                                    <div class="selectImgBack" id="addButton" onclick="changeImg()"><img src="images/picture.jpg" style="width: 100%; height: 100%;" /></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 输入内容和图片 -->
+                    <div id='start' class="bui_pt_24 bui_plr_32 bui_ts_16">
+                        <li><a href="javascript:;" class="bui_btn_48 bui_block bui_radius" style="background: #e93429; color:#fff;" id="sbt">发表</a></li>    
+                    </div>
+                    <!--这里放主要内容-->
+                </div>
+                <!--页面-->
+                <!-- 页脚
+                <div class="bui_mo_f bui_bgc_white" id="hg_footer" hg_style="footer"></div>
+                页脚 -->
+            </div>
+        </div>
+    </body>
+
+</html>

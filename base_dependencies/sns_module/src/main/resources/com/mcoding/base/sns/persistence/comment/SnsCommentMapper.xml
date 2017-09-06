@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.base.sns.persistence.comment.SnsCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.mcoding.base.sns.bean.comment.SnsComment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="post_id" property="postId" jdbcType="INTEGER" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="member_img_url" property="memberImgUrl" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="oper_type" property="operType" jdbcType="INTEGER" />
+    <result column="is_enabled" property="isEnabled" jdbcType="BIT" />
+    <result column="is_checked" property="isChecked" jdbcType="BIT" />
+    <result column="comment_num" property="commentNum" jdbcType="INTEGER" />
+    <result column="like_num" property="likeNum" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="parent_comment_id" property="parentCommentId" jdbcType="INTEGER" />
+    <result column="parent_member_id" property="parentMemberId" jdbcType="INTEGER" />
+    <result column="parent_member_name" property="parentMemberName" jdbcType="VARCHAR" />
+    <result column="member_id"  property="member" jdbcType="INTEGER" typeHandler="com.mcoding.base.member.utils.mybatis.MemberTypeHandler"/>
+  </resultMap>
+  <!--非自动生成 start -->
+	<resultMap id="BaseResultMapWithReplies" type="com.mcoding.base.sns.bean.comment.SnsComment" extends="BaseResultMap" >
+    <collection property="replies" column="id" ofType="com.mcoding.base.sns.bean.comment.SnsComment" 
+       select="com.mcoding.base.sns.persistence.comment.SnsCommentMapper.selectByParentId">
+    </collection>
+    <collection property="postImgs" column="id" ofType="com.mcoding.base.sns.bean.comment.SnsCommentImg" 
+         select="com.mcoding.base.sns.persistence.comment.SnsCommentImgMapper.selectByCommentId">
+     </collection>
+  </resultMap>
+  <!-- <resultMap id="BaseResultMapWithParent" type="com.mcoding.base.sns.bean.comment.SnsComment" extends="BaseResultMap" >
+    <association column="parent_comment_id" property="parent" javaType="com.mcoding.base.sns.bean.comment.SnsComment"
+      select="com.mcoding.base.sns.persistence.comment.SnsCommentMapper.selectByPrimaryKey">
+    </association>
+  </resultMap> -->
+  <!--非自动生成 end -->
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, post_id, open_id, store_id, member_id, member_name, member_img_url, content, 
+    oper_type, is_enabled, is_checked, comment_num, like_num, create_time, update_time, 
+    parent_comment_id, parent_member_id, parent_member_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mcoding.base.sns.bean.comment.SnsCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_sns_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMapWithReplies" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_sns_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_sns_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcoding.base.sns.bean.comment.SnsCommentExample" >
+    delete from t_sns_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcoding.base.sns.bean.comment.SnsComment" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_sns_comment (post_id, open_id, store_id, 
+      member_id, member_name, member_img_url, 
+      content, oper_type, is_enabled, 
+      is_checked, comment_num, like_num, 
+      create_time, update_time, parent_comment_id, 
+      parent_member_id, parent_member_name)
+    values (#{postId,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, 
+      #{memberId,jdbcType=INTEGER}, #{memberName,jdbcType=VARCHAR}, #{memberImgUrl,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{operType,jdbcType=INTEGER}, #{isEnabled,jdbcType=BIT}, 
+      #{isChecked,jdbcType=BIT}, #{commentNum,jdbcType=INTEGER}, #{likeNum,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{parentCommentId,jdbcType=INTEGER}, 
+      #{parentMemberId,jdbcType=INTEGER}, #{parentMemberName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcoding.base.sns.bean.comment.SnsComment" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_sns_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="postId != null" >
+        post_id,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="memberName != null" >
+        member_name,
+      </if>
+      <if test="memberImgUrl != null" >
+        member_img_url,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="operType != null" >
+        oper_type,
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled,
+      </if>
+      <if test="isChecked != null" >
+        is_checked,
+      </if>
+      <if test="commentNum != null" >
+        comment_num,
+      </if>
+      <if test="likeNum != null" >
+        like_num,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="parentCommentId != null" >
+        parent_comment_id,
+      </if>
+      <if test="parentMemberId != null" >
+        parent_member_id,
+      </if>
+      <if test="parentMemberName != null" >
+        parent_member_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="postId != null" >
+        #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="memberName != null" >
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberImgUrl != null" >
+        #{memberImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="operType != null" >
+        #{operType,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isChecked != null" >
+        #{isChecked,jdbcType=BIT},
+      </if>
+      <if test="commentNum != null" >
+        #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="likeNum != null" >
+        #{likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentCommentId != null" >
+        #{parentCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="parentMemberId != null" >
+        #{parentMemberId,jdbcType=INTEGER},
+      </if>
+      <if test="parentMemberName != null" >
+        #{parentMemberName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcoding.base.sns.bean.comment.SnsCommentExample" resultType="java.lang.Integer" >
+    select count(*) from t_sns_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_sns_comment
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.postId != null" >
+        post_id = #{record.postId,jdbcType=INTEGER},
+      </if>
+      <if test="record.openId != null" >
+        open_id = #{record.openId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberId != null" >
+        member_id = #{record.memberId,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberName != null" >
+        member_name = #{record.memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberImgUrl != null" >
+        member_img_url = #{record.memberImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operType != null" >
+        oper_type = #{record.operType,jdbcType=INTEGER},
+      </if>
+      <if test="record.isEnabled != null" >
+        is_enabled = #{record.isEnabled,jdbcType=BIT},
+      </if>
+      <if test="record.isChecked != null" >
+        is_checked = #{record.isChecked,jdbcType=BIT},
+      </if>
+      <if test="record.commentNum != null" >
+        comment_num = #{record.commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.likeNum != null" >
+        like_num = #{record.likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.parentCommentId != null" >
+        parent_comment_id = #{record.parentCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentMemberId != null" >
+        parent_member_id = #{record.parentMemberId,jdbcType=INTEGER},
+      </if>
+      <if test="record.parentMemberName != null" >
+        parent_member_name = #{record.parentMemberName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_sns_comment
+    set id = #{record.id,jdbcType=INTEGER},
+      post_id = #{record.postId,jdbcType=INTEGER},
+      open_id = #{record.openId,jdbcType=VARCHAR},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      member_id = #{record.memberId,jdbcType=INTEGER},
+      member_name = #{record.memberName,jdbcType=VARCHAR},
+      member_img_url = #{record.memberImgUrl,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      oper_type = #{record.operType,jdbcType=INTEGER},
+      is_enabled = #{record.isEnabled,jdbcType=BIT},
+      is_checked = #{record.isChecked,jdbcType=BIT},
+      comment_num = #{record.commentNum,jdbcType=INTEGER},
+      like_num = #{record.likeNum,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      parent_comment_id = #{record.parentCommentId,jdbcType=INTEGER},
+      parent_member_id = #{record.parentMemberId,jdbcType=INTEGER},
+      parent_member_name = #{record.parentMemberName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcoding.base.sns.bean.comment.SnsComment" >
+    update t_sns_comment
+    <set >
+      <if test="postId != null" >
+        post_id = #{postId,jdbcType=INTEGER},
+      </if>
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="memberImgUrl != null" >
+        member_img_url = #{memberImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="operType != null" >
+        oper_type = #{operType,jdbcType=INTEGER},
+      </if>
+      <if test="isEnabled != null" >
+        is_enabled = #{isEnabled,jdbcType=BIT},
+      </if>
+      <if test="isChecked != null" >
+        is_checked = #{isChecked,jdbcType=BIT},
+      </if>
+      <if test="commentNum != null" >
+        comment_num = #{commentNum,jdbcType=INTEGER},
+      </if>
+      <if test="likeNum != null" >
+        like_num = #{likeNum,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="parentCommentId != null" >
+        parent_comment_id = #{parentCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="parentMemberId != null" >
+        parent_member_id = #{parentMemberId,jdbcType=INTEGER},
+      </if>
+      <if test="parentMemberName != null" >
+        parent_member_name = #{parentMemberName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcoding.base.sns.bean.comment.SnsComment" >
+    update t_sns_comment
+    set post_id = #{postId,jdbcType=INTEGER},
+      open_id = #{openId,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER},
+      member_id = #{memberId,jdbcType=INTEGER},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      member_img_url = #{memberImgUrl,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      oper_type = #{operType,jdbcType=INTEGER},
+      is_enabled = #{isEnabled,jdbcType=BIT},
+      is_checked = #{isChecked,jdbcType=BIT},
+      comment_num = #{commentNum,jdbcType=INTEGER},
+      like_num = #{likeNum,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      parent_comment_id = #{parentCommentId,jdbcType=INTEGER},
+      parent_member_id = #{parentMemberId,jdbcType=INTEGER},
+      parent_member_name = #{parentMemberName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMapWithReplies" parameterType="com.mcoding.base.sns.bean.comment.SnsCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_sns_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <!--非自动生成 start -->
+	<select id="selectByParentId" resultMap="BaseResultMap" parameterType="int">
+	  select * from t_sns_comment where parent_comment_id = #{parentCommentId,jdbcType=INTEGER} ORDER BY create_time ASC
+	</select>
+	
+	<update id="addOrRemoveLike" parameterType="map">
+    update
+    t_sns_comment
+    set
+    <choose >
+      <when test="isLike == true" >
+      like_num = like_num + 1
+      </when>
+      <otherwise>
+      like_num = like_num - 1
+      </otherwise>
+    </choose>
+    where
+      t_sns_comment.id = #{commentId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="addOrRemoveComment" parameterType="map">
+  	update t_sns_comment 
+  	set 
+  	<choose>
+  		<when test="isAdd==true">
+  			comment_num = comment_num + 1
+  		</when>
+  		<otherwise>
+  			comment_num = comment_num - 1
+  		</otherwise>
+  	</choose>
+	where t_sns_comment.id=#{commentId,jdbcType=INTEGER}
+  </update>
+  <!--非自动生成 end -->
+  
+</mapper>

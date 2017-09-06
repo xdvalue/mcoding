@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.mcoding.base</groupId>
+		<artifactId>base_dependencies</artifactId>
+		<version>2.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>member_module_api</artifactId>
+	<name>member_module_api</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<com.mcoding.base>2.0-SNAPSHOT</com.mcoding.base>
+		<com.mcoding.component>2.0-SNAPSHOT</com.mcoding.component>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.mcoding.base</groupId>
+			<artifactId>base_core_module</artifactId>
+			<version>${com.mcoding.base}</version>
+			<type>jar</type>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.mcoding.component</groupId>
+		    <artifactId>wechat_comp</artifactId>
+		    <version>${com.mcoding.component}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>dubbo</artifactId>
+			<exclusions>
+			    <exclusion>
+			        <artifactId>spring</artifactId>
+                    <groupId>org.springframework</groupId>
+			    </exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+		</dependency>
+		
+		<!-- web依赖包 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+</project>

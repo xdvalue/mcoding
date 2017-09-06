@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<script src="workspace.js" type="text/javascript" charset="utf-8"></script>
+		<title>数据价值网</title>
+		<script type="text/javascript">
+			//插入专家列表
+			//展开二维码弹窗
+			function showModal(img) {
+				buijs_modal({
+					title: '关注TA',
+					content:'<p class="bui_ta_c"><img src="'+img+'" style="max-width:260px;max-height:320px;"/></p>'+'<p class="bui_ta_c bui_ts_14">微信朋友圈 <i class="fa fa-weixin fa-fw"></i></p>'
+				})
+			};
+			function getActivityArtList(pageNo) {
+                var _contentBox = $("#user");
+                var _list = '';
+                $.ajax({
+                    type: "get",
+                    url: _jsonUrl + "/btApi/queryDTExpertByPage.html",
+                    async: true,
+                    cache: false,
+                    dataType: 'json',
+                    data: {
+                        titleId: dt_TypeId,
+                        pageNo: pageNo,
+                        pageSize: 10
+                    },
+                    error: function() {                     
+                        $("#more").html('<i class="fa fa-close fa-fw"></i> 数据读取失败...');                      
+                    },
+                    success: function(data) {
+                            //有内容
+                        var data = data.queryResult;
+                        if (data.length > 0) {
+                            $.map(data, function(data) {
+                               _list += '<li>' +
+							'<div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">' +
+							'<div class="bui_media_l" id="headimg"><div class="bui_round" data-bui_img="" style="width:64px;height:64px;"><img src="' + data.headimg + '"/></div></div>' +
+							'<div class="bui_media_b">' +
+							'<p>' + data.name + '</p>' +
+							'<p class="bui_ts_12 bui_tc_white_d48">' + data.company + '</p>' +
+							'</div>' +
+							'<div class="bui_media_r"><span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal(\'' + data.qrcode + '\');">关注</span></div>' +
+							'<div id="erweima" style="display: none;width:260px;height:260px;" ><img src="' + data.qrcode + '" style="height:100%;" /></div>' +
+							'</div>' +
+							'<hr /> ' +
+							'</li>';
+                        });
+                        _contentBox.append(_list);
+                        _contentBox.find('[data-bui_img]').buijs_img();
+                        } else {
+                            $("#more").html('没有更多数据了哦...');
+                            $("#more_art").hide();
+                        }
+                        //loading
+                        buijs_closeloading();
+                        $("#dt_user .jiazai").remove();
+                    }
+                });
+            };
+            $(document).ready(function() {
+//              var _pageNo = 1;
+                //读取数据
+//              getActivityArtList(_pageNo);
+                //点击加载
+//              $(document).on("click","#lookmore",function(){
+//                  //console.log(_pageNo)
+//                  _pageNo = _pageNo + 1;
+//                  getActivityArtList(_pageNo);
+//                  
+//              });
+            });
+		</script>
+	</head>
+
+	<body class="dt_body bui_atc_black bui_ahtc_blue">
+		<input type="hidden" name="channelName" id="channelName" value="智库" />
+		<div class="bui_wrap">
+			<div class="bui_mo">
+				<!--页头-->
+				<div id="dt_header"></div>
+				<!--页头-->
+				<div class="bui_mo_b bui_mo_b_h">
+					<!--页面-->
+					<div class="bui_ptb_32">
+						<div class="bui_auto_w">
+							<div class="bui_inline bui_ta_c">
+								<div style="max-width: 640px;" class="bui_ta_l">
+									<!--头图-->
+									<div class="bui_ptb_24 bui_inline bui_ta_c">
+										<img src="pic/idea_pic_001.png" style="max-width: 80%;" />
+									</div>
+									<!--头图-->
+								</div>
+							</div>
+
+							<!--智库列表-->
+							<p class="bui_ts_14 bui_ta_c bui_mt_24">DT 200名专家</p>
+							<hr class="bui_mt_12" />
+							<div id="dt_user"> 
+								   <div class="bui_avg_md_3" id="user">
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127110638_2294.jpg" style="opacity: 1; transition: transform 0.3s; width: auto; height: 64px; margin-top: 0px; margin-left: 0px;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>何涛</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">DT创投</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://www.coding.mobi/EMIS/resources/uploads/dtexpert/20160119110949_6118.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://www.coding.mobi/EMIS/resources/uploads/dtexpert/20160119110949_6118.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127104309_3917.jpg" style="opacity: 1; transition: transform 0.3s; width: auto; height: 64px; margin-top: 0px; margin-left: 0px;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>孙有平</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">DT创投</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127104236_8861.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127104236_8861.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127110610_4934.jpg" style="opacity: 1; transition: transform 0.3s; width: auto; height: 64px; margin-top: 0px; margin-left: 0px;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>范春柏</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">DT创投</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113202_8724.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113202_8724.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127110721_9481.jpg" style="opacity: 1; transition: transform 0.3s; width: auto; height: 64px; margin-top: 0px; margin-left: 0px;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>王永红</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127110728_8051.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127110728_8051.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127110811_5357.jpg" style="opacity: 1; transition: transform 0.3s; width: auto; height: 64px; margin-top: 0px; margin-left: 0px;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>商存海</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127110818_663.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127110818_663.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127110909_6037.jpg" style="opacity: 1; transition: transform 0.3s; width: auto; height: 64px; margin-top: 0px; margin-left: 0px;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>黄剑锋</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127110917_7962.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127110917_7962.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127111049_70.jpg" style="opacity: 1; transition: transform 0.3s; width: auto; height: 64px; margin-top: 0px; margin-left: 0px;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>姚忠诚</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">DT创投</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127111129_2555.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127111129_2555.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127111704_701.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>陈剑楠</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">DT创投</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127111712_2333.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127111712_2333.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127112413_651.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>邹志飞</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">DT创投</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127112421_5301.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127112421_5301.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127112535_2211.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>周可</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">DT创投</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127112543_1969.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127112543_1969.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127112641_2956.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>郭世亮</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127112647_7967.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127112647_7967.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113435_3266.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>李学文</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113443_3167.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113443_3167.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113521_3542.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>高俊</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113540_6877.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113540_6877.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113601_9856.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>黄勤</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113649_7968.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113649_7968.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113704_187.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>刘京</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113711_6332.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113711_6332.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113738_6067.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>张争</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113758_8164.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113758_8164.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113810_1563.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>张乐</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113834_258.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113834_258.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113852_2833.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>牛文甫</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113920_6053.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113920_6053.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113934_8926.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>张腾</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113943_163.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127113943_163.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127114017_5760.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>项珉</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127114034_8050.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127114034_8050.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127114054_7315.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>巩姬鹏</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127114102_5955.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127114102_5955.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127114153_189.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>周嘉林</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127114205_2202.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127114205_2202.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								    <li>
+								     <div class="bui_media bui_vm bui_ptb_12 bui_md_plr_24">
+								      <div class="bui_media_l" id="headimg">
+								       <div class="bui_round" data-bui_img="" style="width:64px;height:64px;">
+								        <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127114246_8373.jpg" style="opacity: 1; transition: transform 0.3s;" />
+								       </div>
+								      </div>
+								      <div class="bui_media_b">
+								       <p>黎文坚</p>
+								       <p class="bui_ts_12 bui_tc_white_d48">大华南IT高管共赢圈</p>
+								      </div>
+								      <div class="bui_media_r">
+								       <span class="bui_btn_32 bui_bgc_blue bui_ts_12 bui_radius" id="guan" onclick="javascript:showModal('http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127114253_6491.jpg');">关注</span>
+								      </div>
+								      <div id="erweima" style="display: none;width:260px;height:260px;">
+								       <img src="http://my.coding.mobi/EMIS/resources/uploads/dtexpert/20160127114253_6491.jpg" style="height:100%;" />
+								      </div>
+								     </div>
+								     <hr /> </li>
+								   </div> 
+								  </div>
+							<div class="bui_p_24 bui_ta_c bui_tc_white_d48" id="more"></div>
+							<!--<div class="bui_ptb_24 bui_ta_c" id="more_art"><a href="javascript:;" class="bui_btn_32 bui_bgc_blue bui_radius bui_ts_14" id="lookmore">查看更多</a></div>-->
+							<!--智库列表-->
+						</div>
+					</div>
+					<!--页面-->
+					<!--页脚-->
+					<div id="dt_footer"></div>
+					<!--页脚-->
+				</div>
+
+			</div>
+
+		</div>
+	</body>
+
+</html>

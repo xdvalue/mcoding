@@ -1,0 +1,63 @@
+{
+	"status": "00",
+	"msg": "操作成功",
+	"size": 0,
+	"pageNo": 1,
+	"pageSize": 10,
+	"pageCount": 20,
+	"rowCount": 200,
+	"queryResult": [
+		{
+			"id": 1,
+			"title": {
+				"cn": "迎新年健乐多产品全线9折优惠",
+				"en": "The new year more than 10 percent off preferential Jianle products across the board "
+			},
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170601074704_9532.jpg"
+			],
+			"info": {
+				"cn": "促销活动这类线下活动还有一个活动前的很重要的一个环节是模拟演示，一般用于一个极具创意性活动 ，在验证活动可操作性及执行效果时用，这个概念是由梅里互动传媒（mili media）首先提出，并在行业广泛推行的，也得到了行业的普遍认可。",
+				"en": "A very important part of the promotion activities under the line there is a pre simulation demo, generally used in a very creative activities in the validation activities and operational performance with this concept is the Meili interactive media (mili media) first proposed and widely implemented in the industry. Also, has been widely recognized by the industry."
+			},
+			"content": {
+				"cn": "",
+				"en": ""
+			}
+		}, {
+			"id": 2,
+			"title": {
+				"cn": "夏日炎炎，活动多多，抽奖抽到手软",
+				"en": "Summer heat, many activities, draw mercy "
+			},
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170601072905_5333.jpg"
+			],
+			"info": {
+				"cn": "活动资讯网是专门发布各类有奖活动信息的网站,包括微信活动、红包活动、淘宝有奖活动、集分宝签到活动、腾讯qq活动、免费领取试用装、赚取话费,现金,网上免费资源",
+				"en": " Information network is designed to release all kinds of information of awards website, including WeChat, Taobao, red activity activity prize activities, set points Po sign activities, Tencent QQ activities, receive a free trial installation, make calls, cash, free online resources "
+			},
+			"content": {
+				"cn": "",
+				"en": ""
+			}
+		}, {
+			"id": 3,
+			"title": {
+				"cn": "2018年广州马拉松开跑了，健乐多送你入场券",
+				"en": " The 2018 Guangzhou marathon run, Jianle send you tickets"
+			},
+			"imgUrl": [
+				"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1502087777264&di=f65001096008b4a2f0450d0cd9cbe278&imgtype=0&src=http%3A%2F%2Fuploads.yjbys.com%2Fallimg%2F201612%2F19-161212151137.jpg"
+			],
+			"info": {
+				"cn": "马拉松（Marathon）长跑是国际上非常普及的长跑比赛项目，全程距离26英里385码，折合为42.195公里（也有说法为42.193公里）。分全程马拉松（Full Marathon）、半程马拉松（Half Marathon）和四分马拉松（Quarter Marathon）三种。以全程马拉松比赛最为普及，一般提及马拉松，即指全程马拉松。",
+				"en": "Marathon (Marathon) long-distance running is a very popular long-distance running event in the world. The distance is 26 miles and 385 yards, or 42.195 kilometers (also 42.193 kilometers). Marathon (Full marathon), Half Marathon (Half Marathon) and four points Marathon (Quarter Marathon) three kinds. The most popular marathon race is the marathon, which refers to the whole marathon."
+			},
+			"content": {
+				"cn": "",
+				"en": ""
+			}
+		}
+	]
+}

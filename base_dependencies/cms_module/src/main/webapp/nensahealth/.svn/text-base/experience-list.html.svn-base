@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>{{language('Welcome toNensaHealth','灵鲨官网')}}</title>
+		<script src="js/workSpace.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body class="bui_fs_12 nensahealth bui_bgc_black">
+		<com-header channel="Experience"></com-header>
+		<section class="bui_p_48_tb bui_bgc_white">
+			<div class="bui_auto_w">
+				<div class="bui_row_p_64">
+					<!--侧边菜单-->
+					<div class="bui_col_3">
+						<div class="bui_row_p_24">
+							<div>
+								<dl class="bui_ta_c bui_at_noline">
+									<dt class="bui_bgc_blue bui_bds_1 bui_bdc_blue bui_fc_white bui_p_12 bui_ta_c bui_radius bui_fs_16">{{language('灵鲨足迹','History')}}</dt>
+									<dd v-if="experience.type.data.length!=0" class="bui_bgc_silver_l bui_m_12_t bui_radius bui_bds_1 bui_bdc_silver_l" style="overflow: hidden;">
+										<template v-for="data in experience.type.data">
+											<li class="bui_bgc_white_f" :class="$index!=0?'bui_bds_1_t bui_bdc_silver_l':null">
+												<a href="experience-list.html?typeId={{data.id}}" class="bui_media bui_vm bui_p_12" :class="url.typeId==data.id?'bui_bgc_blue bui_fc_white':'bui_bgc_white_h bui_fc_black'">
+													<div class="bui_media_b">
+														{{language(data.name,data.code)}}
+													</div>
+													<div class="bui_media_r">
+														<i class="fa fa-angle-right fa-fw"></i>
+													</div>
+												</a>
+											</li>
+										</template>
+									</dd>
+								</dl>
+							</div>
+
+						</div>
+					</div>
+					<!--侧边菜单-->
+					<!--列表-->
+					<div class="bui_col_9">
+
+						<div class="bui_row_p_24 bui_at_noline">
+							<template v-for="data in experience.article.queryResult">
+								<div>
+									<a href="experience-detail.html?articleId={{data.id}}" class="bui_radius bui_bgc_blue bui_bgc_yellow_h bui_p_6 bui_fc_black bui_fc_yellow_h bui_block">
+										<div class="bui_radius bui_bgc_white bui_media bui_vm bui_p_24">
+											<div class="bui_media_b">
+												<p class="bui_fs_20">{{language(data.title,data.title)}}</p>
+												<hr class="bui_m_12_tb bui_bdc_silver_l" />
+												<p class="bui_fs_12 bui_fc_silver_d">{{language(data.summary,data.summary)}}</p>
+											</div>
+											<div class="bui_media_r bui_p_24_l">
+												<img :src="data.coverImage" style="width: 10rem;" />
+											</div>
+										</div>
+									</a>
+								</div>
+							</template>
+						</div>
+						<div class="bui_ta_c bui_p_24">
+							<com-page :data="experience.article" :size="3"></com-page>
+						</div>
+					</div>
+					<!--列表-->
+				</div>
+
+			</div>
+			<!--<pre>{{experience.article|json}}</pre>-->
+		</section>
+		<com-footer></com-footer>
+
+	</body>
+	<script type="text/javascript">
+		buijs.ready(function() {
+			//获得分类列表
+			buiVue.vueGetJson({
+				url: workSpace.jsonUrl + 'module/front/findModuleByParentId',
+				data: {
+					parentId: 4
+				},
+				vueName: 'experience.type',
+				success: function(data) {
+					vm.url.typeId ? null : vm.$set('url.typeId', data.data[0].id);
+					//根据分类获得文章列表
+					buiVue.vueGetJson({
+						url: workSpace.jsonUrl + 'article/front/selectModuleByPage',
+						data: {
+							iDisplayStart: buijs.url.return('pageNo') ? buijs.url.return('pageNo') : 1,
+							iDisplayLength: 5,
+							moduleId: vm.url.typeId
+						},
+						vueName: 'experience.article',
+					});
+				}
+			});
+		});
+	</script>
+
+</html>

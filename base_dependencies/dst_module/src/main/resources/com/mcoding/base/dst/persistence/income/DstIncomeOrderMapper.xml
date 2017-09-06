@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.base.dst.persistence.income.DstIncomeOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.mcoding.base.dst.bean.income.DstIncomeOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="member_id" property="memberId" jdbcType="INTEGER" />
+    <result column="member_name" property="memberName" jdbcType="VARCHAR" />
+    <result column="level_id" property="levelId" jdbcType="INTEGER" />
+    <result column="level_name" property="levelName" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="order_member_id" property="orderMemberId" jdbcType="INTEGER" />
+    <result column="order_member_name" property="orderMemberName" jdbcType="VARCHAR" />
+    <result column="order_amount_total" property="orderAmountTotal" jdbcType="INTEGER" />
+    <result column="order_amount_pay" property="orderAmountPay" jdbcType="INTEGER" />
+    <result column="income_amount_total" property="incomeAmountTotal" jdbcType="INTEGER" />
+    <result column="point_amount_total" property="pointAmountTotal" jdbcType="INTEGER" />
+    <result column="income_type" property="incomeType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, member_id, member_name, level_id, level_name, order_id, order_no, order_member_id, 
+    order_member_name, order_amount_total, order_amount_pay, income_amount_total, point_amount_total, 
+    income_type, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mcoding.base.dst.bean.income.DstIncomeOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_dst_income_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_dst_income_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dst_income_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcoding.base.dst.bean.income.DstIncomeOrderExample" >
+    delete from t_dst_income_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcoding.base.dst.bean.income.DstIncomeOrder" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_dst_income_order (member_id, member_name, level_id, 
+      level_name, order_id, order_no, 
+      order_member_id, order_member_name, order_amount_total, 
+      order_amount_pay, income_amount_total, point_amount_total, 
+      income_type, create_time)
+    values (#{memberId,jdbcType=INTEGER}, #{memberName,jdbcType=VARCHAR}, #{levelId,jdbcType=INTEGER}, 
+      #{levelName,jdbcType=VARCHAR}, #{orderId,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, 
+      #{orderMemberId,jdbcType=INTEGER}, #{orderMemberName,jdbcType=VARCHAR}, #{orderAmountTotal,jdbcType=INTEGER}, 
+      #{orderAmountPay,jdbcType=INTEGER}, #{incomeAmountTotal,jdbcType=INTEGER}, #{pointAmountTotal,jdbcType=INTEGER}, 
+      #{incomeType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcoding.base.dst.bean.income.DstIncomeOrder" useGeneratedKeys="true" keyProperty="id" >
+    insert into t_dst_income_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        member_id,
+      </if>
+      <if test="memberName != null" >
+        member_name,
+      </if>
+      <if test="levelId != null" >
+        level_id,
+      </if>
+      <if test="levelName != null" >
+        level_name,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="orderMemberId != null" >
+        order_member_id,
+      </if>
+      <if test="orderMemberName != null" >
+        order_member_name,
+      </if>
+      <if test="orderAmountTotal != null" >
+        order_amount_total,
+      </if>
+      <if test="orderAmountPay != null" >
+        order_amount_pay,
+      </if>
+      <if test="incomeAmountTotal != null" >
+        income_amount_total,
+      </if>
+      <if test="pointAmountTotal != null" >
+        point_amount_total,
+      </if>
+      <if test="incomeType != null" >
+        income_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="memberId != null" >
+        #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="memberName != null" >
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelId != null" >
+        #{levelId,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null" >
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMemberId != null" >
+        #{orderMemberId,jdbcType=INTEGER},
+      </if>
+      <if test="orderMemberName != null" >
+        #{orderMemberName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmountTotal != null" >
+        #{orderAmountTotal,jdbcType=INTEGER},
+      </if>
+      <if test="orderAmountPay != null" >
+        #{orderAmountPay,jdbcType=INTEGER},
+      </if>
+      <if test="incomeAmountTotal != null" >
+        #{incomeAmountTotal,jdbcType=INTEGER},
+      </if>
+      <if test="pointAmountTotal != null" >
+        #{pointAmountTotal,jdbcType=INTEGER},
+      </if>
+      <if test="incomeType != null" >
+        #{incomeType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcoding.base.dst.bean.income.DstIncomeOrderExample" resultType="java.lang.Integer" >
+    select count(*) from t_dst_income_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_dst_income_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberId != null" >
+        member_id = #{record.memberId,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberName != null" >
+        member_name = #{record.memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.levelId != null" >
+        level_id = #{record.levelId,jdbcType=INTEGER},
+      </if>
+      <if test="record.levelName != null" >
+        level_name = #{record.levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderMemberId != null" >
+        order_member_id = #{record.orderMemberId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderMemberName != null" >
+        order_member_name = #{record.orderMemberName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderAmountTotal != null" >
+        order_amount_total = #{record.orderAmountTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderAmountPay != null" >
+        order_amount_pay = #{record.orderAmountPay,jdbcType=INTEGER},
+      </if>
+      <if test="record.incomeAmountTotal != null" >
+        income_amount_total = #{record.incomeAmountTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.pointAmountTotal != null" >
+        point_amount_total = #{record.pointAmountTotal,jdbcType=INTEGER},
+      </if>
+      <if test="record.incomeType != null" >
+        income_type = #{record.incomeType,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_dst_income_order
+    set id = #{record.id,jdbcType=INTEGER},
+      member_id = #{record.memberId,jdbcType=INTEGER},
+      member_name = #{record.memberName,jdbcType=VARCHAR},
+      level_id = #{record.levelId,jdbcType=INTEGER},
+      level_name = #{record.levelName,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      order_member_id = #{record.orderMemberId,jdbcType=INTEGER},
+      order_member_name = #{record.orderMemberName,jdbcType=VARCHAR},
+      order_amount_total = #{record.orderAmountTotal,jdbcType=INTEGER},
+      order_amount_pay = #{record.orderAmountPay,jdbcType=INTEGER},
+      income_amount_total = #{record.incomeAmountTotal,jdbcType=INTEGER},
+      point_amount_total = #{record.pointAmountTotal,jdbcType=INTEGER},
+      income_type = #{record.incomeType,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcoding.base.dst.bean.income.DstIncomeOrder" >
+    update t_dst_income_order
+    <set >
+      <if test="memberId != null" >
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
+      <if test="memberName != null" >
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="levelId != null" >
+        level_id = #{levelId,jdbcType=INTEGER},
+      </if>
+      <if test="levelName != null" >
+        level_name = #{levelName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMemberId != null" >
+        order_member_id = #{orderMemberId,jdbcType=INTEGER},
+      </if>
+      <if test="orderMemberName != null" >
+        order_member_name = #{orderMemberName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderAmountTotal != null" >
+        order_amount_total = #{orderAmountTotal,jdbcType=INTEGER},
+      </if>
+      <if test="orderAmountPay != null" >
+        order_amount_pay = #{orderAmountPay,jdbcType=INTEGER},
+      </if>
+      <if test="incomeAmountTotal != null" >
+        income_amount_total = #{incomeAmountTotal,jdbcType=INTEGER},
+      </if>
+      <if test="pointAmountTotal != null" >
+        point_amount_total = #{pointAmountTotal,jdbcType=INTEGER},
+      </if>
+      <if test="incomeType != null" >
+        income_type = #{incomeType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcoding.base.dst.bean.income.DstIncomeOrder" >
+    update t_dst_income_order
+    set member_id = #{memberId,jdbcType=INTEGER},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      level_id = #{levelId,jdbcType=INTEGER},
+      level_name = #{levelName,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=INTEGER},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      order_member_id = #{orderMemberId,jdbcType=INTEGER},
+      order_member_name = #{orderMemberName,jdbcType=VARCHAR},
+      order_amount_total = #{orderAmountTotal,jdbcType=INTEGER},
+      order_amount_pay = #{orderAmountPay,jdbcType=INTEGER},
+      income_amount_total = #{incomeAmountTotal,jdbcType=INTEGER},
+      point_amount_total = #{pointAmountTotal,jdbcType=INTEGER},
+      income_type = #{incomeType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByExampleByPage" resultMap="BaseResultMap" parameterType="com.mcoding.base.dst.bean.income.DstIncomeOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_dst_income_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>健乐多社区</title>
+        <meta charset="UTF-8">
+        <!--引入全局路径配置js-->
+        <script src="workspace_v2.0.1.js" type="text/javascript" charset="utf-8"></script>
+        <script src="" type="text/javascript" charset="utf-8"></script>
+        <script src="../resources/js/common/wechatShare.js"></script>
+        <!--引入当前页面js-->
+        <script src="./script/community_list.js" type="text/javascript" charset="utf-8"></script>
+
+        <!--引入模拟数据js 可删除-->
+        
+    </head>
+
+    <body class="hg_body bui_atc_black bui_at_noline">
+        <!--所属板块标记-->
+        <input type="hidden" name="hg_channelName" id="hg_channelName" value="hg_channel_Index" />
+        <!--所属板块标记-->
+        <div class="bui_wrap">
+            <div class="bui_mo">
+                <!--页头-->
+                <div class="bui_mo_h bui_bgc_white" id="hg_header" hg_style="header tc">
+                    <div class="bui_media bui_vm">
+                        <div class="bui_media_l bui_p_0 bui_ts_24" style="position: relative;">
+                            <a href="javascript:history.go(-1);" class="bui_btn_32 bui_btnsq bui_m_8"><i class="fa fa-angle-left"></i></a>
+                        </div>
+                        <div class="bui_media_b">
+                            <p class="bui_ta_c" id="classfiyType">加粉乐园</p>
+                        </div>
+                        <div class="bui_media_r bui_p_0">
+                            <a href="post_message.html" class="bui_btnsq bui_ptb_3 bui_plr_8 bui_m_8 bui_radius" style="background-color:#e93428; color: #fff; font-size:14px;">发帖</a>
+                        </div>
+                    </div>
+                    <hr style="border-color:#d7d7d7;">
+                </div>
+                <!--页头-->
+
+                <!--页面-->
+                <div class="bui_mo_b bui_mo_b_h">
+                    <!--这里放主要内容-->
+                    <!--cms列表-->
+                    <div id="communityList" class="bui_bgc_white_d12">
+                    </div>
+                    <!--cms列表-->
+                    <!--分页提示-->
+                    <div id="communityList_tips" class="bui_p_12 bui_ta_c bui_tc_white_d64"></div>
+                    <!--分页提示-->
+                    <!--这里放主要内容-->
+                </div>
+                <!--页面-->
+            </div>
+        </div>
+
+    </body>
+
+</html>

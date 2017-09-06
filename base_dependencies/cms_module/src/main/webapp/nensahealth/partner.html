@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>{{language('Welcome toNensaHealth','灵鲨官网')}}</title>
+		<script src="js/workSpace.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body class="bui_fs_12 nensahealth bui_bgc_black">
+		<com-header channel="partner"></com-header>
+		<section class="bui_p_48_tb bui_bgc_white">
+			<div class="bui_auto_w">
+				<div class="bui_row_p_64">
+					<!--侧边菜单-->
+					<div class="bui_col_3">
+						<div class="bui_row_p_24">
+							<div>
+								<dl class="bui_ta_c bui_at_noline">
+									<dt class="bui_bgc_blue bui_bds_1 bui_bdc_blue bui_fc_white bui_p_12 bui_ta_c bui_radius bui_fs_16">{{language('合作伙伴','Partner')}}</dt>
+								</dl>
+							</div>
+						</div>
+
+					</div>
+					<!--侧边菜单-->
+					<div class="bui_col_9">
+						<div class="bui_bgc_blue bui_p_6 bui_radius">
+							<div class="bui_bgc_white bui_p_32">
+								<p class="bui_fc_blue bui_fs_24">{{language('合作伙伴','Partner')}}</p>
+								<hr class="bui_bdc_silver_l bui_m_24_tb" />
+								<com-unfind v-if="！page.content||page.content.queryResult.length==0"></com-unfind>
+								<div v-else class="bui_avg_4 bui_row_p_48">
+									<template v-for="data in page.content.queryResult">
+										<div>
+											<div buijs_imgadapt data-ratio="4:3" class="bui_block">
+												<img :src="data.coverImage" />
+											</div>
+											<div class="bui_p_12 bui_ta_c">
+												<p class="bui_fs_14">{{language(data.title,data.title)}}</p>
+											</div>
+										</div>
+									</template>
+								</div>
+								<!--<pre>{{page.content|json}}</pre>-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</section>
+		<com-footer></com-footer>
+
+	</body>
+	<script type="text/javascript">
+		buijs.ready(function() {
+			//获得合作伙伴列表
+			buiVue.vueGetJson({
+				url: workSpace.jsonUrl + 'article/front/selectModuleByPage',
+				vueName: 'page.content',
+				data: {
+					moduleId: 7
+				},
+				success: function() {
+					setTimeout(function() {
+						buijs.img.adapt.set($("[buijs_imgadapt]"));
+					})
+				}
+			})
+		});
+	</script>
+
+</html>

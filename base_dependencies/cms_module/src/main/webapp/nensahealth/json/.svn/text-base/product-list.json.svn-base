@@ -1,0 +1,222 @@
+{
+	"status": "00",
+	"msg": "操作成功",
+	"size": 0,
+	"pageNo": 1,
+	"pageSize": 10,
+	"pageCount": 20,
+	"rowCount": 200,
+	"queryResult": [
+		{
+			"info": "三重速能乳清矩阵+肌酸+HMB",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170601072447_3863.jpg"
+			],
+			"productName": {
+				"cn": "黑金肌能--健乐多乳清蛋白水解乳清分离乳清粉（黑加仑味）1.81kg",
+				"en": "Protein powder"
+			},
+			"productId": 692
+		}, {
+			"info": "美国进口原料，比乳清更纯的粉",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170601072905_5333.jpg"
+			],
+			"productName": {
+				"cn": "健乐多分离乳清蛋白粉（香草味）1.81kg",
+				"en": "Collagen chondroitin"
+			},
+			"productId": 695
+		}, {
+			"info": "三大支链氨基酸，经典配方再强化",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170601074704_9532.jpg"
+			],
+			"productName": {
+				"cn": "健乐多支链氨基酸粉（西柚味）300g",
+				"en": "Increase muscle strength"
+			},
+			"productId": 694
+		}, {
+			"info": "美国进口肌酸",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170601074334_7241.jpg"
+			],
+			"productName": {
+				"cn": "健乐多肌酸粉198g",
+				"en": "Strengthen immunity"
+			},
+			"productId": 693
+		}, {
+			"info": "",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170425145703_8615.jpg"
+			],
+			"productName": {
+				"cn": "健乐多聚肌能乳清蛋白酪蛋白氨基酸粉（原味）900g",
+				"en": "Laxative tea"
+			},
+			"productId": 685
+		}, {
+			"info": "减肥",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20161115173137_1583.jpg"
+			],
+			"productName": {
+				"cn": "健乐多左旋肉碱茶多酚荷叶片（30片）",
+				"en": "Febrifuge"
+			},
+			"productId": 461
+		}, {
+			"info": "专为亚洲人群研制的增肌粉",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170330122014_4606.jpg"
+			],
+			"productName": {
+				"cn": "健乐多重肌能乳清蛋白营养强化粉（香草味）2.27kg",
+				"en": "Hypotensor"
+			},
+			"productId": 633
+		}, {
+			"info": "减肥",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20161115170731_6397.jpg"
+			],
+			"productName": {
+				"cn": "健乐多左旋肉碱茶多酚荷叶片（150片）",
+				"en": "Amoxicillin clavulanate potassium"
+			},
+			"productId": 40
+		}, {
+			"info": "健身增肌蛋白粉",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20161115171635_2890.jpg"
+			],
+			"productName": {
+				"cn": "健乐多乳清蛋白固体饮料（巧克力味）（900g）",
+				"en": "Bupleurum"
+			},
+			"productId": 646
+		}, {
+			"info": "专为亚洲偏瘦人群研制的增肌粉",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170330121217_2741.jpg"
+			],
+			"productName": {
+				"cn": "健乐多重肌能乳清蛋白营养强化粉（可可味）1.5kg",
+				"en": "Licorice"
+			},
+			"productId": 26
+		}, {
+			"info": "专为亚洲偏瘦人群研制的增肌粉",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170330121235_5210.jpg"
+			],
+			"productName": {
+				"cn": "健乐多乳清蛋白营养强化粉（香草味）1.5kg",
+				"en": "Isolated whey"
+			},
+			"productId": 25
+		}, {
+			"info": "6强蛋白 长效供能",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20161115171712_7102.jpg"
+			],
+			"productName": {
+				"cn": "健乐多乳清蛋白酪蛋白营养强化粉（香草味）900g",
+				"en": "Branched chain amino acid"
+			},
+			"productId": 483
+		}, {
+			"info": "6强蛋白 长效供能",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170727101520_7189.jpg"
+			],
+			"productName": {
+				"cn": "健乐多乳清蛋白酪蛋白营养强化粉（香草味）2.72kg",
+				"en": "Black gold skills"
+			},
+			"productId": 683
+		}, {
+			"info": "6强蛋白 长效供能",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170727101300_2937.jpg"
+			],
+			"productName": {
+				"cn": "健乐多乳清蛋白酪蛋白营养强化粉（香草味）1.81kg",
+				"en": "Collagen chondroitin"
+			},
+			"productId": 682
+		}, {
+			"info": "",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170227175845_1720.jpg"
+			],
+			"productName": {
+				"cn": "健乐多运动固体饮料680g（柠檬味）（关键能）",
+				"en": "Collagen chondroitin"
+			},
+			"productId": 533
+		}, {
+			"info": "能量随身 随时补给！",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170227180020_2086.jpg"
+			],
+			"productName": {
+				"cn": "健乐多蛋白棒（黑巧克力芒果味）",
+				"en": "Collagen chondroitin"
+			},
+			"productId": 542
+		}, {
+			"info": "能量随身 随时补给！",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170227180044_196.jpg"
+			],
+			"productName": {
+				"cn": "健乐多蛋白棒（黑巧克力蔓越莓味）",
+				"en": "Collagen chondroitin"
+			},
+			"productId": 541
+		}, {
+			"info": "",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170726175751_1127.jpg"
+			],
+			"productName": {
+				"cn": "健乐多乳清蛋白酪蛋白营养强化粉（巧克力味）900g",
+				"en": "Collagen chondroitin"
+			},
+			"productId": 698
+		}, {
+			"info": "专为亚洲人群研制的增肌粉",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20170330121047_9201.jpg"
+			],
+			"productName": {
+				"cn": "健乐多重肌能乳清蛋白营养强化粉（可可味）2.27kg",
+				"en": "Collagen chondroitin"
+			},
+			"productId": 634
+		}, {
+			"info": "健身增肌蛋白粉",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20\n161115171607_4995.jpg"
+			],
+			"productName": {
+				"cn": "健乐多乳清蛋白固体饮料（抹茶味）（900g）",
+				"en": "Collagen chondroitin"
+			},
+			"productId": 645
+		}, {
+			"info": "",
+			"imgUrl": [
+				"http://v.gymmaxer.com/resources/uploads/product/20161115171831_1873.jpg"
+			],
+			"productName": {
+				"cn": "健乐多乳清蛋白固体饮料（香草味）2.27kg",
+				"en": "Collagen chondroitin"
+			},
+			"productId": 632
+		}
+	]
+}

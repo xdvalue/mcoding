@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcoding.base.cms.persistence.article.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.mcoding.base.cms.bean.article.Article" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="sub_title" property="subTitle" jdbcType="VARCHAR" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="module_id" property="moduleId" jdbcType="INTEGER" />
+    <result column="origin" property="origin" jdbcType="VARCHAR" />
+    <result column="origin_address" property="originAddress" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="summary" property="summary" jdbcType="VARCHAR" />
+    <result column="cover_image" property="coverImage" jdbcType="VARCHAR" />
+    <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
+    <result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="click_count" property="clickCount" jdbcType="INTEGER" />
+    <result column="like_count" property="likeCount" jdbcType="INTEGER" />
+    <result column="dislike_count" property="dislikeCount" jdbcType="INTEGER" />
+    <result column="sort_no" property="sortNo" jdbcType="INTEGER" />
+    <result column="comment_flag" property="commentFlag" jdbcType="INTEGER" />
+    <result column="verify_admin_name" property="verifyAdminName" jdbcType="VARCHAR" />
+    <result column="verify_time" property="verifyTime" jdbcType="TIMESTAMP" />
+    <result column="article_state" property="articleState" jdbcType="INTEGER" />
+    <result column="publish_type" property="publishType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="comment_count" property="commentCount" jdbcType="INTEGER" />
+    <result column="share_count" property="shareCount" jdbcType="INTEGER" />
+    <result column="unverify_reason" property="unverifyReason" jdbcType="VARCHAR" />
+    <result column="store_id" property="storeId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithLabels" type="com.mcoding.base.cms.bean.article.Article" extends="BaseResultMap" >
+     <collection property="labelList" column="id" ofType="com.mcoding.base.cms.bean.label.ArticleLabelRef" 
+         select="com.mcoding.base.cms.persistence.label.ArticleLabelRefMapper.selectByPrimaryKey"
+     ></collection>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.mcoding.base.cms.bean.article.Article" extends="ResultMapWithLabels" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title, sub_title, type_id, module_id, origin, origin_address, author, summary, 
+    cover_image, thumbnail, publish_time, click_count, like_count, dislike_count, sort_no, 
+    comment_flag, verify_admin_name, verify_time, article_state, publish_type, create_time, 
+    update_time, tag, url, comment_count, share_count, unverify_reason, store_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.mcoding.base.cms.bean.article.ArticleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_cms_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="ResultMapWithLabels" parameterType="com.mcoding.base.cms.bean.article.ArticleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_cms_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_cms_article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_cms_article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcoding.base.cms.bean.article.ArticleExample" >
+    delete from t_cms_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcoding.base.cms.bean.article.Article" useGeneratedKeys="true" keyProperty="id">
+    insert into t_cms_article (id, title, sub_title, 
+      type_id, module_id, origin, 
+      origin_address, author, summary, 
+      cover_image, thumbnail, publish_time, 
+      click_count, like_count, dislike_count, 
+      sort_no, comment_flag, verify_admin_name, 
+      verify_time, article_state, publish_type, 
+      create_time, update_time, tag, 
+      url, comment_count, share_count, 
+      unverify_reason, store_id, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{subTitle,jdbcType=VARCHAR}, 
+      #{typeId,jdbcType=INTEGER}, #{moduleId,jdbcType=INTEGER}, #{origin,jdbcType=VARCHAR}, 
+      #{originAddress,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{coverImage,jdbcType=VARCHAR}, #{thumbnail,jdbcType=VARCHAR}, #{publishTime,jdbcType=TIMESTAMP}, 
+      #{clickCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, #{dislikeCount,jdbcType=INTEGER}, 
+      #{sortNo,jdbcType=INTEGER}, #{commentFlag,jdbcType=INTEGER}, #{verifyAdminName,jdbcType=VARCHAR}, 
+      #{verifyTime,jdbcType=TIMESTAMP}, #{articleState,jdbcType=INTEGER}, #{publishType,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{tag,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{commentCount,jdbcType=INTEGER}, #{shareCount,jdbcType=INTEGER}, 
+      #{unverifyReason,jdbcType=VARCHAR}, #{storeId,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcoding.base.cms.bean.article.Article" useGeneratedKeys="true" keyProperty="id">
+    insert into t_cms_article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="subTitle != null" >
+        sub_title,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="moduleId != null" >
+        module_id,
+      </if>
+      <if test="origin != null" >
+        origin,
+      </if>
+      <if test="originAddress != null" >
+        origin_address,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="summary != null" >
+        summary,
+      </if>
+      <if test="coverImage != null" >
+        cover_image,
+      </if>
+      <if test="thumbnail != null" >
+        thumbnail,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="clickCount != null" >
+        click_count,
+      </if>
+      <if test="likeCount != null" >
+        like_count,
+      </if>
+      <if test="dislikeCount != null" >
+        dislike_count,
+      </if>
+      <if test="sortNo != null" >
+        sort_no,
+      </if>
+      <if test="commentFlag != null" >
+        comment_flag,
+      </if>
+      <if test="verifyAdminName != null" >
+        verify_admin_name,
+      </if>
+      <if test="verifyTime != null" >
+        verify_time,
+      </if>
+      <if test="articleState != null" >
+        article_state,
+      </if>
+      <if test="publishType != null" >
+        publish_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="commentCount != null" >
+        comment_count,
+      </if>
+      <if test="shareCount != null" >
+        share_count,
+      </if>
+      <if test="unverifyReason != null" >
+        unverify_reason,
+      </if>
+      <if test="storeId != null" >
+        store_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subTitle != null" >
+        #{subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="moduleId != null" >
+        #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="origin != null" >
+        #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="originAddress != null" >
+        #{originAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="coverImage != null" >
+        #{coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnail != null" >
+        #{thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clickCount != null" >
+        #{clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="likeCount != null" >
+        #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="dislikeCount != null" >
+        #{dislikeCount,jdbcType=INTEGER},
+      </if>
+      <if test="sortNo != null" >
+        #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="commentFlag != null" >
+        #{commentFlag,jdbcType=INTEGER},
+      </if>
+      <if test="verifyAdminName != null" >
+        #{verifyAdminName,jdbcType=VARCHAR},
+      </if>
+      <if test="verifyTime != null" >
+        #{verifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleState != null" >
+        #{articleState,jdbcType=INTEGER},
+      </if>
+      <if test="publishType != null" >
+        #{publishType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="commentCount != null" >
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="shareCount != null" >
+        #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="unverifyReason != null" >
+        #{unverifyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcoding.base.cms.bean.article.ArticleExample" resultType="java.lang.Integer" >
+    select count(*) from t_cms_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_cms_article
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subTitle != null" >
+        sub_title = #{record.subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.moduleId != null" >
+        module_id = #{record.moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.origin != null" >
+        origin = #{record.origin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.originAddress != null" >
+        origin_address = #{record.originAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null" >
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summary != null" >
+        summary = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coverImage != null" >
+        cover_image = #{record.coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thumbnail != null" >
+        thumbnail = #{record.thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publishTime != null" >
+        publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.clickCount != null" >
+        click_count = #{record.clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.likeCount != null" >
+        like_count = #{record.likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.dislikeCount != null" >
+        dislike_count = #{record.dislikeCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.sortNo != null" >
+        sort_no = #{record.sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentFlag != null" >
+        comment_flag = #{record.commentFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.verifyAdminName != null" >
+        verify_admin_name = #{record.verifyAdminName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.verifyTime != null" >
+        verify_time = #{record.verifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.articleState != null" >
+        article_state = #{record.articleState,jdbcType=INTEGER},
+      </if>
+      <if test="record.publishType != null" >
+        publish_type = #{record.publishType,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tag != null" >
+        tag = #{record.tag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentCount != null" >
+        comment_count = #{record.commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.shareCount != null" >
+        share_count = #{record.shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.unverifyReason != null" >
+        unverify_reason = #{record.unverifyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storeId != null" >
+        store_id = #{record.storeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_cms_article
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      sub_title = #{record.subTitle,jdbcType=VARCHAR},
+      type_id = #{record.typeId,jdbcType=INTEGER},
+      module_id = #{record.moduleId,jdbcType=INTEGER},
+      origin = #{record.origin,jdbcType=VARCHAR},
+      origin_address = #{record.originAddress,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      summary = #{record.summary,jdbcType=VARCHAR},
+      cover_image = #{record.coverImage,jdbcType=VARCHAR},
+      thumbnail = #{record.thumbnail,jdbcType=VARCHAR},
+      publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      click_count = #{record.clickCount,jdbcType=INTEGER},
+      like_count = #{record.likeCount,jdbcType=INTEGER},
+      dislike_count = #{record.dislikeCount,jdbcType=INTEGER},
+      sort_no = #{record.sortNo,jdbcType=INTEGER},
+      comment_flag = #{record.commentFlag,jdbcType=INTEGER},
+      verify_admin_name = #{record.verifyAdminName,jdbcType=VARCHAR},
+      verify_time = #{record.verifyTime,jdbcType=TIMESTAMP},
+      article_state = #{record.articleState,jdbcType=INTEGER},
+      publish_type = #{record.publishType,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      tag = #{record.tag,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      comment_count = #{record.commentCount,jdbcType=INTEGER},
+      share_count = #{record.shareCount,jdbcType=INTEGER},
+      unverify_reason = #{record.unverifyReason,jdbcType=VARCHAR},
+      store_id = #{record.storeId,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_cms_article
+    set id = #{record.id,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      sub_title = #{record.subTitle,jdbcType=VARCHAR},
+      type_id = #{record.typeId,jdbcType=INTEGER},
+      module_id = #{record.moduleId,jdbcType=INTEGER},
+      origin = #{record.origin,jdbcType=VARCHAR},
+      origin_address = #{record.originAddress,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      summary = #{record.summary,jdbcType=VARCHAR},
+      cover_image = #{record.coverImage,jdbcType=VARCHAR},
+      thumbnail = #{record.thumbnail,jdbcType=VARCHAR},
+      publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      click_count = #{record.clickCount,jdbcType=INTEGER},
+      like_count = #{record.likeCount,jdbcType=INTEGER},
+      dislike_count = #{record.dislikeCount,jdbcType=INTEGER},
+      sort_no = #{record.sortNo,jdbcType=INTEGER},
+      comment_flag = #{record.commentFlag,jdbcType=INTEGER},
+      verify_admin_name = #{record.verifyAdminName,jdbcType=VARCHAR},
+      verify_time = #{record.verifyTime,jdbcType=TIMESTAMP},
+      article_state = #{record.articleState,jdbcType=INTEGER},
+      publish_type = #{record.publishType,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      tag = #{record.tag,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      comment_count = #{record.commentCount,jdbcType=INTEGER},
+      share_count = #{record.shareCount,jdbcType=INTEGER},
+      unverify_reason = #{record.unverifyReason,jdbcType=VARCHAR},
+      store_id = #{record.storeId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcoding.base.cms.bean.article.Article" >
+    update t_cms_article
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subTitle != null" >
+        sub_title = #{subTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="moduleId != null" >
+        module_id = #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="origin != null" >
+        origin = #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="originAddress != null" >
+        origin_address = #{originAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="coverImage != null" >
+        cover_image = #{coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnail != null" >
+        thumbnail = #{thumbnail,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clickCount != null" >
+        click_count = #{clickCount,jdbcType=INTEGER},
+      </if>
+      <if test="likeCount != null" >
+        like_count = #{likeCount,jdbcType=INTEGER},
+      </if>
+      <if test="dislikeCount != null" >
+        dislike_count = #{dislikeCount,jdbcType=INTEGER},
+      </if>
+      <if test="sortNo != null" >
+        sort_no = #{sortNo,jdbcType=INTEGER},
+      </if>
+      <if test="commentFlag != null" >
+        comment_flag = #{commentFlag,jdbcType=INTEGER},
+      </if>
+      <if test="verifyAdminName != null" >
+        verify_admin_name = #{verifyAdminName,jdbcType=VARCHAR},
+      </if>
+      <if test="verifyTime != null" >
+        verify_time = #{verifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="articleState != null" >
+        article_state = #{articleState,jdbcType=INTEGER},
+      </if>
+      <if test="publishType != null" >
+        publish_type = #{publishType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="commentCount != null" >
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="shareCount != null" >
+        share_count = #{shareCount,jdbcType=INTEGER},
+      </if>
+      <if test="unverifyReason != null" >
+        unverify_reason = #{unverifyReason,jdbcType=VARCHAR},
+      </if>
+      <if test="storeId != null" >
+        store_id = #{storeId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mcoding.base.cms.bean.article.Article" >
+    update t_cms_article
+    set title = #{title,jdbcType=VARCHAR},
+      sub_title = #{subTitle,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=INTEGER},
+      module_id = #{moduleId,jdbcType=INTEGER},
+      origin = #{origin,jdbcType=VARCHAR},
+      origin_address = #{originAddress,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      cover_image = #{coverImage,jdbcType=VARCHAR},
+      thumbnail = #{thumbnail,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      click_count = #{clickCount,jdbcType=INTEGER},
+      like_count = #{likeCount,jdbcType=INTEGER},
+      dislike_count = #{dislikeCount,jdbcType=INTEGER},
+      sort_no = #{sortNo,jdbcType=INTEGER},
+      comment_flag = #{commentFlag,jdbcType=INTEGER},
+      verify_admin_name = #{verifyAdminName,jdbcType=VARCHAR},
+      verify_time = #{verifyTime,jdbcType=TIMESTAMP},
+      article_state = #{articleState,jdbcType=INTEGER},
+      publish_type = #{publishType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      tag = #{tag,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      comment_count = #{commentCount,jdbcType=INTEGER},
+      share_count = #{shareCount,jdbcType=INTEGER},
+      unverify_reason = #{unverifyReason,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcoding.base.cms.bean.article.Article" >
+    update t_cms_article
+    set title = #{title,jdbcType=VARCHAR},
+      sub_title = #{subTitle,jdbcType=VARCHAR},
+      type_id = #{typeId,jdbcType=INTEGER},
+      module_id = #{moduleId,jdbcType=INTEGER},
+      origin = #{origin,jdbcType=VARCHAR},
+      origin_address = #{originAddress,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      cover_image = #{coverImage,jdbcType=VARCHAR},
+      thumbnail = #{thumbnail,jdbcType=VARCHAR},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      click_count = #{clickCount,jdbcType=INTEGER},
+      like_count = #{likeCount,jdbcType=INTEGER},
+      dislike_count = #{dislikeCount,jdbcType=INTEGER},
+      sort_no = #{sortNo,jdbcType=INTEGER},
+      comment_flag = #{commentFlag,jdbcType=INTEGER},
+      verify_admin_name = #{verifyAdminName,jdbcType=VARCHAR},
+      verify_time = #{verifyTime,jdbcType=TIMESTAMP},
+      article_state = #{articleState,jdbcType=INTEGER},
+      publish_type = #{publishType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      tag = #{tag,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      comment_count = #{commentCount,jdbcType=INTEGER},
+      share_count = #{shareCount,jdbcType=INTEGER},
+      unverify_reason = #{unverifyReason,jdbcType=VARCHAR},
+      store_id = #{storeId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByExampleByPage" resultMap="ResultMapWithLabels" parameterType="com.mcoding.base.cms.bean.article.ArticleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_cms_article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  <update id="updateCount" parameterType="map">
+  	update t_cms_article
+   	<set>
+	    <if test="@org.apache.commons.lang.StringUtils@isNotEmpty(clickCount)">
+	    	click_count = click_count + #{clickCount,jdbcType=INTEGER},
+	    </if> 
+	    <if test="@org.apache.commons.lang.StringUtils@isNotEmpty(likeCount)">
+	    	like_count = like_count + (#{likeCount,jdbcType=INTEGER}),
+	    </if>
+	    <if test="@org.apache.commons.lang.StringUtils@isNotEmpty(dislikeCount)">
+	    	dislike_count = dislike_count + #{dislikeCount,jdbcType=INTEGER},
+	    </if>
+	    <if test="@org.apache.commons.lang.StringUtils@isNotEmpty(commentCount)">
+	    	 comment_count = comment_count + #{commentCount,jdbcType=INTEGER},
+	    </if>
+	    <if test="@org.apache.commons.lang.StringUtils@isNotEmpty(shareCount)">
+	    	share_count = share_count + #{shareCount,jdbcType=INTEGER},
+	    </if>
+    </set>
+    where id = #{articleId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByPage" resultMap="ResultMapWithLabels" parameterType="map" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_cms_article
+    where article_state = 3
+    <if test="null != storeId">
+    	and store_id = #{storeId,jdbcType=INTEGER}
+    </if>
+    <if test="null != articleId and labels != null">
+    	and id in (select distinct article_id from t_cms_recommend_article where ref_id=#{articleId})
+    	or id in (select id from t_cms_article where 
+	    <foreach collection="labels" item="label" separator="or">
+	    	tag like CONCAT('%,',#{label},',%' )  or tag like CONCAT('%,',#{label}) or tag like CONCAT(#{label},',%') or tag = #{label} 
+	    </foreach>
+	    )
+    </if>
+    <if test="null != labels">
+    	and 
+	    <foreach collection="labels" item="label" separator="or">
+	    	tag like CONCAT('%,',#{label},',%' )  or tag like CONCAT('%,',#{label}) or tag like CONCAT(#{label},',%') or tag = #{label} 
+	    </foreach>
+    </if>
+    <if test="null != moduleId">
+	    and module_id = #{moduleId,jdbcType=INTEGER}
+    </if>
+    <if test="null != typeId">
+	    and type_id = #{typeId,jdbcType=INTEGER}
+    </if>
+    order by publish_time DESC
+  </select>
+  
+  <select id="selectFavoriteByPage" resultMap="ResultMapWithLabels" parameterType="map" >
+    select  a.* 
+    from t_cms_article a,t_cms_favorite f 
+    where a.id = f.article_id 
+    and a.article_state = 3
+    and f.status = #{status,jdbcType=INTEGER}
+    and f.type = #{type,jdbcType=INTEGER}
+    <if test="null != memberId">
+    	and f.member_id=#{memberId,jdbcType=INTEGER}
+    </if>
+    <if test="null != storeId">
+    	and f.store_id =#{storeId,jdbcType=INTEGER}
+    </if>
+    order by f.publish_time DESC
+  </select>
+  
+  <select id="selectCollectByPage" resultMap="ResultMapWithLabels" parameterType="map" >
+    select a.* 
+    from t_cms_article a,t_cms_collect c 
+    where a.id = c.article_id 
+    and a.article_state = 3
+    and c.status = #{status,jdbcType=INTEGER}
+    <if test="null != memberId">
+    	and c.member_id=#{memberId,jdbcType=INTEGER}
+    </if>
+    <if test="null != storeId">
+    	and c.store_id =#{storeId,jdbcType=INTEGER}
+    </if>
+    order by c.publish_time DESC
+  </select>
+  
+  <select id="selectLikeByPage" resultMap="ResultMapWithLabels" parameterType="map" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_cms_article
+    where article_state = 3
+    <if test="null != storeId">
+    	and store_id = #{storeId,jdbcType=INTEGER}
+    </if>
+    <if test="null != articleId and labels != null">
+    	and id in (select distinct article_id from t_cms_recommend_article where ref_id=#{articleId})
+    </if>
+    <if test="labels != null">
+    	or id in (select id from t_cms_article where 
+	    <foreach collection="labels" item="label" separator="or">
+	    	tag like CONCAT('%,',#{label},',%' )  or tag like CONCAT('%,',#{label}) or tag like CONCAT(#{label},',%') or tag = #{label} 
+	    </foreach>
+	    )
+    </if>
+    order by publish_time DESC
+  </select>
+  
+</mapper>

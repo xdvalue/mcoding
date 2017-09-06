@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- <settings> <setting name="logImpl" value="LOG4J" /> </settings> -->
+	<!-- 这个配置使全局的映射器启用或禁用缓存 -->
+	<!-- 
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+	</settings>
+	 -->
+	<typeAliases>
+		<typeAlias type="com.mcoding.base.core.PageView"
+			alias="PageView" />
+	</typeAliases>
+	<typeHandlers>
+		<typeHandler jdbcType="INTEGER"
+			javaType="com.mcoding.base.member.bean.member.Member"
+			handler="com.mcoding.base.member.utils.mybatis.MemberTypeHandler" />
+		<!-- <typeHandler jdbcType="INTEGER"
+			javaType="java.util.List"
+			handler="com.mcoding.base.member.utils.mybatis.MemberLevelTypeHandler" /> -->
+		<typeHandler jdbcType="INTEGER"
+			javaType="java.util.List"
+			handler="com.mcoding.base.member.utils.mybatis.MemberExtInfoMapTypeHandler" />
+	</typeHandlers>
+	<plugins>
+		<plugin interceptor="com.mcoding.base.utils.page.PaginationInterceptor">
+			<property name="dialect"
+				value="com.mcoding.base.utils.page.MySQLDialect" />
+			<property name="pageSqlId" value=".*ByPage$" />
+			<!-- 
+			<property name="dialect"
+				value="com.mcoding.base.ui.plugin.page.impl.SqlServer2008Dialect" />
+			<property name="pageSqlId" value=".*ByPage$" />
+			  -->
+		</plugin>
+	</plugins>
+</configuration>
